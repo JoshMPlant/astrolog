@@ -1,0 +1,48 @@
+- Added processing of GTOPO30 data.
+  -ZC drawmap.pgm gtopo (currently assumed to contain 30-70N,10W-20E)
+  converts drawmap.pgm to internal format file gtopo.
+  
+  The .pgm can be created from GTOPO30 DEM files using
+  the application drawmap(-2.5) by Fred M. Erickson
+  fme@ttc-cmc.net using command
+
+  drawmap -t -x3600 -y4800 -w -l30,20,70,-10 -d W020N90.HDR
+               -d W020N40.HDR -h
+
+  The GTOPO30 Data are available at
+  searchword GTOPO30 google
+
+- Switch -YTN sets altitude from longitude,latitude using gtopo file.
+
+- There was a problem with timezones in -rm combin charts.
+
+- Switch -YTD for 3dimensional aspect angles (instead of
+  ecliptic ). For now with -a -Tn -D but not -t -d etc..
+  Ecliptic latitude of observer is neglected.
+
+- Cleanup with DEFAULT values initialization for location/timezone.
+
+- Added linear approximation between GTOPO30 data points.
+
+- Added configureable DEFAULT values for GTOPO30 data range (default Western Europe 30-70n 10w-20e)
+
+- -RS restriction are observed with -d and relationship -a
+
+- Fixed bug that sometimes left out strongest aspect with -a
+
+- Fixed bug with -L and -YTH combined
+
+- Sidereal positions are calculated using Swiss ephemeris instead of rSid.
+  Added switch -st for using ecliptic of (first used) date
+  -ss for using solar system plane
+  -sm for selecting numerical predefined sidereal mode (see swisseph documentation)
+  Try -s -sm 255 for precession-neglected transits.
+
+- Added suffix 0 for -R switch to restrict (instead of switch) group.
+  for example -Rc0 restricts centaurs (-Rc would switch restrictions of centaurs)
+
+- Fixed bug with -o option in SzLocationAlt
+
+- Fixed sidereal position for riyal objects (less precise).
+
+- Fixed bug with fixed stars stringhandling for builds on Windows 2000 without WIN and GRAPH

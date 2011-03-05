@@ -1,0 +1,49 @@
+- Fixed bug with -j -Ns listing if restricted
+
+- Give Cusps some pseudo speed (365.25) so that app/sep aspects are correct
+
+- Improvements with atlas request -zL.
+
+  btw you can parse GNS data files freely available on the web for some country to the needed format with this 
+  little perl script:
+  perl -e 'use POSIX ; while (<>) {next unless /^\S+\s+\S+\s+\S+\s+(\S+)\s+(\S+).+\s\s\s\s[A-Za-z][A-Za-z][A-Za-z]+\t([ A-Za-z]+)\t/ && print $3,"              \t\t",floor(0.005+100*(($1-floor($1))*0.6+floor($1)))/100," ",floor(0.005+100*(($2-floor($2))*0.6+floor($2)))/100,"E\n"}' countryfile.txt >> atlas.txt
+
+  URL http://164.214.2.59/gns/html/cntry_files.html
+  These data have 1arcminute rounding.
+
+  These are not included with the release because the complete file would be too large.
+
+- Changes to processing -N switch
+
+- Fixed bug with riyal object speeds (factor degrad)
+
+- Added Centaur BU 48 and 3 new TNO to hardcoded asteroids.
+
+- Added unnumbered recent discoveries CR46,XA255,YW134,FZ173 from latest Riyal version.
+
+- No string manipulation for rc/rm with -X (avoids crash)
+
+- -rm can be recast unchanged, e.g. together with -X
+
+- Fixes for to -T -YTD, velocity in longitude, app/sep
+
+- Added FP185 from Riyal Feb26, corrections with longrange restrictions between 600 and 1700AD
+
+- Some changes for compiling with VC6
+
+- Fix for sidereal star positions
+
+- Fix for -t -Na
+
+- Fix for -s -N positions
+
+- -zL,-YTN sets also default location
+
+- -rc x1 x2 -YTL -z[lL] for relocated composite chart
+
+- Fix for Keyboardswitch 8 in X chart
+
+- Another Riyal ephemeris update, add UQ18, remove "VU2","AB229","HE46","QF6","PW96"
+
+- Allow PC & X11 defines simultaneously
+ 

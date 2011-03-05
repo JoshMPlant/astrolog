@@ -1,0 +1,602 @@
+# Astrolog (Version 5.42I) File: Makefile (Unix version)
+#
+# IMPORTANT NOTICE: The graphics database and chart display routines
+# used in this program are Copyright (C) 1991-1996 by Walter D. Pullen
+# (Astara@msn.com, http://www.magitech.com/~cruiser1/astrolog.htm).
+# Permission is granted to freely use and distribute these routines
+# provided one doesn't sell, restrict, or profit from them in any way.
+# Modification is allowed provided these notices remain with any
+# altered or edited versions of the program.
+#
+# First created 11/21/1991.
+#
+# This Makefile is included only for convenience. One could easily compile
+# Astrolog on a Unix system by hand with the command:
+# % cc -c -O *.c; cc -o astrolog *.o -lm -lX11
+# Generally, all that needs to be done to compile once astrolog.h has been
+# edited, is compile each source file, and link them together with the math
+# library, and if applicable, the main X library.
+#
+# Makefile extended to 2nd executable  1/23/2002
+# Makefile including KDE               5/20/2002
+#
+
+INSTALL_DIR=$${HOME}/bin
+NAME = astrolog 
+# If you don't have X windows, delete the "-lX11" part from the line below:
+# LIBS = -lm -lX11
+# with Debian Linux and X windows worked 
+LIBS = -lm -L/usr/include/X11 -lX11 
+KLIBS = -L/usr/local/qt/lib -L/opt/kde2/lib -lqt  -lkdeui -lkdecore -lkfile -lXext 
+#-lutil -ldl -lpng -ljpeg -lSM -lICE -lz -lstdc++
+SLIBS = -L. -lswe
+#LIBS= -lm
+#
+CFLAGS = -Wall -I/usr/include/X11 -O9 -D X11 -D PC  # -g # Try dropping optimization if it segfaults
+CAFLAGS = -Wall -I/usr/include/X11 -O9 -D ASTEROIDS -D X11 -D PC  #-g # Try dropping optimization if it segfaults
+CKFLAGS = -I/usr/include/X11 -O9 -U X11 -D KDE -D PC  # Try dropping optimization if it segfaults
+CXXFLAGS = -O2 -D KDE  -DHAVE_CONFIG_H -fno-exceptions -fno-rtti -fno-check-new -I/usr/local/qt/include -I/usr/include/kde -I/usr/include/X11 -I. 
+CC=gcc-4
+CXX=g++-4
+MOC = /usr/local/qt/bin/moc
+srcdir=.
+#
+# CFLAGS from 5.41 original sources
+# CFLAGS = -g -Aa -DHPUX_SOURCE
+#
+# Planetery ephemeris are built into code. To drop them and use external file, 
+# use additional flag -DPAIR_SWEPH
+#
+OBJ = astrolog.o data.o data2.o general.o io.o\
+ calc.o matrix.o charts0.o charts1.o charts2.o charts3.o charts4.o\
+ intrpret.o intrpalt.o riyal.o gtopo.o\
+ swe_call.o\
+  swedate.o swehouse.o swejpl.o swemmoon.o swemplan.o swepcalc.o sweph.o\
+      swepdate.o swephlib.o swecl.o\
+ xdata.o xgeneral.o xdevice.o xcharts0.o xcharts1.o xcharts2.o xcharts3.o xscreen.o
+
+# without #define PLACALC
+#OBJ = astrolog.o data.o data2.o general.o io.o\
+#calc.o matrix.o charts0.o charts1.o charts2.o charts3.o charts4.o\
+#intrpret.o intrpalt.o\
+#xdata.o xgeneral.o xdevice.o xcharts0.o xcharts1.o xcharts2.o xscreen.o
+
+#OBJS = swejpl.o swemplan.o sweph.o\
+# swedate.o swemmoon.o swephlib.o swehouse.o swecl.o
+OBJS = swedate.o swehouse.o swejpl.o swemmoon.o swemplan.o swepcalc.o sweph.o\
+      swepdate.o swephlib.o swecl.o
+
+OBJEXT = o
+
+#SRC = astrolog.c  charts1.c  charts4.c  general.c   io.c  xcharts1.c  xdevice.c \
+#calc.c      charts2.c  data.c     intrpalt.c  matrix.c    xcharts2.c  xgeneral.c \
+#charts0.c   charts3.c  data2.c    intrpret.c  swe_call.c  xcharts0.c  xdata.c     xscreen.c
+
+OBJA = aastrolog.o  acharts1.o  acharts4.o  ageneral.o   aio.o  axcharts1.o  axdevice.o \
+acalc.o      acharts2.o  adata.o     aintrpalt.o  amatrix.o    axcharts2.o  axgeneral.o ariyal.o agtopo.o\
+acharts0.o   acharts3.o  adata2.o    aintrpret.o  aswe_call.o  axcharts0.o  axdata.o     axscreen.o\
+axcharts3.o
+
+SRCA = aastrolog.c  acharts1.c  acharts4.c  ageneral.c   aio.c  axcharts1.c  axdevice.c \
+acalc.c      acharts2.c  adata.c     aintrpalt.c  amatrix.c    axcharts2.c  axgeneral.c ariyal.c agtopo.c\
+acharts0.c   acharts3.c  adata2.c    aintrpret.c  aswe_call.c  axcharts0.c  axdata.c     axscreen.c \
+axcharts3.c
+
+OBJK = kastrolog.o  kcharts1.o  kcharts4.o  kgeneral.o   kio.o  kxcharts1.o  kxdevice.o \
+kcalc.o      kcharts2.o  kdata.o     kintrpalt.o  kmatrix.o    kxcharts2.o  kxgeneral.o kriyal.o kgtopo.o\
+kcharts0.o   kcharts3.o  kdata2.o    kintrpret.o  kswe_call.o  kxcharts0.o  kxdata.o     kxscreen.o\
+kxcharts3.o
+
+SRCK = kastrolog.c  kcharts1.c  kcharts4.c  kgeneral.c   kio.c  kxcharts1.c  kxdevice.c \
+kcalc.c      kcharts2.c  kdata.c     kintrpalt.c  kmatrix.c    kxcharts2.c  kxgeneral.c kriyal.c kgtopo.c\
+kcharts0.c   kcharts3.c  kdata2.c    kintrpret.c  kswe_call.c  kxcharts0.c  kxdata.c     kxscreen.c \
+kxcharts3.c
+
+SRCPP = AspectSet.cpp AstroCommand.cpp AstroInfo.cpp AstroObjectSet.cpp AstroProgress.cpp AstroSetAspects.cpp AstroTransits.cpp CalcSettings.cpp ChartDetails.cpp ColorVector.cpp GraphSettings.cpp ObjectSet.cpp ObscureSettings.cpp Restrictions.cpp SetAstroColor.cpp SetColors.cpp StarRestrict.cpp AspectSetData.cpp AstroCommandData.cpp AstroInfoData.cpp AstroObjectSetData.cpp AstroProgressData.cpp AstroSetAspectsData.cpp AstroTransitsData.cpp CalcSettingsData.cpp ChartDetailsData.cpp ColorVectorData.cpp GraphSettingsData.cpp ObjectSetData.cpp ObscureSettingsData.cpp RestrictionsData.cpp SetAstroColorData.cpp SetColorsData.cpp StarRestrictData.cpp AstroWidget.cpp myLineEdit.cpp main.cpp AstroMenu.cpp AstroColor.cpp
+
+kastrolog_OBJECTS = AspectSet.$(OBJEXT) AstroCommand.$(OBJEXT) \
+AstroInfo.$(OBJEXT) AstroObjectSet.$(OBJEXT) AstroProgress.$(OBJEXT) \
+AstroSetAspects.$(OBJEXT) AstroTransits.$(OBJEXT) \
+CalcSettings.$(OBJEXT) ChartDetails.$(OBJEXT) ColorVector.$(OBJEXT) \
+GraphSettings.$(OBJEXT) ObjectSet.$(OBJEXT) ObscureSettings.$(OBJEXT) \
+Restrictions.$(OBJEXT) SetAstroColor.$(OBJEXT) SetColors.$(OBJEXT) \
+StarRestrict.$(OBJEXT) AspectSetData.$(OBJEXT) \
+AstroCommandData.$(OBJEXT) AstroInfoData.$(OBJEXT) \
+AstroObjectSetData.$(OBJEXT) AstroProgressData.$(OBJEXT) \
+AstroSetAspectsData.$(OBJEXT) AstroTransitsData.$(OBJEXT) \
+CalcSettingsData.$(OBJEXT) ChartDetailsData.$(OBJEXT) \
+ColorVectorData.$(OBJEXT) GraphSettingsData.$(OBJEXT) \
+ObjectSetData.$(OBJEXT) ObscureSettingsData.$(OBJEXT) \
+RestrictionsData.$(OBJEXT) SetAstroColorData.$(OBJEXT) \
+SetColorsData.$(OBJEXT) StarRestrictData.$(OBJEXT) myLineEdit.$(OBJEXT) \
+main.$(OBJEXT) AstroMenu.$(OBJEXT) AstroWidget.$(OBJEXT) \
+AstroColor.$(OBJEXT) 
+
+
+kastrologmoc_OBJECTS = \
+ObjectSetData.moc.o ColorVectorData.moc.o AspectSet.moc.o SetAstroColor.moc.o CalcSettingsData.moc.o AstroObjectSetData.moc.o StarRestrictData.moc.o SetColorsData.moc.o AstroCommand.moc.o ObjectSet.moc.o Restrictions.moc.o CalcSettings.moc.o ColorVector.moc.o myLineEdit.moc.o AstroCommandData.moc.o AstroMenu.moc.o ChartDetails.moc.o AstroSetAspects.moc.o AspectSetData.moc.o RestrictionsData.moc.o ChartDetailsData.moc.o AstroProgress.moc.o AstroSetAspectsData.moc.o AstroInfoData.moc.o AstroInfo.moc.o GraphSettingsData.moc.o AstroTransitsData.moc.o SetColors.moc.o AstroObjectSet.moc.o ObscureSettingsData.moc.o AstroWidget.moc.o GraphSettings.moc.o ObscureSettings.moc.o StarRestrict.moc.o SetAstroColorData.moc.o AstroProgressData.moc.o AstroTransits.moc.o
+
+
+all:: astrolog aastrolog 
+
+libswe.so: $(OBJS)  #Linux only
+	ld -shared -o libswe.so $(OBJS)
+
+astrolog:: local.h $(OBJ) astrolog.h extern.h 
+	gcc -o $(NAME) $(OBJ) $(LIBS)
+
+kastrolog:: local.h $(kastrolog_OBJECTS) $(kastrologmoc_OBJECTS) $(OBJK) $(OBJS) astrolog.h extern.h 
+	/bin/sh libtool  --mode=link g++  $(CXXFLAGS) -s -o kastrolog $(kastrolog_OBJECTS) $(OBJK) $(OBJS) $(kastrologmoc_OBJECTS) $(LIBS) $(KLIBS)
+
+aastrolog-dynamic:: $(OBJA) libswe.so
+	gcc -o aastrolog $(CFLAGS) $(OBJA) $(LIBS) $(SLIBS)
+
+aastrolog:: local.h $(OBJA) $(SRCA) astrolog.h extern.h $(OBJS) 
+	gcc -o aastrolog $(CFLAGS) $(OBJA) $(OBJS) $(LIBS)
+
+clean: clean-metasources
+	rm -f *.o $(SRCA) $(SRCK) astrolog.exe aastrolog.exe kastrolog.exe libswe.so core
+
+install: astrolog aastrolog 
+	install astrolog aastrolog $(INSTALL_DIR)
+
+aastrolog.c:: astrolog.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+acharts1.c:: charts1.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+acharts4.c:: charts4.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+ageneral.c:: general.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+aio.c:: io.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axcharts1.c:: xcharts1.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axdevice.c:: xdevice.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+acalc.c:: calc.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+acharts2.c:: charts2.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+adata.c:: data.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+aintrpalt.c:: intrpalt.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+amatrix.c:: matrix.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axcharts2.c:: xcharts2.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axcharts3.c:: xcharts3.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axgeneral.c:: xgeneral.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+acharts0.c:: charts0.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+acharts3.c:: charts3.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+adata2.c:: data2.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+aintrpret.c:: intrpret.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+aswe_call.c:: swe_call.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axcharts0.c:: xcharts0.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axdata.c:: xdata.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+axscreen.c:: xscreen.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+ariyal.c:: riyal.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+agtopo.c:: gtopo.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+aastrolog.o::aastrolog.c 
+	gcc $(CAFLAGS) -c $*.c 
+
+adata.o::adata.c
+	gcc $(CAFLAGS) -c $*.c 
+
+adata2.o::adata2.c
+	gcc $(CAFLAGS) -c $*.c 
+
+ageneral.o::ageneral.c
+	gcc $(CAFLAGS) -c $*.c 
+
+aio.o::aio.c
+	gcc $(CAFLAGS) -c $*.c 
+
+acalc.o::acalc.c
+	gcc $(CAFLAGS) -c $*.c 
+
+amatrix.o::amatrix.c
+	gcc $(CAFLAGS) -c $*.c 
+
+acharts0.o::acharts0.c
+	gcc $(CAFLAGS) -c $*.c 
+
+acharts1.o::acharts1.c
+	gcc $(CAFLAGS) -c $*.c 
+
+acharts2.o::acharts2.c
+	gcc $(CAFLAGS) -c $*.c 
+
+acharts3.o::acharts3.c
+	gcc $(CAFLAGS) -c $*.c 
+
+acharts4.o::acharts4.c
+	gcc $(CAFLAGS) -c $*.c 
+
+aintrpret.o::aintrpret.c
+	gcc $(CAFLAGS) -c $*.c 
+
+aintrpalt.o::aintrpalt.c
+	gcc $(CAFLAGS) -c $*.c 
+
+aswe_call.o::aswe_call.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axdata.o::axdata.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axgeneral.o::axgeneral.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axdevice.o::axdevice.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axcharts0.o::axcharts0.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axcharts1.o::axcharts1.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axcharts2.o::axcharts2.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axcharts3.o::axcharts3.c
+	gcc $(CAFLAGS) -c $*.c 
+
+axscreen.o::axscreen.c
+	gcc $(CAFLAGS) -c $*.c 
+
+ariyal.o::ariyal.c
+	gcc $(CAFLAGS) -c $*.c 
+
+agtopo.o::agtopo.c
+	gcc $(CAFLAGS) -c $*.c 
+
+local.h::
+	@cd .. ; echo "#define DEFAULT_DIR \""$$HOME"/astrolog\"" > local.h;\
+	echo "#define EPHE_DIR  \""$$HOME"/astrolog/ephe\"" >> local.h;\
+	echo "#define EXTEPH_DIR  \""$$HOME"/astrolog/exteph\"" >> local.h
+
+#
+#>+ 3
+ObjectSetData.moc.cpp: $(srcdir)/ObjectSetData.h
+	       $(MOC) $(srcdir)/ObjectSetData.h -o ObjectSetData.moc.cpp
+
+#>+ 3
+ColorVectorData.moc.cpp: $(srcdir)/ColorVectorData.h
+	       $(MOC) $(srcdir)/ColorVectorData.h -o ColorVectorData.moc.cpp
+
+#>+ 3
+AspectSet.moc.cpp: $(srcdir)/AspectSet.h
+	       $(MOC) $(srcdir)/AspectSet.h -o AspectSet.moc.cpp
+
+#>+ 3
+SetAstroColor.moc.cpp: $(srcdir)/SetAstroColor.h
+	       $(MOC) $(srcdir)/SetAstroColor.h -o SetAstroColor.moc.cpp
+
+#>+ 3
+CalcSettingsData.moc.cpp: $(srcdir)/CalcSettingsData.h
+	       $(MOC) $(srcdir)/CalcSettingsData.h -o CalcSettingsData.moc.cpp
+
+#>+ 3
+AstroObjectSetData.moc.cpp: $(srcdir)/AstroObjectSetData.h
+	       $(MOC) $(srcdir)/AstroObjectSetData.h -o AstroObjectSetData.moc.cpp
+
+#>+ 3
+StarRestrictData.moc.cpp: $(srcdir)/StarRestrictData.h
+	       $(MOC) $(srcdir)/StarRestrictData.h -o StarRestrictData.moc.cpp
+
+#>+ 3
+SetColorsData.moc.cpp: $(srcdir)/SetColorsData.h
+	       $(MOC) $(srcdir)/SetColorsData.h -o SetColorsData.moc.cpp
+
+#>+ 3
+AstroCommand.moc.cpp: $(srcdir)/AstroCommand.h
+	       $(MOC) $(srcdir)/AstroCommand.h -o AstroCommand.moc.cpp
+
+#>+ 3
+ObjectSet.moc.cpp: $(srcdir)/ObjectSet.h
+	       $(MOC) $(srcdir)/ObjectSet.h -o ObjectSet.moc.cpp
+
+#>+ 3
+Restrictions.moc.cpp: $(srcdir)/Restrictions.h
+	       $(MOC) $(srcdir)/Restrictions.h -o Restrictions.moc.cpp
+
+#>+ 3
+CalcSettings.moc.cpp: $(srcdir)/CalcSettings.h
+	       $(MOC) $(srcdir)/CalcSettings.h -o CalcSettings.moc.cpp
+
+#>+ 3
+ColorVector.moc.cpp: $(srcdir)/ColorVector.h
+	       $(MOC) $(srcdir)/ColorVector.h -o ColorVector.moc.cpp
+
+#>+ 3
+myLineEdit.moc.cpp: $(srcdir)/myLineEdit.h
+	       $(MOC) $(srcdir)/myLineEdit.h -o myLineEdit.moc.cpp
+
+#>+ 3
+AstroCommandData.moc.cpp: $(srcdir)/AstroCommandData.h
+	       $(MOC) $(srcdir)/AstroCommandData.h -o AstroCommandData.moc.cpp
+
+#>+ 3
+AstroMenu.moc.cpp: $(srcdir)/AstroMenu.h
+	       $(MOC) $(srcdir)/AstroMenu.h -o AstroMenu.moc.cpp
+
+#>+ 3
+ChartDetails.moc.cpp: $(srcdir)/ChartDetails.h
+	       $(MOC) $(srcdir)/ChartDetails.h -o ChartDetails.moc.cpp
+
+#>+ 3
+AstroSetAspects.moc.cpp: $(srcdir)/AstroSetAspects.h
+	       $(MOC) $(srcdir)/AstroSetAspects.h -o AstroSetAspects.moc.cpp
+
+#>+ 3
+AspectSetData.moc.cpp: $(srcdir)/AspectSetData.h
+	       $(MOC) $(srcdir)/AspectSetData.h -o AspectSetData.moc.cpp
+
+#>+ 3
+RestrictionsData.moc.cpp: $(srcdir)/RestrictionsData.h
+	       $(MOC) $(srcdir)/RestrictionsData.h -o RestrictionsData.moc.cpp
+
+#>+ 3
+ChartDetailsData.moc.cpp: $(srcdir)/ChartDetailsData.h
+	       $(MOC) $(srcdir)/ChartDetailsData.h -o ChartDetailsData.moc.cpp
+
+#>+ 3
+AstroProgress.moc.cpp: $(srcdir)/AstroProgress.h
+	       $(MOC) $(srcdir)/AstroProgress.h -o AstroProgress.moc.cpp
+
+#>+ 3
+AstroSetAspectsData.moc.cpp: $(srcdir)/AstroSetAspectsData.h
+	       $(MOC) $(srcdir)/AstroSetAspectsData.h -o AstroSetAspectsData.moc.cpp
+
+#>+ 3
+AstroInfoData.moc.cpp: $(srcdir)/AstroInfoData.h
+	       $(MOC) $(srcdir)/AstroInfoData.h -o AstroInfoData.moc.cpp
+
+#>+ 3
+AstroInfo.moc.cpp: $(srcdir)/AstroInfo.h
+	       $(MOC) $(srcdir)/AstroInfo.h -o AstroInfo.moc.cpp
+
+#>+ 3
+GraphSettingsData.moc.cpp: $(srcdir)/GraphSettingsData.h
+	       $(MOC) $(srcdir)/GraphSettingsData.h -o GraphSettingsData.moc.cpp
+
+#>+ 3
+AstroTransitsData.moc.cpp: $(srcdir)/AstroTransitsData.h
+	       $(MOC) $(srcdir)/AstroTransitsData.h -o AstroTransitsData.moc.cpp
+
+
+#>+ 3
+SetColors.moc.cpp: $(srcdir)/SetColors.h
+	       $(MOC) $(srcdir)/SetColors.h -o SetColors.moc.cpp
+
+#>+ 3
+AstroObjectSet.moc.cpp: $(srcdir)/AstroObjectSet.h
+	       $(MOC) $(srcdir)/AstroObjectSet.h -o AstroObjectSet.moc.cpp
+
+#>+ 3
+ObscureSettingsData.moc.cpp: $(srcdir)/ObscureSettingsData.h
+	       $(MOC) $(srcdir)/ObscureSettingsData.h -o ObscureSettingsData.moc.cpp
+
+#>+ 3
+AstroWidget.moc.cpp: $(srcdir)/AstroWidget.h
+	       $(MOC) $(srcdir)/AstroWidget.h -o AstroWidget.moc.cpp
+
+#>+ 3
+GraphSettings.moc.cpp: $(srcdir)/GraphSettings.h
+	       $(MOC) $(srcdir)/GraphSettings.h -o GraphSettings.moc.cpp
+
+#>+ 3
+ObscureSettings.moc.cpp: $(srcdir)/ObscureSettings.h
+	       $(MOC) $(srcdir)/ObscureSettings.h -o ObscureSettings.moc.cpp
+
+#>+ 3
+StarRestrict.moc.cpp: $(srcdir)/StarRestrict.h
+	       $(MOC) $(srcdir)/StarRestrict.h -o StarRestrict.moc.cpp
+
+#>+ 3
+SetAstroColorData.moc.cpp: $(srcdir)/SetAstroColorData.h
+	       $(MOC) $(srcdir)/SetAstroColorData.h -o SetAstroColorData.moc.cpp
+
+#>+ 3
+AstroProgressData.moc.cpp: $(srcdir)/AstroProgressData.h
+	$(MOC) $(srcdir)/AstroProgressData.h -o AstroProgressData.moc.cpp
+
+#>+ 3
+AstroTransits.moc.cpp: $(srcdir)/AstroTransits.h
+	$(MOC) $(srcdir)/AstroTransits.h -o AstroTransits.moc.cpp
+
+#>+ 3
+clean-metasources:
+	-rm -f  ObjectSetData.moc.cpp ColorVectorData.moc.cpp AspectSet.moc.cpp SetAstroColor.moc.cpp CalcSettingsData.moc.cpp AstroObjectSetData.moc.cpp StarRestrictData.moc.cpp SetColorsData.moc.cpp AstroCommand.moc.cpp ObjectSet.moc.cpp Restrictions.moc.cpp CalcSettings.moc.cpp ColorVector.moc.cpp myLineEdit.moc.cpp AstroCommandData.moc.cpp AstroMenu.moc.cpp ChartDetails.moc.cpp AstroSetAspects.moc.cpp AspectSetData.moc.cpp RestrictionsData.moc.cpp ChartDetailsData.moc.cpp AstroProgress.moc.cpp AstroSetAspectsData.moc.cpp AstroInfoData.moc.cpp AstroInfo.moc.cpp GraphSettingsData.moc.cpp AstroTransitsData.moc.cpp SetColors.moc.cpp AstroObjectSet.moc.cpp ObscureSettingsData.moc.cpp AstroWidget.moc.cpp GraphSettings.moc.cpp ObscureSettings.moc.cpp StarRestrict.moc.cpp SetAstroColorData.moc.cpp AstroProgressData.moc.cpp AstroTransits.moc.cpp
+
+
+kastrolog.c:: astrolog.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kcharts1.c:: charts1.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kcharts4.c:: charts4.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kgeneral.c:: general.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kio.c:: io.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxcharts1.c:: xcharts1.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxdevice.c:: xdevice.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kcalc.c:: calc.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kcharts2.c:: charts2.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kdata.c:: data.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kintrpalt.c:: intrpalt.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kmatrix.c:: matrix.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxcharts2.c:: xcharts2.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxcharts3.c:: xcharts3.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxgeneral.c:: xgeneral.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kcharts0.c:: charts0.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kcharts3.c:: charts3.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kdata2.c:: data2.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kintrpret.c:: intrpret.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kswe_call.c:: swe_call.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxcharts0.c:: xcharts0.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxdata.c:: xdata.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kxscreen.c:: xscreen.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kriyal.c:: riyal.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kgtopo.c:: gtopo.c
+	cp -p  `echo $* | cut -c2-`.c $*.c	
+
+kastrolog.o::kastrolog.c 
+	gcc $(CKFLAGS) -c $*.c 
+
+kdata.o::kdata.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kdata2.o::kdata2.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kgeneral.o::kgeneral.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kio.o::kio.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kcalc.o::kcalc.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kmatrix.o::kmatrix.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kcharts0.o::kcharts0.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kcharts1.o::kcharts1.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kcharts2.o::kcharts2.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kcharts3.o::kcharts3.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kcharts4.o::kcharts4.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kintrpret.o::kintrpret.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kintrpalt.o::kintrpalt.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kswe_call.o::kswe_call.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxdata.o::kxdata.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxgeneral.o::kxgeneral.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxdevice.o::kxdevice.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxcharts0.o::kxcharts0.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxcharts1.o::kxcharts1.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxcharts2.o::kxcharts2.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxcharts3.o::kxcharts3.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kxscreen.o::kxscreen.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kriyal.o::kriyal.c
+	gcc $(CKFLAGS) -c $*.c 
+
+kgtopo.o::kgtopo.c
+	gcc $(CKFLAGS) -c $*.c 
+

@@ -1,0 +1,171 @@
+- fix omissions in data2.c (interpretations unnumbered objects)
+
+- Fix bug with parallel transit restrictions (-t -YSp -RT0 object which is restricted in natal)
+
+- With -d -YSp, parallels and contraparallels may be restriced (-A 0/1) to leave only declination events
+
+- With -t -YSp, contraparallels can be restricted with -A 1
+
+- Do not try to progress chart with -t -YSp -pt for now
+
+- Observe -YTC,-YTR,-YTA mostly with unnumbered objects
+
+- display of Out of Bounds events with -d -YSp, restrictions with 3rd argument to -YR0 
+
+- display of Out of Bounds in -sr listing 
+
+- add -yp1,-yp2,-rp1,-rp2 switches
+
+- correction for compiling PC&X11
+
+- merged in KDE code (modified from kastrolog by C.Gros)
+  This needs Qt,KDE etc....
+  This needs the Truetype Fontserver setup on linux
+  and some fonts installed. This is only initial so far
+  as the menus are not quite up to date but some extensions are done.
+
+- fix line lost since 5.42H for ayanamsa display 
+
+- fix for unnumbered topocentric together with non-geocentric (topocentric is ignored)
+
+- Changes from Swiss Ephemeris v1.64.00
+
+- Use swe_get_ayanamsa_name with -b1 switch
+
+July 2002
+
+- Changes from Swiss Ephemeris v1.64.01
+
+- Updated seasnam.txt file
+
+- Updated deltat forecast 20030101
+
+- Added UR163,CR46 to hardcoded, removed from unnumbered, removed also HX11 and HB12.
+
+- Print Eclipse Zodiac location with -ZEs,-ZEl
+  This depends on the location set with -zl,-zL for topocentric moon position / eclipse time
+
+- Added switch -ZEo object for lunar occultations
+
+- Fix some of the omissions Starbright/dist in data2.c
+
+- Added switch -Zc ,-Zcl , -Zco object for chart of next eclipse/occultation
+
+- Added switch -ZEb,Zcb for calculating eclipses/occultations backwards
+
+- Modification default astrolog.dat
+
+- Added switch -yr file object for returns. The switch -ZEb is used for calculating a return backwards
+  In X Mode, + and - is used to jump one return back and forth. Both -r1 -r2 can be used
+  to show either Return chart alone or together with natal.
+  e.g. astrolog -i file Sun shows next solar return chart
+  Use sidereal mode 255 for sidereal returns in tropical coordinates, e.g. -s -sm 255 
+  Works only in tropical and sidereal coordinates so far.
+
+- Fix bug with degree sign character 128/248
+
+- Fix bug with sidereal mode 255 and ecliptic of date when recasting charts.
+  The -st switch is now no longer needed for turning on ecliptic of natal date flag,
+  this is turned on automatically in sidereal mode 255.
+  Instead it will take as an argument a julian day number if the date of ecliptic 
+  should be manually set,otherwise it will be set to the natal date.
+  In that case the ecliptic should stay with this date and not pick up the natal date.
+  This bug was affecting the jumping of sidereal returns in tropical coordinates with +- key in 
+  graphical mode. 
+
+- Fix bug sometimes causing segmentation fault in paranatellontas routine charts3.c (if variable ll>>occurcount)
+
+- In ChartEphemeris()/Switch -E if switch -b1 is activated, more header details are printed
+
+- For chart listing with switch -sr, velocity is also transformed with Swiss Ephemeris activated.
+
+- Draconic Positions need lunar node and solar position for calculation even if Sun/Node restricted
+
+- Add switch -ZEn number for number of eclipses to show with -ZE listing
+
+- Add observation of -RS restrictions with parallels -d -YSp
+
+- Add observation of -G geodetic switch together with Swe Houses -YTH
+
+- Combination -d -YTD now shows list of maximum/minimum angle occuring.
+  The accuracy of the resulting angle and reported time depends on the -d division setting.
+
+- Correction MinDistance3D/MinDifference3D :
+  Switch between arccos and power series expansion now at 0.05 instead of 0.5 degrees.
+
+- Combination -t -YTD now shows list of maximum/minimum transit angle occuring.
+  The accuracy of the resulting angle and reported time depends on the -d division setting,
+  and is less than with -d switch.
+  To reduce the number of events displayed, you may try turning off topocentric positions
+  which have a daily oscillation, use mean node/apogee instead of true node/oscillating apogee
+  and ignore objects that are stationary.
+
+- Add switch -rc3 for linear ratio of composite between two charts according to mixing date.
+  e.g. astrolog -qd 6 22 2002 -rc3 solarreturn2001 solarreturn2002 mixes the 2 solarreturns as of Jun 22,2002,
+  for the cusps is similar to progression of solar return. Mixing Date should be between the two charts,
+  and usually earlier chart should be on the left side (chart#1), otherwise is reverse.
+  Overwrites chart #3 with mixing date.
+
+- Fix bug from update UR163/CR46 in riyal asteroids, now again correct objects displayed with
+  aastrolog -R0y
+
+- Reintroduce 1999 HX11 to hardcoded asteroids (TNO) as newly named Rhadamanthus
+
+- Fix bug that Chaos is not ignored before 1500 with astrolog executable.
+
+- update from latest Riyal, add GO9,AW197,KY14,GB10,GZ32,YK61,KX14
+
+- added Switch -ys file obj1 obj2 for synodic returns, e.g. -ys file Sun Moon shows recurrence
+  of natal Sun-Moon angle
+
+- Switch -ZE in combination with -yr and -ys switch shows list of returns (as with lists of eclipses)
+
+- Use long instead of short integers in GridInfo structure to allow for correct calculation of large orbs
+
+- Add -Tp0,-Tp1,-Tp2,-Tp3 switches to show directions info.
+
+- Do not indicate returns in declination with -T -YSp
+
+- update from latest Riyal
+
+- update from Swiss Ephemeris v1.64.02, latest deltat and tidal accelaration, half hour changes for BC charts
+
+- update from Riyal v.0.955 b
+
+- Changes in -ZE output format, colored zodiac location
+
+- Added switch -Zes,-Zeo obj for eclipse details at given location
+
+- Added switch -ZeO,-ZEO to search for lunar occultations with objects according to restrictions locally and globally
+  Still buggy,may hang with some objects like Tantalus,Khufu and Damocles.
+
+- Added switch -r file1 file2 -ma shows aspects from file1 to midpoints of file2  
+
+- Replaced hypothetical Isis with Selena (White Moon) 
+
+- Fix bug with app/sep aspects in -Tp0,-Tp1,-Tp3 switch
+
+- Fix bug with omissions -Nrs deg1 deg2 -b0 switch
+
+- Fix bug with unnumbered asteroids not ignored with -b switch
+
+- In chart listing with seconds precision, move one digit from velocity to distance
+
+- Correction in FNode, include object itself
+
+- extended alternate Star Restrictions (switch -YU) also to other objects.
+  The objects which are alternately restricted are those ignored with -RS restrictions. 
+  Objects where aspects are required for the alternate restriction not to filter are those open with -RS restriction 
+
+- added some more interpretations for unnamed centaurs according to copyrighted file from Philip
+  Sedgwick, GALASTRO@aol.com
+
+- update seasnam.txt
+
+- add calculation of Gauqelin sectors using swiss ephemeris routine if -YTH selected.
+  Depends on -YTF switch for use of refraction or not.Does not work with unnumbered asteroids.
+  In that case , turn off -YTH 
+
+- fix? bug with unnumbered asteroids in sidereal -s. Does not want swi_nutate
+
+- 22May 2003 update from Riyal v1.0, naming of Huya and Pelion

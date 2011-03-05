@@ -1,0 +1,97 @@
+#                                               -*- Autoconf -*-
+# Process this file with autoconf to produce a configure script.
+
+AC_PREREQ(2.64)
+AC_INIT([astrolog542J],[0.3],[scharn@bluewin.ch])
+dnl AC_PREFIX_PROGRAM(astrolog)
+AC_CONFIG_SRCDIR([src/astrolog.c])
+AC_CONFIG_MACRO_DIR([m4])
+
+dnl AC_DEFINE_UNQUOTED([EPHE_DIR],["$ac_default_prefix/share/$PACKAGE_NAME/ephe"],"Directory for ephe Files")
+
+AC_CONFIG_HEADER([src/config.h])
+
+# Checks for programs.
+AC_PROG_CXX
+AC_PROG_CC
+# AC_PROG_RANLIB
+AC_PROG_INSTALL
+LT_INIT
+
+# Checks for libraries.
+AC_CHECK_LIB([X11], [XSetBackground])
+# FIXME: Replace `main' with a function in `-lXext':
+AC_CHECK_LIB([Xext], [main])
+# FIXME: Replace `main' with a function in `-lkdecore':
+AC_CHECK_LIB([kdecore], [main])
+# FIXME: Replace `main' with a function in `-lkdeui':
+AC_CHECK_LIB([kdeui], [main])
+# FIXME: Replace `main' with a function in `-lkfile':
+AC_CHECK_LIB([kfile], [main])
+AC_CHECK_LIB([m], [asinh])
+# FIXME: Replace `main' with a function in `-lqt':
+AC_CHECK_LIB([qt], [main])
+AC_CHECK_LIB([swe], [swe_calc])
+# Checks for header files.
+AC_PATH_XTRA
+AC_HEADER_STDC
+AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
+AC_CHECK_HEADERS([fcntl.h],[],[],
+[[#ifdef HAVE_FCNTL_H
+#include fcntl.h
+#endif
+]])
+AC_CHECK_HEADERS([malloc.h],[],[],
+[[#ifdef HAVE_MALLOC_H
+#include malloc.h
+#endif
+]])
+AC_CHECK_HEADERS([limits.h],[],[],
+[[#ifdef HAVE_LIMITS_H
+#include limits.h
+#endif
+]])
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_HEADER_STDBOOL
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_PID_T
+AC_TYPE_SIZE_T
+AC_STRUCT_TM
+
+# Checks for library functions.
+AC_FUNC_ERROR_AT_LINE
+AC_FUNC_FORK
+AC_FUNC_MALLOC
+AC_FUNC_MEMCMP
+AC_FUNC_MKTIME
+AC_DIAGNOSE([obsolete],[your code may safely assume C89 semantics that RETSIGTYPE is void.
+Remove this warning and the `AC_CACHE_CHECK' when you adjust the code.])dnl
+AC_CACHE_CHECK([return type of signal handlers],[ac_cv_type_signal],[AC_COMPILE_IFELSE(
+[AC_LANG_PROGRAM([#include <sys/types.h>
+#include <signal.h>
+],
+		 [return *(signal (0, 0)) (0) == 1;])],
+		   [ac_cv_type_signal=int],
+		   [ac_cv_type_signal=void])])
+AC_DEFINE_UNQUOTED([RETSIGTYPE],[$ac_cv_type_signal],[Define as the return type of signal handlers
+		    (`int' or `void').])
+
+AC_FUNC_STRTOD
+AC_CHECK_FUNCS([floor memset pow setenv sqrt strchr strdup strpbrk strrchr strstr strtol tzset])
+AC_PROG_INSTALL
+AC_ARG_PROGRAM
+
+dnl initialize libtool
+LT_INIT
+
+dnl initialize automake
+dnl AH_VERBATIM([EPHE_DIR],[
+dnl #define EPHE_DIR $datadir"/ephe"])
+
+AM_PROG_CC_C_O
+AM_INIT_AUTOMAKE
+AM_CONDITIONAL([X_DISPLAY_MISSING],[test x$no_x = xyes])
+AC_CONFIG_FILES([Makefile ephe/Makefile ephe/ast136/Makefile exteph/Makefile src/Makefile src/swe/Makefile src/swe/src/Makefile src/swe/doc/Makefile ])
+AC_OUTPUT

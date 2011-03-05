@@ -1,0 +1,90 @@
+
+- Print declination of cusps with -sr
+
+- Add factor dependent on sign degree for influence
+  (max at 12, min at 29 and 1 degrees)
+
+- Add factor dependent on proximity to cusp for influence
+  (max at cusp, min at 0.6847*house, linear approx)
+  Between 0.6847 and 0.966 of house object is counted for both house it is in
+  and next one. After 0.966 only for next house.
+
+- Add display of stationary objects and increase 
+  influence of stationary objects.
+  Does not work without swisseph -b (Distance needed)
+
+- Added macro -M 5 for more ancient rulerships in default astrolog.dat
+
+- Corrected bug if stars considered for -j listing
+
+- Parallels also considered for cusps&stars in -j listing
+
+- Corrections for -Z so that Asc is at 0 altitude without refraction
+
+- Different Labels for Prime Vertical (from 5.41G)
+
+- internal changes seconds processing (similar 5.41G)
+
+- Fix for -p0 arc calculation,using fixed arc per unit of time (similar 5.41G)
+
+- Added -p1 solar arc direction calculation,using solar position of progression (similar 5.41G)
+
+- Added -p2,-tp2,-dp2 progression of progression calculation
+
+- added 3 latest numbered Centaurs/SDO/TNO, added 763 Cupido to hardwired,
+  dropped 4 other hardwired asteroids (Daphne,Thetis,Aurelia,Artemis)
+
+- correction for -dp[012]Y switch handling enabled
+
+- added switch -sg for galactic coordinates, Zero Point 0Cap instead of 0Ari
+  for more custom signs, but normal if -sh or -sd selected. 
+  Needs update of fixstars.ast for galactic reference points.
+  Transformation of Speed also added. Uses sweph even with -b, but matrix position and unit distance
+
+- Ignore unknown asteroids without Swiss Ephemeris -b.
+  Automatically turn off Swe Houses in that case.
+
+- Cleanup/Fillup Data Tables.
+
+- More info with -X,-w (similar 5.41G)
+
+- Added Switch -Zdp to show kind of paranatellontas from rise/set table.
+  -RS restricts which objects are look at to rise/culm up/set/culm lo within conjunction orb together with -R restricted objects,
+  -YRZ 0 0 0 0 restricts rise/culm up/set/culm lo
+  astrolog -R1 -RS0 Sun -YRZ 0 1 1 1 -YAo 1 1 1 shows what is rising with the sun within 1degree=4minutes (maybe plus orb addidtion).
+  Please note that Sun/Moon rise times refer to the border of the disc and not the center, e.g. first and last sunray.
+
+- Bugfix riyal long term object assignment
+
+- Added more verbose display of calculation settings (switch -b1)
+
+- add switch -YZ for NESW azimuth display (like 5.41G ), is also new default instead of ENWS as before.
+
+- changes for reading longterm .sx1 files produced by solex and switch -ZC 
+  (Target May 6,2002 MPCORB & 10000 200day steps back to 3473BC.)
+
+  Files needed as of May7,2002
+
+  sx07066.sx1   sx15809.sx1   sx15875.sx1   sx19308.sx1   sx28978.sx1
+  sx15760.sx1   sx15810.sx1   sx15883.sx1   sx19521.sx1   sx29981.sx1
+  sx15788.sx1   sx15820.sx1   sx16684.sx1   sx20000.sx1   sx31824.sx1
+  sx15789.sx1   sx15836.sx1   sx19255.sx1   sx20108.sx1   sx32532.sx1
+  sx15807.sx1   sx15874.sx1   sx19299.sx1   sx20161.sx1   sx33128.sx1
+
+- Fixed bug with object center other than earth/sun (Only part of objects transformed,
+  added transformation of distance and velocities , no aberration etc. corrections)
+
+- Improved precision Galactic points in fixstars.ast, yields precise IAU 1958 Galactic coordinate frame.
+
+- Added supergalactic reference points to fixstars.ast and display
+  supergalactic coordinates with -ss -sg combination.
+  In Zodiac sign display, 0Can is used as zero point for more custom signs
+  (similar to 0Cap for galactic coordinates)
+  Use -sh or -sd for standard numerical values.
+
+- fix omissions in xdata.c (causing aastrolog -X crash) 
+
+- Replace hardcoded Minerva with 15504 RG33
+
+- Use short swiss ephemeris files for Chariklo/Hylonome 
+

@@ -1,0 +1,140 @@
+
+- added switch -NS to ignore gaps in asteroid ephemeris files.
+
+- Extra Asteroids are ignored if not turned on (Flag ExtraAst added)
+
+- added switch -Ns to output sorted by rank in -j influence listing.
+
+- Another cleanup on macro switches PLACALC / ASTEROIDS /GRAPH etc...
+
+- Switch -Ns for sorting output also applies to normal object listing
+  Using new switch -ND the degree modulo can be set,also negative. Default is 30 (degree of any sign).
+  360 shows ordered in the zodiac,120 degree of any sign by element, 90 by cardinality 
+  and so on. If the value is negative,reverse sorting is taking place.
+
+- Added switches -Nr -NR to define the range which should be displayed
+  in -Ns sorted chart listing
+  -Nr degfrom degto 
+  -NR objectname orb
+  e.g. -NR Sun 1 shows everything +-1 degree from the sun position
+	   -Nr 333 334 shows everything between 3Pis and 4Pis
+
+- Increased Number of extra asteroids
+
+- Fixed several problems with -N switch
+  The subswitch for aphelions&perihelions vs nodes is now h instead of a
+  The subswitch for aphelions vs. perihelions/asc. vs desc. node is d
+  The subswitch for second focal point is f
+  The subswitch for mean nodes where defined is m
+  The subswitch for barycentric vs.heliocentric nodes/apsides where really returned by swiss ephemeris is b
+
+- In -j0 influence calculation, scale back aspect power somewhat with nr of objects
+  (That is introduced because the sum of asteroid influence is somewhat defined too high if
+   many asteroids are considered,
+   but i prefer to leave influences unchanged/unscaled with changing nr of objects
+   considered and scale back the aspect influence then) 
+   Also subtract noise (aspect power of least aspected object) from final aspect power
+   to have more distinction.
+
+- Subtract noise (power of weakest object) from object power.
+
+- Added switch -NT treshold to ignore objects with power below treshold
+  on following computations and output. Default=0
+  Changed calculation of influences in several places, -T , -D
+  With -NT and -T, the transit configuration is also examined and
+  plays a role for total transit influence (otherwise only the
+  configured transit influence is considered). This is because
+  these have to be evaluated anyway for selecting the asteroids.  
+  This switch is so far used in listing (no switch),-T,-D
+  Not with -t -d here you should restrict yourself.
+  The idea is to find interesting asteroids at a particular date
+  from a large selection. After you have found some asteroid you can include
+  it but it is too slow for -t etc.. with all asteroids simultaneously. 
+
+- Some optimization, so that if no Extra Asteroids,Hypothetical Uranians
+  or Stars are used, the performance will increase,resp. be not much worse
+  than version 5.41F. See comments below
+ 
+- The -NA switch now needs 2 instead of 1 arguments.
+  First argument is the starting numbered object
+  Second argument is how many extra asteroids (following the starting numbered
+  object) to load.
+  There is an upper limit, in this case a error message will be displayed.  
+
+- New switch -NU nr1 nr2 .. nrx  that loads those asteroids numbers into extra asteroid space
+  NU may be used after -NA but will be overwritten if before
+
+- Reduced file searching in sweph.c, the ast files are expected in astxx subdirectories
+  under the ephemeris path, and short files are expected.
+  Needed to be changed if you have access to long range integration files for other asteroids
+  but these are the only ones freely available at www.astro.com for now.
+  This improves performance with -NA and -NN
+
+- Introduced use of secondary -RS restrictions in -a -j
+  Example : Aspect of anything to the ascendant :  -a -R1 -RS0 Ascendant
+  This way with a large number of asteroids, not the whole grid has to be filled
+  if you neglect aspects between 2 of those asteroids and concentrate on aspects between 1 of
+  these asteroids and one of the major objects
+
+- A major internal rebuild was done in shifting the extra asteroids behind the stars and
+  hypothetical Transuranians. Unfortunately this means there are quite a few bugs left.
+  Also for this, the makefile was adapted and now 2 executables are built, astrolog
+  and aastrolog and only aastrolog contains the extra asteroids.
+   
+- Some optimization, so that if no Extra Asteroids,Hypothetical Uranians
+  or Stars are used, the performance will increase,resp. be not much worse
+  than version 5.41F. This collided with the rebuild above and means that currently
+  aastrolog would crash in X mode if no extra asteroids are loaded (e.g. this optimization
+  is active). Therefore aastrolog now by default loads some extra asteroids so that the
+  optimization is turned off. Without extra asteroids you should use the astrolog executable
+
+- Also on windows only the astrolog executable without graphics works as far as i have tried.
+
+- Switch -IS for sabian symbols added 
+
+- Switch -NL for loading a selection of unnumbered Centaurs,SDO,TNO 
+  Their positions are taken from ephemeris files used with the Application Riyal
+  by J.Revilla http://www.expreso.co.cr/centaurs 
+  The accuracy of these positions is lower due to uncertainties in orbital elements and
+  due to less extensive ephemeris data (200 day steps). Also Nodes&apsides
+  are so far not calculated for these.
+
+  The ephemeris files tnpsdo.fle and centaurs.fle should be installed in EPHE_DIR.
+ 
+  These are available only with #define ASTEROIDS,e.g. aastrolog
+
+  They are turned on/off using switch -Ry etc. and key " on the graphical chart.
+
+
+- The number of objects in aastrolog is meanwhile so large that also on linux the full grid may practically
+  not be allocated. Use -NT xx to reduce number of active objects. I guess it would be necessary to switch
+  to a shared memory architecture.
+
+- Added switch -Nt targetdistance (in AU) to emphasize objects at the specified distance
+
+- Stars are now handled in same loop in chart listing, no more separate from other objects
+  
+- Riyal longrange ephemeris are also used by aastrolog between 602AD and 1500AD for main centaurs/TNO
+  without longrange swisseph. There is a slight discontinuity at 1500AD.
+
+- Topocentric/True positions flags are also observed for fixstars
+  (switches -YTC -YTR )
+  Please note that there may be some astronomical issues with this. 
+
+- Modified sweph.c to return brightness of star in xx[2]. Distance in lightyears in xx[3], uncertainty of
+  distance in xx[4]. Some star distances were taken from www.cosmobrain.com,file fixstars.ast is still incomplete.
+  Is displayed in chart listing except uncertainty. If Swisseph is turned off (-b), brightness is displayed twice.
+
+- added switch -zL to read longitude/latitude from clear text file atlas.txt to be installed in EPHE_DIR
+  2 consecutive spaces mark end of Location (if you want the country included for selection, remove all but one space
+  between town and country in atlas.txt). If two words are given they have to be put in quotes:
+  e.g. -zL 'New York'. It has to match exactly up to the end of the given string.
+
+- On Sparc chips because of different endian -NL did not work (bogus values displayed).
+  added handling of bigendian chips (e.g. sun sparc) 
+  depends on #ifdef _BIGENDIAN
+
+- Corrected reintroduced bug with progr.asc.,composite X-display
+
+- Wider output formatting -Z,-j
+

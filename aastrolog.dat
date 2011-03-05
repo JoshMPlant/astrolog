@@ -1,0 +1,271 @@
+@0308  ; Astrolog (5.42) default settings file astrolog.dat
+
+-z0 1             ; Default Daylight time setting   [0 standard, 1 daylight]
+-z -1:00          ; Default time zone               [hours before GMT      ]
+;-zl   8E31 47N23  ; Default longitude and latitude
+
+-Yz 0   ; Time minute addition to be used when "now" charts are off.
+-n      ; Uncomment this line to start with the chart for "now".
+_s      ; Zodiac selection          ["_s" is tropical, "=s" is sidereal]
+:s 0    ; Zodiac offset value       [Change "0" to desired offset      ]
+-A 11    ; Number of aspects         [Change "5" to desired number      ]
+-c 0    ; House system              [Change "0" to desired system      ]
+=k      ; Ansi color text           ["=k" is color, "_k" is normal     ]
+-k0     ; Ansi color text           ["=k" is color, "_k" is normal     ]
+:d 24   ; Searching divisions       [Change "12" to desired divisions  ]
+=b0     ; Print zodiac seconds      ["_b0" to minute, "=b0" to second  ]
+=b      ; Use ephemeris files       ["=b" uses them, "_b" doesn't      ]
+=C      ; Show house cusp objects   ["_C" hides them, "=C" shows them  ]
+:w 4    ; Wheel chart text rows     [Change "4" to desired wheel rows  ]
+:I 80   ; Text screen columns       [Change "80" to desired columns    ]
+-YQ 24  ; Text screen scroll limit  [Change "24" or set to "0" for none]
+=Yd     ; European date format      ["_Yd" is MDY, "=Yd" is DMY        ]
+=Yt     ; European time format      ["_Yt" is AM/PM, "=Yt" is 24 hour  ]
+=YC     ; Smart cusp displays       ["=YC" is smart, "_YC" is normal   ]
+_Y8     ; Clip text to end of line  ["=Y8" clips, "_Y8" doesn't clip   ]
+-YTC	; Topocentric Positions
+_YTR	; True Positions
+-YTH	; Swiss Ephemeris Houses
+-YTF	; Refraction at Horizon ; Turn off true positions if using that
+-YT1	; Turn off positions at ceratin times (unknown orbit etc)
+;-NA 5000 450 ; xxx
+;-NU 1027 407 5 1198 273 4580 34 1108 6 100 2212 103 2938 4950 10 389 42 114 97 120 93 128 71 1143 171 2878 399 26 2254 80 1170 896 466
+;-NU 48639 49036 50000 52872 52975 54598 55576 60558 66652 83982 84522 84922 88611 136108 136472 ; Read in some extra asteroid names 
+-M0 11 "-NU 2060 5145 7066 8405 10199 10370 12929 15760 15788 15789 15807 15809 15810 15820 "
+-M0 12 "-NU 15836 15874 15875 15883 16684 19255 19299 19308 19521 20000 20108 20161 24835 "
+-M0 13 "-NU 24952 24978 26181 26308 26375 28978 29981 31824 32532 32929 33001 33128 33340"
+-M0 14 "-NU 35671 38083 38084 38628 40314 42301 42355 44594 45802 47171 47932 48639 49036"
+-M0 15 "-NU 49673 50000 52747 52872 52975 53311 54520 54598 55565 55576 55636 55637 55638"
+-M0 16 "-NU 58534 59358 60454 60458 60558 60608 60620 60621 63252 65489 66452 66652 69986"
+-M0 17 "-NU  69987 69988 69990 73480 76803 78799 79360 79969 79978 79983 80806 82075 82155"
+-M0 18 "-NU  82157 82158 83982 84522 84719 84922 85627 85633 86047 86177 87269 87555 88267"
+-M0 19 "-NU  88268 88269 88611 90377 90482 90568 91133 91205 91554 95625 95626 118228 118378 "
+-M0 20 "-NU 118379 118698 118702 119066 119067 119068 119069 119070 119315 119473 119878 "
+-M0 21 "-NU 119951 119956 119976 119979 120061 120132 120178 120181 120216 120347 120348 "
+-M0 22 "-NU 121725 123509 126154 126155 126619 126719 127546 127871 129746 129772 130391 "
+-M0 23 "-NU 131318 131695 131696 131697 133067 134210 134568 134860 135024 135182 "
+-M0 24 "-NU 135571 135742 136108 136120 136199 136204 136472 137294 137295 138537 138628 "
+-M0 25 "-NU 139775 143685 143707 143751 143991 144897 145451 145452 145453 145474 145480 "
+-M0 26 "-NU 145486 148112 148209 148780 148975 149348 149349 149560 150642 160091 160147 "
+-M0 27 "-NU 160148 160256 160427 168700 168703 169071 174567 175113 181708 181855 181867 "
+-M0 28 "-NU 181868 181871 181874 181902 182222 182223 182294 182397 182926 182933 182934 "
+-M0 29 "-NU 183595 183963 183964 184212 184314 187661 202421 208996 225088 229762 230965 "
+-M0 30 "-NU 241097 248835 250112 "
+;-Re ; display them by default
+;-NT 3   ; Drop objects with power below 3
+;-NNy    ; Read in all (>3500) extra asteroid names, no check for gaps (Leave out the S if gaps)
+-NyL     ; Read in unnumbered asteroid names from riyal, else long fixstars catalog
+-u
+;-YN Moon Mond ; change names of objects
+;-YN Sun  Sonne 
+
+; SWITCHES, NOT SUPPORTED BY ORIGINAL ASTROLOG:
+
+;=YU       ; Stars alternat. restriction. "=YU" alternat., "_YU" original.
+-YUo 0.8  ; Orbs of fixed stars. Default 1.2 deg.
+-YUa 1    ; Number of star aspects taked into acconunt. Default 1.
+-YUb1 9   ; Stars colours (magnitude less than 1.0). Default 9 (red).
+-YUb2 3   ; Stars colours (magnitude between 1.0 and 2.0). Default 3 (orange).
+-YUb3 1   ; Stars colours (magnitude over .02). Default 1 (maroon).
+-YPo 1.0  ; Orbs of Arabic Parts. Default 1.0 deg.
+-YPa 1    ; Number of Arabic Parts apects taked into account. Default 1.
+-YPs 5    ; Number of Arabic Parts aspects showed. Default 5.
+=YSa      ; Aspects showed by default as applying-separating.
+=YSj      ; Influence text chart shows by default more info.
+;_YSs      ; Aspect listing shows by default also aspect summary.
+-YOc 2.2  ; Temporary decreasing of orbs in comparison charts.
+          ; Default 2.5 times.
+-YOp 6.0  ; Temporary decreasing of orbs with parallel aspects.
+          ; Default 6.0 times.
+-YOP 0.25 ; Power of parallels relatively to conjunctions.
+          ; Default 0.25
+;_YH       ; Circumpolar flip of MC. "=YH" flips,"_YH" doesn't.
+;=Ym       ; Month alternat. format. "=Ym" alternat., "_Ym" original.
+
+
+
+; DEFAULT RESTRICTIONS:
+
+-YR 0 10     1 0 0 0 0 0 0 0 0 0 0      ; Planets
+-YR 11 20    0 0 0 0 0 0 0 0 0 1      ; Minor planets
+-YR 21 32    0 0 0 0 0 0 0 0 0 0 0 0  ; House cusps
+-YR 33 40    0 1 1 1 0 1 1 1          ; Uranians
+-YR 41 50    1 1 1 1 1 1 1 1 1 1           ; Uranians
+-YR 51 60    1 1 0 1 1 1 1 1 1 1          ; Uranians
+-YR 61 70    1 1 1 1 1 1 1 1 1 1          ; Uranians
+-YR 71 80    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 81 90    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 91 100    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 101 110    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 111 120    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 121 130    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 131 140    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YR 141 145    1 1 1 1 1            ; Uranians
+-YR 343 352    1 1 1 1 1 1 1 1 1 0           ; NU switch
+;-YR 315 324    0 0 0 1 1 1 1 1 1 1           ; NU switch
+
+; DEFAULT S RESTRICTIONS:
+
+-YRS 0 10     1 0 0 0 0 0 0 0 0 0 0      ; Planets
+-YRS 11 20    0 0 0 0 0 0 0 0 0 0      ; Minor planets
+-YRS 21 32    0 0 0 0 0 0 0 0 0 0 0 0  ; House cusps
+-YRS 33 40    0 1 1 1 0 1 1 1          ; Uranians
+-YRS 41 50    1 1 1 1 1 1 1 1 1 1           ; Uranians
+-YRS 51 60    1 1 0 1 1 1 1 1 1 1          ; Uranians
+;-YRS 61 70    0 0 0 0 0 0 0 0 0 0          ; Uranians
+;-YRS 71 80    0 0 0 0 0 0 0 1 1 1          ; Uranians
+;-YRS 81 90    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRS 91 100    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRS 101 110    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRS 111 120    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRS 121 130    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRS 131 140    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRS 141 145    1 1 1 1 1            ; Uranians
+;-YRS 305 314    0 0 0 0 0 0 0 0 0 0           ; NU switch
+;-YRS 315 324    0 0 0 1 1 1 1 1 1 1           ; NU switch
+
+
+; DEFAULT TRANSIT RESTRICTIONS:
+
+-YRT 0 10    1 0 0 0 0 0 0 0 0 0 0      ; Planets
+-YRT 11 20   0 0 0 0 0 0 0 0 1 1      ; Minor planets
+-YRT 21 32   1 1 1 1 1 1 1 1 1 1 1 1  ; House cusps
+-YRT 33 40   1 1 1 1 0 1 1 1           ; Uranians
+-YRT 41 50    1 1 1 1 1 1 1 1 1 1           ; Uranians
+-YRT 51 60    1 1 0 1 1 1 1 1 1 1          ; Uranians
+;-YRT 61 70    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 71 80    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 81 90    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 91 100    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 101 110    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 111 120    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 121 130    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 131 140    1 1 1 1 1 1 1 1 1 1          ; Uranians
+;-YRT 141 145    1 1 1 1 1            ; Uranians
+-YRT 343 352    1 1 1 1 1 1 1 1 1 0           ; NU switch
+;-YRT 315 324    0 0 0 1 1 1 1 1 1 1           ; NU switch
+
+-YR0 0 0 0 ; Restrict sign, direction changes
+
+
+; DEFAULT ASPECT ORBS:
+
+-YAo 1 5     8.0 6.0 4.0 4.0 3.0      ; Major aspects
+-YAo 6 11    1.5 1.4 1.3 1.2 1.0 0.8    ; Minor aspects
+-YAo 12 18   0.5 0.5 0.5 0.5 0.5 0.5 0.5  ; Obscure aspects
+
+; DEFAULT MAX PLANET ASPECT ORBS:
+
+-YAm 1 10     7  7   5   5   5   5   5   5   5   5
+-YAm 11 20     4   4   4   4   4   4   4   4   4   2.5
+-YAm 21 32     5   3   3   5   3   3   5   3   3   5   3   3
+-YAm 33 40     4   2.5   2.5   2.5   4   4   4   4
+-YAm 41 50     4   3.5   3.5   3.5 3.5  3.5   3.5   3.5   3.5   4  
+-YAm 51 60     4   3.5   2.5   2.5   2.5   2.5   2.5   2.5  2.5  2.5
+-YAm 61 70     2.5   2.5   2.5   2.5   2.5   3.5   2.5   2.5  2.5  2.5
+;-YAm 71 80     2.5   2.5   2.5   2.5   2.5   2.5   2.5   2.5  2.5  2.5
+;-YAm 81 90     2.5   2.5   2.5   2.5   2.5   2.5   2.5   2.5  2.5  2.5
+;-YAm 91 100     2.5   2.5   2.5   2.5   2.5   2.5   2.5   2.5  2.5  2.5
+;-YAm 101 110     2.5   2.5   2.5   2.5   2.5   2.5   2.5   2.5  2.5  2.5
+;-YAm 111 120     2.5   2.5   2.5   2.5   2.5   2.5  2.5   2.5  2.5  2.5
+;-YAm 121 130     2.5   2.5   2.5   2.5   2.5   2.5  2.5   2.5  2.5  2.5
+;-YAm 131 140     2.5   2.5   2.5   2.5   2.5   2.5  2.5   2.5  2.5  2.5
+;-YAm 141 145     2.5   2.5   2.5   2.5   2.5
+-YAm 305 314     2.5   2.5   2.5   2.5   2.5   2.5  2.5   2.5  2.5  2.5
+-YAm 315 324     2.5   2.5   2.5   2.5   2.5   2.5  2.5   2.5  2.5  2.5
+
+; DEFAULT PLANET ASPECT ORB ADDITIONS:
+
+-YAd 1 10    0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0
+
+
+; DEFAULT INFLUENCES:
+
+-Yj 0 10   30 35 30 17 17 17 17 23 15 15 15        ; Planets
+-Yj 11 20   9 8 4 4 4 8 8 8 4 2                  ; Minor planets
+-Yj 21 32   27 15 15 18 15 15 18 15 15 22 15 15  ; Cusp objects
+-Yj 33 40   5 2 2 2 7 6 6 6                       ; Uranians
+-Yj 41 50   7 5 2 2 5 5 5 5 5 11                  ; Centaurs
+-Yj 51 60   10 5 15 3 1 1 1 1 1 1
+-Yj 61 70   1 2 1 1 1 4 4 1 1 1
+-Yj 71 80   1 1 4 11 3 3 2 .5 .5 .5
+;-Yj 81 90   2 2 2 2 2 2 2 2 2 2
+;-Yj 91 100   2 2 2 2 2 2 2 2 2 2
+;-Yj 101 110   2 2 2 2 2 2 2 2 2 2
+;-Yj 111 120   2 2 2 2 2 2 2 2 2 2
+;-Yj 121 130   2 2 2 2 2 2 2 2 2 2
+;-Yj 131 140   2 2 2 2 2 2 2 2 2 2
+;-Yj 141 145   2 2 2 2 2 
+-Yj 223 232   1 1 1 1 1 1 1 1 1 1
+-Yj 233 242   1 1 1 1 1 1 1 1 1 1
+-Yj 243 252   1 1 1 1 1 1 1 1 1 1
+-Yj 253 263   1 1 1 1 1 1 1 1 1 1 1
+-Yj 264 274   1 1 1 1 1 1 1 1 1 1 1
+-Yj 275 281   1 1 1 1 1 1 1 
+-Yj 305 314   1 2 5 2 2 2 2 2 2 1 
+-Yj 315 324   1 5 5 0 0 0 0 0 0 0 
+
+;-YjC 1 12   20 3 3 10 4 3 6 4 3 15 3 4  ; Houses
+;-YjC 1 12   12 5 5 10 6 5 9 7 5 11 6 6  ; Houses
+-YjC 1 12   2 0 0 0.8 0 0 1 0 0 1.2 0 0  ; Houses
+
+-YjA 1 5    1.0 0.8 0.8 0.6 0.5          ; Major aspects
+-YjA 6 11   0.3 0.3 0.5 0.5 0.4 0.4      ; Minor aspects
+-YjA 12 18  0.1 0.1 0.1 0.1 0.1 0.1 0.1  ; Obscure aspects
+
+; DEFAULT TRANSIT INFLUENCES:
+
+-YjT 0 10    10 13 10 10 13 18 30 35 40 45 50  ; Planets
+-YjT 11 20   25 10 10 10 10 17 10 10 1 1   ; Minor planets
+-YjT 21 32   5 5 5 5 5 5 5 5 5 5 5 5  ; Cusps 
+-YjT 33 40   1 1 1 1 25 25 25 20     ; Uranians
+-YjT 41 50   20 15 1 1 15 15 20 20 2 22
+-YjT 51 60   25 8 45 15 1 1 1 1 1 1
+-YjT 61 70   1 1 2 1 1 8 5 1 1 1
+-YjT 71 80   1 1 7 40 7 6 5 1 1 1
+;-YjT 81 90   8 8 8 8 8 8 8 8 8 8
+;-YjT 91 100   8 8 8 8 8 8 8 8 8 8
+;-YjT 101 110   8 8 8 8 8 8 8 8 8 8
+;-YjT 111 120   8 8 8 8 8 8 8 8 8 8
+;-YjT 121 130   8 8 8 8 1 1 1 1 1 1
+;-YjT 131 140   8 8 8 8 1 1 1 1 1 1
+;-YjT 141 145   1 1 1 1 1
+-YjT 223 232   1 1 1 1 1 1 1 1 1 1
+-YjT 233 242   1 1 1 1 1 1 1 1 1 1
+-YjT 243 252   1 1 1 1 1 1 1 1 1 1
+-YjT 253 262   1 1 1 1 1 1 1 1 1 1 
+-YjT 263 272   1 1 1 1 1 1 1 1 1 1 
+-YjT 273 281   1 1 1 1 1 1 1 1 1  
+-YjT 305 314   1 9 33 9 9 9 9 9 9 1 
+-YjT 315 324   1 9 9 1 1 1 1 1 1 1
+
+-Yj0 20 10 15 5 ; In ruling sign, exalted sign, ruling house, exalted house.
+
+
+-YkC 9 11 10 12                 ; Element colors
+-YkA 1 18  11 12 9 10 14 13 13 3 3 6 6 6 1 5 5 1 1 5  ; Aspect colors
+-Yk0 1 7   9 3 11 10 14 12 5    ; Rainbow colors
+-Yk  0 8   0 15 7 8 1 2 6 4 13  ; Main colors
+
+
+; GRAPHICS DEFAULTS:
+
+_X              ; Graphics chart flag ["_X" is text, "=X" is graphics]
+:Xw 684 684     ; Default X and Y resolution
+:Xbb            ; Bitmap file type
+:YXG 2222       ; Glyph selections
+:YXg 20         ; Aspect grid cells
+:YXf 0          ; Use actual fonts
+:YXp 1          ; PostScript paper orientation
+:YXp0 8.5 11.0  ; PostScript paper X and Y inch sizes
+;:YX -1 16       ; PC hi-res and lo-res graphics modes
+
+; Macros
+-M0 1 "-i nic -tdn"
+-M0 2 "-i nic -R1 -RT1 -Rh -RTh -RU -RTC -Tn"
+-M0 3 "-R1 -RT1 -Rh -RTh -RU -RTC"
+-M0 4 "-YAo 1 11 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1 .1"
+; More Ancient Rulership (Pluto,Neptune and Uranus are not main rulers of signs)
+-M0 5 "-YJ Ura 0 Aqu -YJ Sat Aqu Cap -YJ Nep 0 Pis -YJ Jup Pis Sag -YJ Plu 0 Sco -YJ Mar Sco Ari -YJ Mar Ari Sco -YJ Sat Cap Aqu -YJ Jup Sag Pis"
+-M0 6 "-M 11 -M 12 -M 13 -M 14  -M 15  -M 16  -M 17  -M 18  -M 19  -M 20  -M 21  -M 22  -M 23  -M 24  -M 25  -M 26  -M 27 -M 28 -M 29 -M 30" 
+; astrolog.dat

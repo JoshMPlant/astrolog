@@ -1,0 +1,15 @@
+!
+fitobs.
+!	.astnap="%NAME%"
+	.astna0="%NAME%"
+        .obsdir0="elem"
+!       .obsdirp="."
+        .elefi0="/home/masegand/src-5.42j/ephe/astorb.cat"
+!       .elefip="/home/masegand/src-5.42j/ephe/allnum.cat"
+! Asteroid perturbations
+propag.
+	.iast=3!  0=no asteroids with mass n=no. of massive asteroids 
+	.filbe='/home/masegand/OrbFit4.0/tests/bineph/mas19'! name of the asteroid ephemerides file
+!
+
+

@@ -1,0 +1,177 @@
+Otherwise , the later code is under GPL
+See license for swe for GPL version details
+
+    LTEXT           "Month",IDC_STATIC,5,5,35,8
+    LTEXT           "Day",IDC_STATIC,5,20,35,8
+    LTEXT           "Year",IDC_STATIC,5,35,35,8
+    LTEXT           "Time",IDC_STATIC,5,50,35,8
+    LTEXT           "Daylight?",IDC_STATIC,5,65,35,8
+    LTEXT           "Time Zone",IDC_STATIC,5,80,35,8
+    LTEXT           "Longitude",IDC_STATIC,5,95,35,8
+    LTEXT           "Latitude",IDC_STATIC,5,110,35,8
+    LTEXT           "Name",IDC_STATIC,5,125,35,8
+    LTEXT           "Location",IDC_STATIC,5,140,35,8
+    LTEXT           "Astrolog 5.41 for MS Windows",IDC_STATIC,28,4,132,8
+    LTEXT           "As of December, 1998.",IDC_STATIC,28,12,132,8
+    LTEXT           "By Walter D. Pullen (Astara@msn.com)",IDC_STATIC,28,28,
+    LTEXT           "Astrolog Homepage: http://www.magitech.com/~cruiser1/astrolog.htm",
+    LTEXT           "Astrolog Homepage #2: http://www.astrolog.org/astrolog.htm",
+    LTEXT           "Main planetary calculation formulas were converted from routines by",
+    LTEXT           "James Neely, as listed in ""Manual of Computer Programming for",
+    LTEXT           "Astrologers"" by Michael Erlewine, available from Matrix Software.",
+    LTEXT           "PostScript graphics routines by Brian D. Willoughby.",
+    LTEXT           "Extended ephemeris calculation and formulas are by Astrodienst AG, as",
+    LTEXT           "in the library SWISS EPHEMERIS, available from Astrodienst AG.",
+    LTEXT           "IMPORTANT: Astrolog is ""freeware"", but is copyrighted and not in",
+    LTEXT           "public domain. Permission is granted to freely use and distribute these",
+    LTEXT           "routines provided one does not sell, restrict, or profit from the program",
+    LTEXT           "or its output in any way. Modification is allowed provided these exact",
+    LTEXT           "notices remain with any altered or edited versions of the program.",
+    LTEXT           "These conditions are true of both the program in whole and of all",
+    LTEXT           "parts by any individual author. Violators are subject to copyright law",
+    LTEXT           "penalties, and negative karmic debts to aforementioned contributors.",
+    LTEXT           "Special thanks to all those unmentioned, seen and unseen, who have",
+    LTEXT           "pointed out problems, suggested features, && sent many positive vibes! :)",
+    LTEXT           "Enter all parameter options below:",IDC_STATIC,25,5,115,
+    LTEXT           "Angle",IDC_STATIC,101,5,24,8
+    LTEXT           "Orb",IDC_STATIC,70,5,25,8
+    LTEXT           "Influence",IDC_STATIC,132,5,35,8
+    LTEXT           "Angle",IDC_STATIC,267,5,23,8
+    LTEXT           "Orb",IDC_STATIC,235,5,25,8
+    LTEXT           "Influence",IDC_STATIC,297,5,35,8
+    LTEXT           "Decrease comparison chart's orbs",IDC_STATIC,15,152,114,
+    LTEXT           "Decrease parallel's orbs",IDC_STATIC,217,152,80,8
+    LTEXT           "Fire",IDC_STATIC,10,155,20,8
+    LTEXT           "Earth",IDC_STATIC,10,170,20,8
+    LTEXT           "Air",IDC_STATIC,85,155,20,8
+    LTEXT           "Water",IDC_STATIC,85,170,20,8
+    LTEXT           "Black",IDC_STATIC,10,15,25,8
+    LTEXT           "White",IDC_STATIC,10,30,25,8
+    LTEXT           "Red",IDC_STATIC,10,45,25,8
+    LTEXT           "Green",IDC_STATIC,10,60,25,8
+    LTEXT           "Blue",IDC_STATIC,10,75,25,8
+    LTEXT           "Yellow",IDC_STATIC,10,90,25,8
+    LTEXT           "Magenta",IDC_STATIC,10,105,29,8
+    LTEXT           "Cyan",IDC_STATIC,10,120,25,8
+    LTEXT           "Gray",IDC_STATIC,95,15,25,8
+    LTEXT           "Lt. Gray",IDC_STATIC,95,30,30,8
+    LTEXT           "Maroon",IDC_STATIC,95,45,25,8
+    LTEXT           "Dk. Green",IDC_STATIC,95,60,35,8
+    LTEXT           "Dk. Blue",IDC_STATIC,95,75,30,8
+    LTEXT           "Orange",IDC_STATIC,95,90,25,8
+    LTEXT           "Purple",IDC_STATIC,95,105,25,8
+    LTEXT           "Dk. Cyan",IDC_STATIC,95,120,30,8
+    LTEXT           "Con.",IDC_STATIC,195,15,20,8
+    LTEXT           "Opp.",IDC_STATIC,195,30,20,8
+    LTEXT           "Squ.",IDC_STATIC,195,45,20,8
+    LTEXT           "Tri.",IDC_STATIC,195,60,20,8
+    LTEXT           "Sex.",IDC_STATIC,195,75,20,8
+    LTEXT           "Inc.",IDC_STATIC,195,90,20,8
+    LTEXT           "S.Sx.",IDC_STATIC,195,105,20,8
+    LTEXT           "S.Sq.",IDC_STATIC,195,120,20,8
+    LTEXT           "Ses.",IDC_STATIC,195,135,20,8
+    LTEXT           "Qui.",IDC_STATIC,270,15,20,8
+    LTEXT           "B.Qn.",IDC_STATIC,270,30,20,8
+    LTEXT           "S.Qn.",IDC_STATIC,270,45,20,8
+    LTEXT           "Sep.",IDC_STATIC,270,60,20,8
+    LTEXT           "Nov.",IDC_STATIC,270,75,20,8
+    LTEXT           "B.Nv.",IDC_STATIC,270,90,20,8
+    LTEXT           "B.Sp.",IDC_STATIC,270,105,20,8
+    LTEXT           "T.Sp.",IDC_STATIC,270,120,20,8
+    LTEXT           "Q.Nv.",IDC_STATIC,270,135,20,8
+    LTEXT           "Daylight?",IDC_STATIC,5,5,35,8
+    LTEXT           "Time Zone",IDC_STATIC,5,20,35,8
+    LTEXT           "Longitude",IDC_STATIC,5,35,35,8
+    LTEXT           "Latitude",IDC_STATIC,5,50,35,8
+    LTEXT           "Correction For Now",IDC_STATIC,5,65,35,20
+    LTEXT           "Month",IDC_STATIC,10,35,35,8
+    LTEXT           "Day",IDC_STATIC,10,50,35,8
+    LTEXT           "Year",IDC_STATIC,10,65,35,8
+    LTEXT           "Time",IDC_STATIC,10,80,35,8
+    LTEXT           "Degrees Per Day",IDC_STATIC,10,143,60,8
+    LTEXT           "Month",IDC_STATIC,10,105,35,8
+    LTEXT           "Day",IDC_STATIC,10,120,35,8
+    LTEXT           "Year",IDC_STATIC,10,135,35,8
+    LTEXT           "Time",IDC_STATIC,10,150,35,8
+    LTEXT           "Years To Span:",IDC_STATIC,135,55,55,8
+    LTEXT           "Searching Divisions:",IDC_STATIC,120,95,70,8
+    LTEXT           "Zodiac Degree Offset / Ayanamsa:",IDC_STATIC,5,5,115,8
+    LTEXT           "Aspects To Consider:",IDC_STATIC,5,20,75,8
+    LTEXT           "Harmonic Chart Factor:",IDC_STATIC,5,35,80,8
+    LTEXT           "Central Planet:",IDC_STATIC,5,50,60,8
+    LTEXT           "Use This Planet:",IDC_STATIC,10,105,55,8
+    LTEXT           "Text Columns:",IDC_STATIC,5,130,60,8
+    LTEXT           "Text House Wheel Rows:",IDC_STATIC,5,15,85,8
+    LTEXT           "Text Astro-Graph Degree Step Rate:",IDC_STATIC,5,115,
+    LTEXT           "Number of Arabic Parts To Display:",IDC_STATIC,5,149,
+    LTEXT           "Number of aspects used to allow fixed star",IDC_STATIC,
+    LTEXT           "Number of aspects used to allow Arabic Part",IDC_STATIC,
+    LTEXT           "Orbs of Arabic  Parts",IDC_STATIC,5,226,71,8
+    LTEXT           "Orbs of stars",IDC_STATIC,110,226,44,8
+    LTEXT           "Number of aspects of Arabic Parts to show",IDC_STATIC,5,
+    LTEXT           "Flower's scale",IDC_STATIC,189,187,48,8
+    LTEXT           "Number Of Cells In Graphics Aspect Grid:",IDC_STATIC,5,
+    LTEXT           "Horizontal PostScript Paper Inch Size:",IDC_STATIC,5,
+    LTEXT           "Aspect Power to be solid:",IDC_STATIC,132,210,86,8
+    LTEXT           "Vertical PostScript Paper Inch Size:",IDC_STATIC,5,135,
+    LTEXT           "Power of Parallel",IDC_STATIC,131,226,78,8
+    LTEXT           "Horizontal Chart Size:",IDC_STATIC,5,5,75,8
+    LTEXT           "Vertical Chart Size:",IDC_STATIC,5,20,75,8
+    LTEXT           "Horizontal Map Degree Rotation:",IDC_STATIC,5,35,108,8
+    LTEXT           "Vertical Globe Degree Tilt:",IDC_STATIC,5,50,105,8
+    LTEXT           "Animation Delay In Msec:",IDC_STATIC,5,80,85,8
+    LTEXT           "Use This Planet:",IDC_STATIC,10,145,55,8
+    LTEXT           "Sun",IDC_STATIC,5,15,30,8
+    LTEXT           "Moon",IDC_STATIC,5,30,30,8
+    LTEXT           "Mercury",IDC_STATIC,5,45,30,8
+    LTEXT           "Venus",IDC_STATIC,5,60,30,8
+    LTEXT           "Mars",IDC_STATIC,5,75,30,8
+    LTEXT           "Jupiter",IDC_STATIC,5,90,30,8
+    LTEXT           "Saturn",IDC_STATIC,5,105,30,8
+    LTEXT           "Uranus",IDC_STATIC,5,120,30,8
+    LTEXT           "Neptune",IDC_STATIC,5,135,30,8
+    LTEXT           "Pluto",IDC_STATIC,5,150,30,8
+    LTEXT           "Chiron",IDC_STATIC,135,15,50,8
+    LTEXT           "Ceres",IDC_STATIC,135,30,50,8
+    LTEXT           "Pallas Athena",IDC_STATIC,135,45,50,8
+    LTEXT           "Juno",IDC_STATIC,135,60,50,8
+    LTEXT           "Vesta",IDC_STATIC,135,75,50,8
+    LTEXT           "North Node",IDC_STATIC,135,90,50,8
+    LTEXT           "Lilith / S.Node",IDC_STATIC,135,105,50,8
+    LTEXT           "Part of Fortune",IDC_STATIC,135,120,50,8
+    LTEXT           "Vertex",IDC_STATIC,135,135,50,8
+    LTEXT           "East Point",IDC_STATIC,135,150,50,8
+    LTEXT           "Max Orb",IDC_STATIC,40,5,30,8
+    LTEXT           "Add",IDC_STATIC,75,5,20,8
+    LTEXT           "Influence",IDC_STATIC,100,5,30,8
+    LTEXT           "Max Orb",IDC_STATIC,185,5,30,8
+    LTEXT           "Add",IDC_STATIC,220,5,20,8
+    LTEXT           "Influence",IDC_STATIC,245,5,30,8
+    LTEXT           "Ascendant",IDC_STATIC,5,15,40,8
+    LTEXT           "2nd Cusp",IDC_STATIC,5,30,40,8
+    LTEXT           "3rd Cusp",IDC_STATIC,5,45,40,8
+    LTEXT           "Nadir",IDC_STATIC,5,60,40,8
+    LTEXT           "5th Cusp",IDC_STATIC,5,75,40,8
+    LTEXT           "6th Cusp",IDC_STATIC,5,90,40,8
+    LTEXT           "Descendant",IDC_STATIC,5,105,40,8
+    LTEXT           "8th Cusp",IDC_STATIC,5,120,40,8
+    LTEXT           "9th Cusp",IDC_STATIC,5,135,40,8
+    LTEXT           "Midheaven",IDC_STATIC,5,150,40,8
+    LTEXT           "11th Cusp",IDC_STATIC,5,165,40,8
+    LTEXT           "12th Cusp",IDC_STATIC,5,180,40,8
+    LTEXT           "Cupido",IDC_STATIC,145,15,35,8
+    LTEXT           "Hades",IDC_STATIC,145,30,35,8
+    LTEXT           "Zeus",IDC_STATIC,145,45,35,8
+    LTEXT           "Kronos",IDC_STATIC,145,60,35,8
+    LTEXT           "Apollon",IDC_STATIC,145,74,35,8
+    LTEXT           "Admetos",IDC_STATIC,145,90,35,8
+    LTEXT           "Vulkanus",IDC_STATIC,145,105,35,8
+    LTEXT           "Proserpina",IDC_STATIC,145,120,35,8
+    LTEXT           "Poseidon",IDC_STATIC,145,135,35,8
+    LTEXT           "Max Orb",IDC_STATIC,50,5,30,8
+    LTEXT           "Add",IDC_STATIC,85,5,20,8
+    LTEXT           "Influence",IDC_STATIC,110,5,30,8
+    LTEXT           "Max Orb",IDC_STATIC,185,5,30,8
+    LTEXT           "Add",IDC_STATIC,220,4,20,8
+    LTEXT           "Influence",IDC_STATIC,245,5,30,8
+    LTEXT           "The Astrolog chart is being printed.",IDC_STATIC,5,5,

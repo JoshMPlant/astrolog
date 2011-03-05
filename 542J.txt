@@ -1,0 +1,363 @@
+- update of readme etc.  
+- Naming of Elatus and Thereus
+
+- deltaT update
+
+- update fixstars.ast
+
+- small modification -a and -D switch regarding app/sep
+
+- Bug with -Rh postponed
+
+- Different color -a -D
+
+- variable rename general.c
+
+- In calc.c, fSupp Semisquare toggled.
+
+- Include data files for Alternative Interpretation switches
+
+- Fix bug in charts3.c affecting -Zd switch (up and lo could have been wrong)
+
+June 2004
+
+- Raise MaxNumberedAsteroid to 100000 in astrolog.h
+
+- Naming of Cyllarus,Okyrhoe and Bienor
+
+- Replace QZ9 with Deucalion,QJ4 with VS2,QY9 with 2004DW and CU29 with "Sedna"
+
+- Readme and deltaT update
+
+- Bug with -Rh/hypothetical Planets fixed, seorbel.txt
+
+- Fix bug in calc.c and xscreen.c for graphic display of Gauquelin sectors in Swiss Ephemeris mode
+  using keyboard toggle M.
+
+- Fix bug in calc.c for graphic display of approximate Gauqelin sectors with combination -l0 -X
+
+- Avoid call of slow Swiss Ephemeris Gauqelin sector calculation in swe_call.c if 
+  approximate Sectors (-l0) set.
+
+- Fix bug for infobar text listing of fixed stars in graphic Display of Gauqelin Sectors
+
+October 2005
+
+- xcharts1.c Observe -RS restriction for aspect lines drawn in graphic chart
+
+- deltaT update (swephlib.c)
+
+- Naming of Orcus
+
+December 2005
+
+- non-geocentric charts use ecliptic latitude instead of equatorial declination
+  for parallel aspects
+
+September 2006
+
+- replace SB93/SC94 with Eris and Logos 
+
+- naming Crantor,Echeclus,Amycus (Their Riyal Orbits possibly out of date, it is recommended to use them with swe files,e.g. -NU ,-Na switches  )
+
+- Upgrade to Swiss Ephemeris version 1.71 (from 1.64.02)
+  The previous modifications were not taken in again.
+  Therefore the star distance and brightness is broken.
+  However the old starfile fixstars.ast was taken in as a replacement
+  for the original fixstars.cat in swiss ephemeris so that
+  especially the galactic coordinates and similar will continue to work.
+  The performance with many unspecified asteroids will be somewhat slower due
+  to standard swe file search path,especially if there are asteroid gaps.
+
+- Raise maximum asteroid number from 100000 to 150000
+
+- Adaptions because of SWE function swe_get_planet_name
+
+- astrolog.dat contains only planets , dwarf planets and chiron by default
+
+- aastrolog.dat contains most named Centaurs, TNOs , SDO and a few unnamed by default
+
+- Partially outdated Riyal orbits disabled by default in aastrolog.dat
+
+- asteroid names file seasnam.txt updated
+
+November 2006
+
+- Naming of Typhon and Ceto
+
+- Alternate Interpretion files edited for linebreaks
+
+- correct aspect orbs printing in intrpalt.c for transiting aspects (-yt file -Ib switch)
+
+December 2007
+
+- add Borasisi (66652) and Teharonhiawako (88611) in aastrolog.dat
+
+- Upgrade to Swiss Ephemeris version 1.72.00
+
+- Fixes with lunar occultations searches, swe changes, was broken
+
+June 2008
+
+- 5.40 license file recovered
+
+February 2009
+
+- changes for X includes in Makefile and Makefile.cyg
+  so it compiles with Windows Vista and current Cygwin
+
+- add switch -YT1 to toggle forced restrictions for chaotic orbists etc.
+
+- Improvements with longrange objects .sx1 files precision
+
+- New .sx1 files created, some with slightly updated orbits
+
+- .sx1 files contain header line with JD startdate, stepsize and scaling
+
+March 2009
+
+- NU switch with negative argument looks for comet file sc00nnn.sx1
+
+- long.fle file rebuilt 
+
+- Earth/Sun restrictions can be handled by the user, program will not
+  attempt to choose itself any longer
+
+- riyal.c .sx header accepts stepsize in 0.1/0.2/0.5/1 Julian Years
+  to use output from orbit9 / OrbFit4.0
+  ( at http://adams.dm.unipi.it )
+
+- header output -b1 changed for sidereal mode, -b1 is somewhat misleading for now
+
+- -st value defaults to J2000
+
+- -YTJ switch added, use JPL DE405/DE406 ephemeris files via swiss eph SEFLG_JPLEPH
+
+- modified -NN,-NA switch , now looking for .sx1 files as well
+
+- modified path for SWE, use SE_EPHE_PATH first and EPHE_DIR from local.h,set JPLEPH path
+  Do not use other stuff anymore.
+
+- if 4th letter of (text) shortname of object is numerical digit, continue searching,
+  e.g. astrolog -R0 Cha1 finds Chariklo, astrolog -R0 Cha2 finds Chaos
+  use -HO switch for checking current object numbers and ordering.
+
+- load larger (1079 entries) fixstars catalogue if -NL not set (with #define ASTEROIDS,e.g.aastrolog) .
+
+- -R switch can ignore or show object groups ,e.g -Rc1 shows hardcoded Centaurs/SDO  -Rt0 ignores
+  all objects between TrneLo and TrneHi.
+
+- init_ephe_path() 
+
+- Reduce compiler warnings
+
+- add switch -YN obj name  and -YNL obj name which set name of object szObjName and
+  riyal unnumbered name variable riyalObjName
+
+  example (assuming 305 is slightly lower than constant RiyaHi in astrolog.h ) :
+  aastrolog -YNL 305 1994TA -YN 305 1994TA -R0 305 -NB
+  would cause it to look for an .sx1 file named
+  sx1994TA.sx1  
+
+  This way custom unnumbered objects can be read in.
+
+- aastrolog -YTI -ZC writes double floats instead of integers 
+  Then scale=0 in the header. Header remains 3 integers for now
+  Needs twice the diskspace 
+  Used first for .sx1 files of Voyager and Pioneer spacecrafts
+
+- At beginning or end of .sx1 file use linear approx instead of Everett polynomial
+  to extend slightly range of ephemeris. 
+
+- -EY numberofyears -X will actually draw multi-year ephemeris graphics
+
+- switch -YTd value to force deltaT in seconds, e.g. -YTd 0 means deltaT == 0
+  Display does not show it however (except -b1)
+  Useful for comparing dates given in ET (ephemeris time) or similar 
+  Also works with -i -o . TT now means same as ET, no longer same as DT
+
+- use GNU auto tools
+
+- use FileOpen in riyal.c, added mode 3 in io.c
+
+- Loading asteroid names is slow when only .sx1 file present. (searching for .se1 files
+  before checking seasnam.txt ). 
+
+- changes in SzZodiac and SzAltitude with -NB switch
+
+- roughly account for lighttime in FRiyalNumbered() and FRiyalUnnumbered()
+
+April 2009
+- fix bug with -g -X -Xs 400 for midpoints with text (due to larger grid-> )
+
+- use also libtool for building (shared) libswe
+
+- include swetest and swemini executables
+
+- Upgrade to swisseph-1.76.00
+
+- -yr checks for -F switch on return object and turns it off otherwise, so
+  -F Sun Sag 0 -yr initial Sun
+  (or combined with -ZE) looks for next return of forced value 
+
+- ChartReturn() calls it ingress instead of return if -F used
+
+- -F allows value of -360 to "unforce" , e.g.
+  -F Sun Ari -360 
+   will undo previous -F command.
+
+- ChartReturnSet() iterates for more precision
+
+- fix bug printing chart title with -ys -X causing "Bad draw." error
+
+- fixing bugs with -ZEO switch, more occultations in close proximity in time found
+
+May 2009
+
+- use FileOpen instead of fopen for atlas
+
+July 2009
+
+- Bug creating bitmaps was introduced by misplaced added parantheses in extern.h for reduced compiler warnings, corrected. 
+
+August 2009
+
+- edited configure.in
+
+- whole sign aspect switch -Yaw added , also for aspects in declination, not for 3D aspects
+
+January 2010
+
+- replace 2007OR10 (now numbered as 225088) with 2008ST291 in riyal.c
+
+- add new numbered TNO 225088 and 229762, sx files recalculated with epoch MJD 55200
+
+February 2010
+
+- changes in astrolog.h Makefile.am and configure.in for better handling of X11/MOUSE
+  configure --without-x and --x-includes etc. should work
+
+- raise version to 0.2
+
+- add house system with SWE houses (-YTF) 
+   -c 18 Krusinksi-Pisa -c 19 Gauquelin Sectors -c 7 Morinus
+    
+- -l -ys0 inputfile promissor significator
+  shows primary direction mundo (-ys1 zodiac, -ys2 diurnal arc)
+
+- added switch -ps for with or without 2nd motion of promissor
+
+- added switch -pa angle 
+  for angle added to significator (to do aspect in primary directions).May be negative
+
+- converse date with -ZEb
+
+- internal:
+  FPlacalcHouses(jd,fFalse) as FPlacalcHouses(jd) before
+  FPlacalcHouses(jd,fTrue) fills in sector positions/house position of a planet using swe_house_pos (as only gauqelin sector before)
+
+- added switch  -pm0 mundo,-pm1 zodiac,-pm2 diurnal arc,-pm3 with refraction (if -YTF),-pm4 diurnal arc disk edge,-pm5 with refraction (if -YTF)
+
+- -l -tp2 now shows primary direction list
+   ** so far uncertain about precise values without SWE -YTH , non-placidus houses **
+
+- -l -dp2 shows promissor mundane evolution (and primary directions to cusps)
+   ** so far only with -YTH **
+   ** very slow and misses some **
+
+- -l -Tp2 shows current orb between mundane positions
+
+- correction for -c 7 Morinus and -c 16 houses, Ascendant not 1st cusp,M.C. not 10th
+
+- if -ps switch on, show mundane positions instead of zodiac in -l sector chart
+  (with and without graphics)
+
+- for performance either matrix or swe/sx1 positions are used with -b 
+  (Previously matrix positions were overwritten by swe)
+
+- Switch for primary direction keys
+   -pdp        =Placidus
+   -pdn        =Naibod
+   -pdc        =Cardan
+   -pds        =Solar Arc in R.A.
+   -pdb        =Solar Arc in R.A.   on Birthday +-1 day (mean speed)
+   -pdv        =Solar Arc Birth Rate in R.A. ("true speed",varies daily in topocentric) 
+   The Setting of -pd days/year should be left at default 365.24218967
+   -pdp will also reset the default to this value.
+
+- Hardcoded Asteroids only with -D ASTEROIDS defined
+
+March 2010
+
+- Bug for charts in October fixed.
+  Rebuild internal handling of JD.
+  Quantitative Handling of Seconds in Time
+  Quantitative Handling of Seconds in Location
+
+- -sr adds SEFLG_EQUATORIAL in FPlacalcPlanet
+  That case no more ecl-equ transform in calc.c needed
+  ** check for problems with that in other places **
+
+- include Makemake,Altjira,Haumea,Teharonhiawako,Borasisi in harcoded asteroids
+
+- -RC now means only cusps, -RF is like -RC before 
+
+- -RO means Jupiter to Pluto, -RI Mercury to Mars, -RL Sun and moon, -Rx Asc Desc M.C I.C
+
+- -Ru now means the 79 most important fixstars, -RU means long >1000 star list (if -NL in aastrolog) if applicable
+
+- -Yns shows also lunar south node (instead of mean apogee) even with SWE -b
+
+- added switch -Nk to skip hardcoded asteroids when loading range
+  e.g. -Re1 -NA 1 10    vs. -Re1 -NAk 1 10
+  This was once on by default , but later disabled, now selectable
+
+- remove swiss ephemeris documentation from distributed .tgz file
+  See www.astro.com for documentation
+
+- rebuild centaurs.fle tnpsdo.fle asteroid.fle and adapt riyal.c
+  Were mostly using outdated orbits, also bug found with asteroid.fle  
+  Remove 2002VQ94 (comet), 1996PW (gone missing)
+
+- version 0.3 started
+
+- expand number of -Ry objects 
+
+- Those will only be read if not ignored, speeds up aastrolog if only few or none selected
+
+- add function swe_sx_nod_aps that will use .sx1 files if no .se1 available
+  for (osculating) node calculations (in new file riyal2.c)
+
+- update local OrbFit copy for fitobs.x cartesian element propag output >100AU
+
+- -ZC ConvertSolex if 32bit limitation , error and abort instead of warning
+
+- clean up Restrict Clean, when multiple choices, check for distance instead of hardcoded dates
+
+- again quantitative Handling of Seconds in Time
+        quantitative Handling of Seconds in Location
+
+- changes with Atlas request, will also look for altitude (3rd number in line), hopefully
+  will work with atlas.txt generated from GNS data as before
+
+- changed (global) atlas.txt file (converted from Solex GEOSITES.DAT, rounded to minfrom 1/100 deg) with some more entries (22611 instead of 2490)  and altitude. 
+
+April 2010
+
+- changes with altitude in io.c RParseSz
+
+November 2010
+
+- Raise MaxNumberedAsteroid to 260000 in astrolog.h
+
+- add 248835 and 250112 in aastrolog.dat
+
+- update seasnam.txt , created section named and tno
+
+- fix bug with -zL switch (mode 1 instead of 2 for FileOpen)
+
+- fix bug concerning overwriting obj position with -Nn obj
+  Now in calc.c nodes are calculated before object position
+  
+- updated .fle files with MJD55000 
+ 

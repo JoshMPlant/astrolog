@@ -1,0 +1,15 @@
+The release of the Swiss Ephemeris source code.
+It has currently been tested on Linux and Windows 2003.
+A simple Makefile to create a Unix library is included.
+The unix-readable of the doc directory are also included.
+The release number is sometimes changing frequently when we are in an
+active development phase.
+Sometimes several releases will be available at the same time.
+It is usually best to take the one with the highest release number.
+
+Release 1.61 was the last one which contained 16-bit support.
+It is permanently archived in subdirectory sweph161.
+
+Release 1.67 was the last with the old IAU precission model 1976
+(Lieske), old nutation model 1980 (Wahr). It is preserved
+in swe_unix_src_1.67.tar.gz and sweph_1.67.zip

@@ -1,0 +1,55 @@
+- changed date format -E
+
+- Precision improved/Calculation errors removed with unnumbered objects (-YTL)
+
+- Precision improved for -sr (use timedependent epsilon instead of rAxis)
+
+- changes for -a -sr -YSp (coordinates already equatorial)
+
+- -pn -X can be recast unchanged
+
+- Changes for -Tp
+
+- Unnumbered Ephemeris update, added CA249,CB249
+
+- Naming of Ixion and Chaos
+
+- Corrections with -w
+
+- DST per default
+
+- Changes with -N, Speeds and Distance of Nodes, -sr is observed
+
+- Added again unnumbered asteroids AB229,HE46,QF6,CE10,PW96
+
+- Added indication of Max,Min,0+,0- Declination with -d -YSp
+
+- No return indicated with parallel aspects -YSp in -t listing.
+
+- Allow aspects between cusps in -t 
+
+- Updated observated deltat 1997-2002 in swephlib.c
+
+- Ignore unnumbered in 2018-2020 AD
+
+- Changes to interpretation,rulership,default influences
+
+- Date is not set to now for -yt etc. switch
+  so astrolog -qd 12 12 2012 -yt file -X shows transits to file for 12.Dec 2012 instead of now
+  The transit date has to be set before -yt, otherwise the natal chart is changed
+  However with default astrolog.dat,   astrolog -yt file -X still shows transits for now.
+
+- Added missing element for -RP default (used with -yp for example)
+
+- Improvement with Atlas request
+
+  -zL0 Paris -1       shows list of hits on stdout
+  -zL0 Paris 5         selects 5th entry
+  -zL Paris           selects first found
+  -zL0 'Paris ' 2        selects 2nd entry with space after s
+
+- Ignore Lunar node/apogee in heliocentric mode
+
+
+ 
+

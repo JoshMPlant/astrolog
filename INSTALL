@@ -1,0 +1,46 @@
+either execute using GNU build environment
+
+tar xvfz astrolog542j-0.1.tgz
+cd astrolog5.42j-0.1
+configure
+make install
+
+For single user 
+configure --prefix=$HOME
+is recommended so that additional data
+can be used without administrator privileges
+
+Historic makefiles for various systems are also still supplied
+
+Ephemeris files must be copied into  $(datadir)/astrolog542j/ephe as well
+Also fixstars.ast atlas.txt ,seasnam.txt , seorbel.txt, 
+
+*.fle,*.sx1 into exteph etc...
+
+edit local.h (created by the Makefile) for different setup
+
+SWE Asteroids may go into appropiate subdirectory
+e.g. se00005s.se1 into $datadir/astrolog/ephe/ast0
+e.g. se32007s.se1 into $datadir/astrolog/ephe/ast32 etc.
+
+Personal chart files can be stored in $datadir , otherwise the path
+must be given with -i option or environment variable SE_EPHE_PATH,ASTROLOG,ASTR542J
+being set to provide paths to files.
+
+Use #define PC on windows console for \paths , in cygwin bash it is not necessary
+
+Recommended compiler is gcc-4 or gcc-3, freely available at http://www.cygwin.com 
+
+For a version without graphics and printing comment
+#define WIN 
+#define GRAPH
+#define PS
+
+If you want to compile on dos, #define ASTEROIDS will never work.
+You can try to use
+#define DOS
+but this is not tested
+and you will probably get memory allocation problems.
+
+
+

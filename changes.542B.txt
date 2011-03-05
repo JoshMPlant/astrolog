@@ -1,0 +1,133 @@
+Changes in 5.42A (20 Dec 2001)
+
+ 5.42A is on basis of 5.41f instead of 5.41
+ 51 numbered Centaurs,Asteroids and Transplutonians were added and
+
+ Also a few switches have been added.
+ -YTC for topocentric positions   -YTR for true positions
+ -za to set altitude -qc to read chart input with altitude 
+ -Rh etc. to restrict hypothetical Transuranians
+ -td to start listing from a day other than the 1st
+ -T takes time as 4th argument
+ -Ts sums influences per object -RS restricts for that. The formula is still like in older astrolog versions
+ -Ti takes file for transit date & location
+ -pt progresses natal during transit listing  
+
+ There is also a switch added -Tc which is to be used together with -Ys for
+ long transit influence listings suitable for plotting data input.
+ There is also a new switch -pt to compute transits to the progressed chart.
+
+ Use -dp to see what is happening progressed to progressed 
+    -t ..,-Tc ..                      transit to natal
+    -pt -t.. ,-pt -Tc ..              transit to progressed
+    -tp ,-Tp                          progressed to natal 
+    -d -zy ..                         transit to transit (mundane) 
+
+ 20 December 2001
+
+
+Changes in 5.42B (5 Jan 2002)
+
+ - completed use of altitude
+ - -d displays seconds
+ - 30 more asteroids
+ - Sorted asteroids by categories
+ - New switches
+  -Rc etc. restricts Centaurs/Scattered disk objects
+  -Rt etc. restricts Transneptunians
+  -Ra etc. restricts Atens
+  -Rm etc. restricts Amors
+  -Rp etc. restricts Apollons
+  -Ro etc. restricts other asteroids
+
+ - New keyboard switches in X mode
+
+  1 switches Atens
+  2 switches Apollos
+  3 switches Amors
+  4 switches Centaurs/SDO
+  5 switches Transneptunians
+  6 switches other asteroids
+  7 switches Hypothetical Uranians
+  8 switches Lunar objects
+  u will switch all of them
+    
+  C will also switch other terran points besides Cusps (like Coascendant) 
+
+ - Parsing of Objects: First 3,5 or 7 letters are compared depending on
+  how much were given
+  For example -R0 Apo matches Apogee, -R0 Apoll matches Apollo ,
+   -R0 Apollon matches Apollon
+
+ - Bug with added time argument -T corrected: -Tt has 4 arguments, -T only 3 without Time.
+
+ - Interpretation code changed, consider asteroids where first character of interpretation text
+  is a letter, i.e. it is not empty. Consider ASC and MC because there is a interpretation text.
+  Do not interpret stars.
+
+ - Some short draft interpretations for asteroids added
+
+ - Added switch -YTH for Swiss Ephemeris House Calculations
+  Is recommended to turn it on because otherwise Coascendant(M. Munkasey) etc. is not calculated
+  However not all Housesystems are done so turn it off for those
+  Available : -c 0 1 3 5 6 8 9
+  Also Vertex and Equatorial Ascendant "East Point" are calculated here.
+  It is not used automatically for progressed charts so far.
+ 
+ - Asteroids that have unknown positions in the past due to close encounters
+  are ignored before that date (example Chiron before 650AD)
+  Same was not yet done forward in time.
+
+ - Changed colors for different group of asteroids, reactivate hyp.Uranian glyphs.
+
+
+
+ INSTALLATION HINTS:
+
+ Edit astrolog.h to set your DEFAULT_DIR and EPHE_DIR
+
+ Your chart files, astrolog.dat and fixstars.ast should  be put into DEFAULT_DIR set in astrolog.h
+
+ The asteroid ephemeris files listed below are needed (download at www.astro.com or with large file)
+ and have to be installed under EPHE_DIR set in astrolog.h
+
+ ast0/se00008s.se1  ast1/se01866s.se1   ast19/se19255s.se1  ast28/se28978s.se1
+ ast0/se00016s.se1  ast1/se01915s.se1   ast19/se19299s.se1  ast29/se29981s.se1
+ ast0/se00043s.se1  ast1/se01980s.se1   ast19/se19308s.se1  ast3/se03102s.se1
+ ast0/se00055s.se1  ast1/se01981s.se1   ast19/se19521s.se1  ast3/se03200s.se1
+ ast0/se00094s.se1  ast10/se10119s.se1  ast2/se02062s.se1   ast3/se03361s.se1
+ ast0/se00130s.se1  ast10/se10199.se1   ast2/se02063s.se1   ast3/se03362s.se1
+ ast0/se00153s.se1  ast10/se10370.se1   ast2/se02100s.se1   ast3/se03552s.se1
+ ast0/se00227s.se1  ast15/se15504s.se1  ast2/se02101s.se1   ast3/se03554s.se1
+ ast0/se00279s.se1  ast15/se15760s.se1  ast2/se02102s.se1   ast3/se03671s.se1
+ ast0/se00433s.se1  ast15/se15788s.se1  ast2/se02340s.se1   ast3/se03753s.se1
+ ast0/se00944s.se1  ast15/se15789s.se1  ast20/se20000s.se1  ast31/se31824s.se1
+ ast1/se01181s.se1  ast15/se15807s.se1  ast20/se20108s.se1  ast32/se32532s.se1
+ ast1/se01221s.se1  ast15/se15809s.se1  ast20/se20161s.se1  ast4/se04450s.se1
+ ast1/se01566s.se1  ast15/se15810s.se1  ast24/se24835s.se1  ast5/se05143s.se1
+ ast1/se01620s.se1  ast15/se15820s.se1  ast24/se24952s.se1  ast5/se05145s.se1
+ ast1/se01685s.se1  ast15/se15836s.se1  ast24/se24978s.se1  ast5/se05335s.se1
+ ast1/se01862s.se1  ast15/se15874s.se1  ast25/se25384s.se1  ast5/se05381s.se1
+ ast1/se01863s.se1  ast15/se15875s.se1  ast26/se26181s.se1  ast7/se07066s.se1
+ ast1/se01864s.se1  ast15/se15883s.se1  ast26/se26308s.se1  ast8/se08405s.se1
+ ast1/se01865s.se1  ast16/se16684s.se1  ast26/se26375s.se1
+
+ These cover mostly 1500AD-2100AD with some exceptions if the positions are uncertain
+ due to close encounters. The files without s after the
+ number cover 3000BC to 3000AD.
+
+
+ These planetary ephemeris can be installed
+
+ seas_00.se1  seas_48.se1  seasm48.se1  semo_36.se1  semom36.se1  sepl_24.se1  seplm24.se1
+ seas_06.se1  seasm06.se1  seasm54.se1  semo_42.se1  semom42.se1  sepl_30.se1  seplm30.se1
+ seas_12.se1  seasm12.se1  semo_00.se1  semo_48.se1  semom48.se1  sepl_36.se1  seplm36.se1
+ seas_18.se1  seasm18.se1  semo_06.se1  semom06.se1  semom54.se1  sepl_42.se1  seplm42.se1
+ seas_24.se1  seasm24.se1  semo_12.se1  semom12.se1  sepl_00.se1  sepl_48.se1  seplm48.se1
+ seas_30.se1  seasm30.se1  semo_18.se1  semom18.se1  sepl_06.se1  seplm06.se1  seplm54.se1
+ seas_36.se1  seasm36.se1  semo_24.se1  semom24.se1  sepl_12.se1  seplm12.se1
+ seas_42.se1  seasm42.se1  semo_30.se1  semom30.se1  sepl_18.se1  seplm18.se1
+
+ Only the 18 series is contained with the large file. It covers the present era.
+ The other files are for other times between 5400BC and 05400AD
+

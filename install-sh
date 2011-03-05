@@ -1,0 +1,3 @@
+#!/bin/sh
+#install astrolog aastrolog $(INSTALL_DIR)
+#install atlas.txt fixstars.cat *.dat $(DATA_DIR)/$(PACKAGE)

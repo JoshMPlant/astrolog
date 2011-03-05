@@ -1,0 +1,1274 @@
+Changes in last version Astrolog 5.41F
+
+   * Fixed original astrolog bug. POF (in main objects) was wrong in
+     case of equatorial coordinates (but in arabic parts list it was
+     correct).
+
+   * Colors of all main objects can be changed from default. New switch
+     added:
+
+          -Yq <object> <color>
+
+          Just by standard Astrolog rules there are object and color
+          numbers or names (see helpfile.540), so all examples below will
+          give you blue Mars :)
+
+               -Yq 5 12
+               -Yq 5 blue
+               -Yq mars 12
+               -Yq mars blue
+
+   * Alternative stars restriction works now also with parallels. So if
+     (with active "alternative restriction") you switch to parallels (View
+     -> Parallel Aspects), unrestricted will be stars which parallels some
+     object (if you increase apect numbers for alternative restriction,
+     there will be unrestricted stars with contraparallels too).
+
+   * To switch to parallels in command line (DOS or Unix) version (in
+     Win version it's simple), there is new switch -YSP. It's useful also
+     in some other cases (like in combination with -d switch to see
+     parallel-contraparallel events during day/month etc).
+
+   * Added automagic restriction of stars also by prime vertical. There
+     are new switches:
+
+          -YUP <value>
+
+          where value:
+               0 - switch this off
+               1 - unrestricted are stars, which conjuncts some object
+               (except cusps, POF etc).
+               2 - unrestricted are stars with PV = 0, 45, 90, etc degrees
+               3 - unrestricted are both above
+
+          -YUO1 <orb1>
+          -YUO2 <orb2>
+
+          These switches are obvious, they sets orbs for automagic
+          restrictions above (for YUP 1 and YUP 2 respectively), default
+          orbs are 1.166666667 deg (1deg10').
+          When you use -YUP <value>, don't worry about switching on/off
+          "alternative stars restriction", it will be automatically back to
+          previous value when you get -YUP 0.
+          I dindn't add anyhing to Windows version menus, all can be
+          comfortably done by macros like
+          {M0 1 "_v -Z0 -U -Up -YUP 1"}
+          DOS version supports all new switches above.
+
+   * Added alternative date format for some outputs (like events search
+     with -d switch), where abbreviature of month is printed instead of
+     number of month (i.e. "12 Jan 2000" instead of original "12- 1-2000").
+     That can be switched by new switch -Yn. Default setting is Astrolog's
+     original one (numeric month), =Yn switches to abbreviatures.
+
+   * Names and abbreviatures of aspects can be customized. New
+     switches:
+
+          -An <n> <name>
+          -AA <n> <abbreviature>
+
+          There n is number of aspect, name and abbreviature are new name
+          and abbreviature for this aspect. Best way to use is put them to
+          astrolog.dat file.
+
+          NB! <abbreviature> MUST be three characters. Astrolog doesn't
+          check lenght of new abbreviature, and in other case most outputs
+          where aspect abbreviatures are used, will be distorted.
+
+   * Astrolog computes position of Lilith (Dark Moon) using external
+     ephemeris. When -b setting is off, Astrolog will display the position
+     of the South Node instead (see helpfile.540, description of -HO
+     switch). Position of Lilith is calculated by Swiss Ephemeris only if
+     central planet is Earth, and in version 5.41F if central planet isn't
+     Earth, Lilit is analogiously replaced by South Node even if -b switch
+     is on.
+
+   * Original Astrolog doesn't replace central object in comparison
+     grid charts. In version 5.41F changes of central planet are reflected
+     also there.
+
+  ------------------------------------------------------------------------
+Aug. 17th 2000
+Changes in last version Astrolog 5.41G
+
+
+* Fixed original Astrolog bug, where Local Horizon data (and also
+Prime Vertical) were off by up to several arc-minutes.
+
+
+* Fixed original Astrolog bug (Windows version), where "Time / Space 
+Midpoint" chart is correct, but it was not possible to return back to
+"No relationship chart" - there was still previous "midpoint" chart.
+
+
+* In "Rising and Setting" chart fixed bug, where "Print Nearest Second"
+worked unproperly - seconds weren't shown for risings and settings.
+
+In this context more correct termin instead "zenith" and "nadir" is
+astronomical termin "culmination" which means transit over meridian.
+There are two culminations: "upper culmination" when planet has
+highest position and "lower culmination" when planet has lowest
+position. So in the chart termins "zeniths" and "nadirs" are replaced
+by "culm.(up)" and "culm.(lo)" respectively.  V.A.
+
+
+* Uncorrect object name "Nadir" has been replaced by corret "IC". Nadir 
+has different meaning than IC, Nadir is point on the sky, opposite to
+Zenith. 
+
+
+* Slightly improved Windows version behaviour in case of progressed and 
+relationship charts. Earlyer versions allowed to do progression and 
+then do some relationship chart like Natal-Progressed. Or vice versa, 
+when looking say Natal-Progressed chart switch also Progression "on". 
+That all confused Astrolog and results were often unpredictable.
+
+Now any use of relationship charts (in menu "Info") switches off "Do
+Progression" (in "Chart" -> "Progressions"). And vice versa, switching
+progression on (in "Chart" -> "Progression") switches off any comparison.
+As result Astrolog is displaying just what it has to dasplay, no 
+confusion.
+
+
+* Fixed orignal astrolog bug (appeared only in Windows version). 
+When natal chart was opened from file with saved planets position
+(not birth data), there only first output was correct, all next 
+charts (as aspect list, transit searches, all comparison charts etc)
+had wrong planets positions. 
+
+NB! Use such input files carefully! They are treated by astrolog as 
+files "with no time and space", so a lot of chart types can't be used 
+with them. An examples are all progression chartt, because they needs
+birth-chart time to calculate progressions. 
+
+
+* Fixed bug of changed versions, where in case of use of data with saved
+planet positions (just as above), data-border of graphics charts 
+dilsplayed info "no time or space" twice.
+
+
+* Time and location have new format - with seconds, both for input and
+output. Only outputs with old data format are events searching outputs,
+because they anyway can be off by a few minutes, so seconds are 
+unnecessary there.
+
+All files with old time/location format can be used, but all outputs 
+are saved only in new time/location format. 
+
+
+* Calculation precision improved - time-dependent obliquity of ecliptic
+is used instead of fixed value.
+
+
+* Added new switsh to change local horizon text output from default ENWS
+to NESW. Just add line
+
+=YZ
+
+to astrolog.dat file and it will be deafult setting.
+
+
+* Slightly changed Prime Vertical text chart output: Altitude and 
+Azimuth in header have been replaced by Amplitude and Prm-Vrt. You 
+can see this chart, if you choose "Local Horizon" and set "Horison 
+Chart with Polar Center / Prime Vert. (text)" in "Chart settings". 
+Note, that this switch has different meanings for text and graphics 
+charts: in text mode it switches between Local Horizon <-> Prime 
+Vertical outputs, in graphics it switches between "normal wiew" and 
+"view vith Polar Center". However, one can switch also between Polar
+Center and Pime Vert. also in graphics by hitting 'i' on the keyboard
+(switch to bonus mode). 
+
+
+* Changed calculations of Solar Arc progressions. Astrolog calculates
+there actually Solar Arc directions, where all planets and house cusps 
+positions are moved forward to an amount equal in degrees to the number 
+of years that have passed between the specified date and the chart 
+in question. Because real (even mean or average) motion of Sun isn't 
+1 degree per day, resulting Solar Arc Sun position doesn't match with 
+secondary progressed Sun position (but they must match).
+
+To correct this situation, there has been added another calculation of 
+Solar Arc - first secondary progressed Sun's position is determined and 
+then all chart components are moved accordlingly.
+
+To avoid misunderstanding, existing Solar Acr calculations remains, but 
+have now corrected name "Degree Per Day/Month", as earlyer one can change 
+amount of degrees per year (more strictly, amount of days for 1 degree 
+direction. See description of -p0 and -pd switches in helpfile.540).
+Added calculation is named "Solar Arc Directions" and there Sun's position
+follows secondary progressed Sun positions, all other point in chart are
+moved accordlingly.
+
+Existing switches -p0, -p0n remain as previously. For new correct "Solar Arc 
+Directions" calculations new switches -p1 and -p1n are used. In Windows 
+version all can be done through menus: "Chart" -> "Progressions..." 
+
+
+* Slightly changed chraphics charts' infoborder and text charts' headers
+- secondary progressed charts are still named as "progressed", Solar Arc
+and "Degree per Year/Mont" are marked as "directed" with name of direction.
+
+
+* Graphics chart's infoborder has additional information: Obliquity of 
+ecliptic, Sidereal time, Delta T (in seconds) and in case of sidereal chart
+Ayanamsha (sidereal offest). 
+
+Note, that Ayanamsha has negative value and dafaults to Fagan Bradley. 
+Ayanamsha control in "Calculation Settings"has a dropdown to allow quick 
+selection of some common systems of sidereal astrology. The values are 
+additions to default value and they are 0.0 for Fagan Bradley, 0.883333 
+(or 0 degrees 53') for N.C. Lahiri, 0.983333 (or 0 degrees 59') for 
+Krishnamurti, and 2.333333 (or 2 degrees 20') for B.V. Raman. On the screen
+has shown resulting value.
+
+
+* Date/time and Julian Day in the graphics charts' infoboredr has been colored:
+
+  1. First (or single) data/time is always bright white.
+
+  2. Second date/time is always yellow.
+
+  3. JD (which is actually also time/date) has color of corresponding 
+  date/time above (as yellow in case of transit comparison or direction
+  charts). If JD doesn't correspond to neither date/time above (as in case
+  of progressions where JD corresponds to date/time of planets' positions on
+  the screen), color is green. Note, that in case of Synastry and Comparison
+  charts JD will be yellow, becsuse it corresponds to second date/time above
+  (data of second chart).
+
+
+* Windows version controls of progressed charts have been polished. They looks 
+more clear now. As default 365.2422 (tropical) year has used.
+
+In "Degree per Days" dropdown are also available:
+365.25636 (sidereal year)
+27.321582 (tropical month)
+27.321661 (sidereal month)
+29.530588 (synodic month)
+
+Other more exotic (like Draconic) years/months aren't included.
+
+
+* Astrolog computes position of Lilith (Dark Moon) using external
+ephemeris. When -b setting is off, Astrolog will display the position
+of the South Node instead (see helpfile.540, description of -HO
+switch). For users, who wants to use South Node always, there has been 
+added new switch =YN which forces Astrolog to do it. This switch can be
+entered through "Edit" -> "Enter Command Line" (Windows version) or 
+simply added to astrolog.dat file to make this behaviour default.
+
+
+* By default Astrolog calculates mean Lilith. For users who wants to use
+osculting position of Lilith, new switch -YL has been added. As above,
+this switch can be added to astrolog.dat file, which makes such behaviour
+default.
+
+
+Changes in 5.42C (15 Jan 2002)
+
+- adapted interpretations
+
+- added switch -YTF to consider refraction at the horizon ,with variable arcsize of sun disc for sunrise 
+  swe_rise_trans is not used.
+
+- added switch -zp to set pressure in millibar for refraction (-Z -YTF)
+
+- added switch -zT to set temperature in C for refraction (-Zd -YTF)
+
+- corrected problem with -Td and -t switch
+
+- added switch -N[mbadf] for planetary/asteroid nodes,aphelions and 2nd elliptic focal points
+  Aspect Orbs etc. is controlled like for Arabic Parts ( -YPo -YPa -YPs)
+  The nodes/apogee/aphels is i guess from various approximations/see Swisseph docs and slightly
+  different from ephemeris values for lunar node/apogee used in the normal object list.
+  b: barycentric (beyond Jupiter) m mean (Merc-Neptune) d desc./Perihel a Aphel/Perihel
+  f: 2nd focal points default: nodes,osculating,ascending/aphel
+
+- started switch -ZE[sl] for next solar/lunar eclipse
+
+- Orbs are printed on commandline and internally calculated with at least integer arcseconds
+  Window is still only arcminutes
+
+- Seconds are handled hopefully correctly in Chart Time and Longitude/Latitude( -qc)
+  and displayed on commandline charts if -b0 (Seconds) is set.
+  You can even try to enter 1/10 seconds but replace the " with the number
+  e.g. 09:43:427 and 47:22'237 (instead of 47:22'23.7")
+  because the " and ' is converted to a 0 and only the ' is backtracked.
+  They are also used with -o / -i.
+
+- SWE houses are also used for progressed charts with -YTH,by calculating ARMC for that purpose
+
+- corrected topocentric positions : use only for object center earth even if flag set
+
+- added/removed #ifdef PLACALC so that it compiles and works without SWE. Flags have to be set correctly though 
+
+- added 11 more main-belt asteroids and 9 muses. 
+  Added section Muses with Switch -RM etc and keyboard toggle 7.
+
+- added switch -Nn objname to replace East Point,Fortune - Coascendant with nodes&apsides of objname
+
+- added keyboardswitch / \ to go up/down the objname/catalog nr.  as if switched with -Na/Nn in window
+
+- added keyboardswitch 'w' for main objects. Stopped overlap between R and C, now R goes
+  only until Apogee, C after Vertex, Cusps, and before Centaurs.
+  It is now possible to clear and rebuild the X chart with keys 1-9,u,U,R,w
+
+- Print current focus objname at end of Chart Window for orientation
+
+- added switch -Na numberedasteroid which will put Asteroid # in place of Vertex
+  and grab name from ephemeris file (e.g. 2001 KX76 instead of KX76)
+
+- added switches -NN and -NA <startnr> to read in extra asteroids as found in the ephemeris path,starting
+  from 1 or startnr.
+  Names will be set automatically at startup, may take some time especially 
+  if there are gaps. You can read in less to improve performance by reducing cObj in astrolog.h
+  if you do not have enough asteroid ephemeris files.
+  Hardwired Asteroids are defined in variable skip[] and are skipped.
+  Year numbers are stripped from unnamed objects, not if flag -Ny is set.
+
+- added compile option #define ASTEROIDS in astrolog.h so that it compiles without the asteroids
+
+- These are not yet handled in interpretations. Has to be configured by user afterwards if needed.Example:
+
+  astrolog -Na 28978 -R0 2001 -I -YI 2001 Cyclone
+  2001 KX76 in Sagittarius and 3rd House: This person's Cyclone is very jovial,
+  open minded, loves freedom, and seeks meaning and new experience. Most often
+  this manifests in the area of life dealing with communicating to and
+  receiving from the environment.
+
+  The N1 has to come first so that the name "2001 KX76" is defined
+  All the hardwired asteroids don't have the 2001 etc. because it is bad for identifying
+  them by name. So only this one user defined asteroid (with -N1) has it.
+
+
+- Note that the large file with asteroid ephemeris does not contain ephemeris for the main
+  planets , so if you do not install them seperately you will have reduced precision
+  for those. These are available at www.astro.com, Swiss Ephemeris
+
+seas_00.se1  seasm06.se1  semo_00.se1  semom06.se1  sepl_00.se1  seplm06.se1
+seas_06.se1  seasm12.se1  semo_06.se1  semom12.se1  sepl_06.se1  seplm12.se1
+seas_12.se1  seasm18.se1  semo_12.se1  semom18.se1  sepl_12.se1  seplm18.se1
+seas_18.se1  seasm24.se1  semo_18.se1  semom24.se1  sepl_18.se1  seplm24.se1
+seas_24.se1  seasm30.se1  semo_24.se1  semom30.se1  sepl_24.se1  seplm30.se1
+seas_30.se1  seasm36.se1  semo_30.se1  semom36.se1  sepl_30.se1  seplm36.se1
+seas_36.se1  seasm42.se1  semo_36.se1  semom42.se1  sepl_36.se1  seplm42.se1
+seas_42.se1  seasm48.se1  semo_42.se1  semom48.se1  sepl_42.se1  seplm48.se1
+seas_48.se1  seasm54.se1  semo_48.se1  semom54.se1  sepl_48.se1  seplm54.se1
+
+
+- added switch -NS to ignore gaps in asteroid ephemeris files.
+
+- Extra Asteroids are ignored if not turned on (Flag ExtraAst added)
+
+- added switch -Ns to output sorted by rank in -j influence listing.
+
+- Another cleanup on macro switches PLACALC / ASTEROIDS /GRAPH etc...
+
+- Switch -Ns for sorting output also applies to normal object listing
+  Using new switch -ND the degree modulo can be set,also negative. Default is 30 (degree of any sign).
+  360 shows ordered in the zodiac,120 degree of any sign by element, 90 by cardinality 
+  and so on. If the value is negative,reverse sorting is taking place.
+
+- Added switches -Nr -NR to define the range which should be displayed
+  in -Ns sorted chart listing
+  -Nr degfrom degto 
+  -NR objectname orb
+  e.g. -NR Sun 1 shows everything +-1 degree from the sun position
+	   -Nr 333 334 shows everything between 3Pis and 4Pis
+
+- Increased Number of extra asteroids
+
+- Fixed several problems with -N switch
+  The subswitch for aphelions&perihelions vs nodes is now h instead of a
+  The subswitch for aphelions vs. perihelions/asc. vs desc. node is d
+  The subswitch for second focal point is f
+  The subswitch for mean nodes where defined is m
+  The subswitch for barycentric vs.heliocentric nodes/apsides where really returned by swiss ephemeris is b
+
+- In -j0 influence calculation, scale back aspect power somewhat with nr of objects
+  (That is introduced because the sum of asteroid influence is somewhat defined too high if
+   many asteroids are considered,
+   but i prefer to leave influences unchanged/unscaled with changing nr of objects
+   considered and scale back the aspect influence then) 
+   Also subtract noise (aspect power of least aspected object) from final aspect power
+   to have more distinction.
+
+- Subtract noise (power of weakest object) from object power.
+
+- Added switch -NT treshold to ignore objects with power below treshold
+  on following computations and output. Default=0
+  Changed calculation of influences in several places, -T , -D
+  With -NT and -T, the transit configuration is also examined and
+  plays a role for total transit influence (otherwise only the
+  configured transit influence is considered). This is because
+  these have to be evaluated anyway for selecting the asteroids.  
+  This switch is so far used in listing (no switch),-T,-D
+  Not with -t -d here you should restrict yourself.
+  The idea is to find interesting asteroids at a particular date
+  from a large selection. After you have found some asteroid you can include
+  it but it is too slow for -t etc.. with all asteroids simultaneously. 
+
+- Some optimization, so that if no Extra Asteroids,Hypothetical Uranians
+  or Stars are used, the performance will increase,resp. be not much worse
+  than version 5.41F. See comments below
+ 
+- The -NA switch now needs 2 instead of 1 arguments.
+  First argument is the starting numbered object
+  Second argument is how many extra asteroids (following the starting numbered
+  object) to load.
+  There is an upper limit, in this case a error message will be displayed.  
+
+- New switch -NU nr1 nr2 .. nrx  that loads those asteroids numbers into extra asteroid space
+  NU may be used after -NA but will be overwritten if before
+
+- Reduced file searching in sweph.c, the ast files are expected in astxx subdirectories
+  under the ephemeris path, and short files are expected.
+  Needed to be changed if you have access to long range integration files for other asteroids
+  but these are the only ones freely available at www.astro.com for now.
+  This improves performance with -NA and -NN
+
+- Introduced use of secondary -RS restrictions in -a -j
+  Example : Aspect of anything to the ascendant :  -a -R1 -RS0 Ascendant
+  This way with a large number of asteroids, not the whole grid has to be filled
+  if you neglect aspects between 2 of those asteroids and concentrate on aspects between 1 of
+  these asteroids and one of the major objects
+
+- A major internal rebuild was done in shifting the extra asteroids behind the stars and
+  hypothetical Transuranians. Unfortunately this means there are quite a few bugs left.
+  Also for this, the makefile was adapted and now 2 executables are built, astrolog
+  and aastrolog and only aastrolog contains the extra asteroids.
+   
+- Some optimization, so that if no Extra Asteroids,Hypothetical Uranians
+  or Stars are used, the performance will increase,resp. be not much worse
+  than version 5.41F. This collided with the rebuild above and means that currently
+  aastrolog would crash in X mode if no extra asteroids are loaded (e.g. this optimization
+  is active). Therefore aastrolog now by default loads some extra asteroids so that the
+  optimization is turned off. Without extra asteroids you should use the astrolog executable
+
+- Also on windows only the astrolog executable without graphics works as far as i have tried.
+
+- Switch -IS for sabian symbols added 
+
+- Switch -NL for loading a selection of unnumbered Centaurs,SDO,TNO 
+  Their positions are taken from ephemeris files used with the Application Riyal
+  by J.Revilla http://www.expreso.co.cr/centaurs 
+  The accuracy of these positions is lower due to uncertainties in orbital elements and
+  due to less extensive ephemeris data (200 day steps). Also Nodes&apsides
+  are so far not calculated for these.
+
+  The ephemeris files tnpsdo.fle and centaurs.fle should be installed in EPHE_DIR.
+ 
+  These are available only with #define ASTEROIDS,e.g. aastrolog
+
+  They are turned on/off using switch -Ry etc. and key " on the graphical chart.
+
+
+- The number of objects in aastrolog is meanwhile so large that also on linux the full grid may practically
+  not be allocated. Use -NT xx to reduce number of active objects. I guess it would be necessary to switch
+  to a shared memory architecture.
+
+- Added switch -Nt targetdistance (in AU) to emphasize objects at the specified distance
+
+- Stars are now handled in same loop in chart listing, no more separate from other objects
+  
+- Riyal longrange ephemeris are also used by aastrolog between 602AD and 1500AD for main centaurs/TNO
+  without longrange swisseph. There is a slight discontinuity at 1500AD.
+
+- Topocentric/True positions flags are also observed for fixstars
+  (switches -YTC -YTR )
+  Please note that there may be some astronomical issues with this. 
+
+- Modified sweph.c to return brightness of star in xx[2]. Distance in lightyears in xx[3], uncertainty of
+  distance in xx[4]. Some star distances were taken from www.cosmobrain.com,file fixstars.ast is still incomplete.
+  Is displayed in chart listing except uncertainty. If Swisseph is turned off (-b), brightness is displayed twice.
+
+- added switch -zL to read longitude/latitude from clear text file atlas.txt to be installed in EPHE_DIR
+  2 consecutive spaces mark end of Location (if you want the country included for selection, remove all but one space
+  between town and country in atlas.txt). If two words are given they have to be put in quotes:
+  e.g. -zL 'New York'. It has to match exactly up to the end of the given string.
+
+- On Sparc chips because of different endian -NL did not work (bogus values displayed).
+  added handling of bigendian chips (e.g. sun sparc) 
+  depends on #ifdef _BIGENDIAN
+
+- Corrected reintroduced bug with progr.asc.,composite X-display
+
+- Wider output formatting -Z,-j
+
+- Added processing of GTOPO30 data.
+  -ZC drawmap.pgm gtopo (currently assumed to contain 30-70N,10W-20E)
+  converts drawmap.pgm to internal format file gtopo.
+  
+  The .pgm can be created from GTOPO30 DEM files using
+  the application drawmap(-2.5) by Fred M. Erickson
+  fme@ttc-cmc.net using command
+
+  drawmap -t -x3600 -y4800 -w -l30,20,70,-10 -d W020N90.HDR
+               -d W020N40.HDR -h
+
+  The GTOPO30 Data are available at
+  searchword GTOPO30 google
+
+- Switch -YTN sets altitude from longitude,latitude using gtopo file.
+
+- There was a problem with timezones in -rm combin charts.
+
+- Switch -YTD for 3dimensional aspect angles (instead of
+  ecliptic ). For now with -a -Tn -D but not -t -d etc..
+  Ecliptic latitude of observer is neglected.
+
+- Cleanup with DEFAULT values initialization for location/timezone.
+
+- Added linear approximation between GTOPO30 data points.
+
+- Added configureable DEFAULT values for GTOPO30 data range (default Western Europe 30-70n 10w-20e)
+
+- -RS restriction are observed with -d and relationship -a
+
+- Fixed bug that sometimes left out strongest aspect with -a
+
+- Fixed bug with -L and -YTH combined
+
+- Sidereal positions are calculated using Swiss ephemeris instead of rSid.
+  Added switch -st for using ecliptic of (first used) date
+  -ss for using solar system plane
+  -sm for selecting numerical predefined sidereal mode (see swisseph documentation)
+  Try -s -sm 255 for precession-neglected transits.
+
+- Added suffix 0 for -R switch to restrict (instead of switch) group.
+  for example -Rc0 restricts centaurs (-Rc would switch restrictions of centaurs)
+
+- Fixed bug with -o option in SzLocationAlt
+
+- Fixed sidereal position for riyal objects (less precise).
+
+- Fixed bug with fixed stars stringhandling for builds on Windows 2000 without WIN and GRAPH
+- Fixed bug with -j -Ns listing if restricted
+
+- Give Cusps some pseudo speed (365.25) so that app/sep aspects are correct
+
+- Improvements with atlas request -zL.
+
+  btw you can parse GNS data files freely available on the web for some country to the needed format with this 
+  little perl script:
+  perl -e 'use POSIX ; while (<>) {next unless /^\S+\s+\S+\s+\S+\s+(\S+)\s+(\S+).+\s\s\s\s[A-Za-z][A-Za-z][A-Za-z]+\t([ A-Za-z]+)\t/ && print $3,"              \t\t",floor(0.005+100*(($1-floor($1))*0.6+floor($1)))/100," ",floor(0.005+100*(($2-floor($2))*0.6+floor($2)))/100,"E\n"}' countryfile.txt >> atlas.txt
+
+  URL http://164.214.2.59/gns/html/cntry_files.html
+  These data have 1arcminute rounding.
+
+  These are not included with the release because the complete file would be too large.
+
+- Changes to processing -N switch
+
+- Fixed bug with riyal object speeds (factor degrad)
+
+- Added Centaur BU 48 and 3 new TNO to hardcoded asteroids.
+
+- Added unnumbered recent discoveries CR46,XA255,YW134,FZ173 from latest Riyal version.
+
+- No string manipulation for rc/rm with -X (avoids crash)
+
+- -rm can be recast unchanged, e.g. together with -X
+
+- Fixes for to -T -YTD, velocity in longitude, app/sep
+
+- Added FP185 from Riyal Feb26, corrections with longrange restrictions between 600 and 1700AD
+
+- Some changes for compiling with VC6
+
+- Fix for sidereal star positions
+
+- Fix for -t -Na
+
+- Fix for -s -N positions
+
+- -zL,-YTN sets also default location
+
+- -rc x1 x2 -YTL -z[lL] for relocated composite chart
+
+- Fix for Keyboardswitch 8 in X chart
+
+- Another Riyal ephemeris update, add UQ18, remove "VU2","AB229","HE46","QF6","PW96"
+
+- Allow PC & X11 defines simultaneously
+ 
+- changed date format -E
+
+- Precision improved/Calculation errors removed with unnumbered objects (-YTL)
+
+- Precision improved for -sr (use timedependent epsilon instead of rAxis)
+
+- changes for -a -sr -YSp (coordinates already equatorial)
+
+- -pn -X can be recast unchanged
+
+- Changes for -Tp
+
+- Unnumbered Ephemeris update, added CA249,CB249
+
+- Naming of Ixion and Chaos
+
+- Corrections with -w
+
+- DST per default
+
+- Changes with -N, Speeds and Distance of Nodes, -sr is observed
+
+- Added again unnumbered asteroids AB229,HE46,QF6,CE10,PW96
+
+- Added indication of Max,Min,0+,0- Declination with -d -YSp
+
+- No return indicated with parallel aspects -YSp in -t listing.
+
+- Allow aspects between cusps in -t 
+
+- Updated observated deltat 1997-2002 in swephlib.c
+
+- Ignore unnumbered in 2018-2020 AD
+
+- Changes to interpretation,rulership,default influences
+
+- Date is not set to now for -yt etc. switch
+  so astrolog -qd 12 12 2012 -yt file -X shows transits to file for 12.Dec 2012 instead of now
+  The transit date has to be set before -yt, otherwise the natal chart is changed
+  However with default astrolog.dat,   astrolog -yt file -X still shows transits for now.
+
+- Added missing element for -RP default (used with -yp for example)
+
+- Improvement with Atlas request
+
+  -zL0 Paris -1       shows list of hits on stdout
+  -zL0 Paris 5         selects 5th entry
+  -zL Paris           selects first found
+  -zL0 'Paris ' 2        selects 2nd entry with space after s
+
+- Ignore Lunar node/apogee in heliocentric mode
+
+
+ 
+
+
+- Print declination of cusps with -sr
+
+- Add factor dependent on sign degree for influence
+  (max at 12, min at 29 and 1 degrees)
+
+- Add factor dependent on proximity to cusp for influence
+  (max at cusp, min at 0.6847*house, linear approx)
+  Between 0.6847 and 0.966 of house object is counted for both house it is in
+  and next one. After 0.966 only for next house.
+
+- Add display of stationary objects and increase 
+  influence of stationary objects.
+  Does not work without swisseph -b (Distance needed)
+
+- Added macro -M 5 for more ancient rulerships in default astrolog.dat
+
+- Corrected bug if stars considered for -j listing
+
+- Parallels also considered for cusps&stars in -j listing
+
+- Corrections for -Z so that Asc is at 0 altitude without refraction
+
+- Different Labels for Prime Vertical (from 5.41G)
+
+- internal changes seconds processing (similar 5.41G)
+
+- Fix for -p0 arc calculation,using fixed arc per unit of time (similar 5.41G)
+
+- Added -p1 solar arc direction calculation,using solar position of progression (similar 5.41G)
+
+- Added -p2,-tp2,-dp2 progression of progression calculation
+
+- added 3 latest numbered Centaurs/SDO/TNO, added 763 Cupido to hardwired,
+  dropped 4 other hardwired asteroids (Daphne,Thetis,Aurelia,Artemis)
+
+- correction for -dp[012]Y switch handling enabled
+
+- added switch -sg for galactic coordinates, Zero Point 0Cap instead of 0Ari
+  for more custom signs, but normal if -sh or -sd selected. 
+  Needs update of fixstars.ast for galactic reference points.
+  Transformation of Speed also added. Uses sweph even with -b, but matrix position and unit distance
+
+- Ignore unknown asteroids without Swiss Ephemeris -b.
+  Automatically turn off Swe Houses in that case.
+
+- Cleanup/Fillup Data Tables.
+
+- More info with -X,-w (similar 5.41G)
+
+- Added Switch -Zdp to show kind of paranatellontas from rise/set table.
+  -RS restricts which objects are look at to rise/culm up/set/culm lo within conjunction orb together with -R restricted objects,
+  -YRZ 0 0 0 0 restricts rise/culm up/set/culm lo
+  astrolog -R1 -RS0 Sun -YRZ 0 1 1 1 -YAo 1 1 1 shows what is rising with the sun within 1degree=4minutes (maybe plus orb addidtion).
+  Please note that Sun/Moon rise times refer to the border of the disc and not the center, e.g. first and last sunray.
+
+- Bugfix riyal long term object assignment
+
+- Added more verbose display of calculation settings (switch -b1)
+
+- add switch -YZ for NESW azimuth display (like 5.41G ), is also new default instead of ENWS as before.
+
+- changes for reading longterm .sx1 files produced by solex and switch -ZC 
+  (Target May 6,2002 MPCORB & 10000 200day steps back to 3473BC.)
+
+  Files needed as of May7,2002
+
+  sx07066.sx1   sx15809.sx1   sx15875.sx1   sx19308.sx1   sx28978.sx1
+  sx15760.sx1   sx15810.sx1   sx15883.sx1   sx19521.sx1   sx29981.sx1
+  sx15788.sx1   sx15820.sx1   sx16684.sx1   sx20000.sx1   sx31824.sx1
+  sx15789.sx1   sx15836.sx1   sx19255.sx1   sx20108.sx1   sx32532.sx1
+  sx15807.sx1   sx15874.sx1   sx19299.sx1   sx20161.sx1   sx33128.sx1
+
+- Fixed bug with object center other than earth/sun (Only part of objects transformed,
+  added transformation of distance and velocities , no aberration etc. corrections)
+
+- Improved precision Galactic points in fixstars.ast, yields precise IAU 1958 Galactic coordinate frame.
+
+- Added supergalactic reference points to fixstars.ast and display
+  supergalactic coordinates with -ss -sg combination.
+  In Zodiac sign display, 0Can is used as zero point for more custom signs
+  (similar to 0Cap for galactic coordinates)
+  Use -sh or -sd for standard numerical values.
+
+- fix omissions in xdata.c (causing aastrolog -X crash) 
+
+- Replace hardcoded Minerva with 15504 RG33
+
+- Use short swiss ephemeris files for Chariklo/Hylonome 
+
+- fix omissions in data2.c (interpretations unnumbered objects)
+
+- Fix bug with parallel transit restrictions (-t -YSp -RT0 object which is restricted in natal)
+
+- With -d -YSp, parallels and contraparallels may be restriced (-A 0/1) to leave only declination events
+
+- With -t -YSp, contraparallels can be restricted with -A 1
+
+- Do not try to progress chart with -t -YSp -pt for now
+
+- Observe -YTC,-YTR,-YTA mostly with unnumbered objects
+
+- display of Out of Bounds events with -d -YSp, restrictions with 3rd argument to -YR0 
+
+- display of Out of Bounds in -sr listing 
+
+- add -yp1,-yp2,-rp1,-rp2 switches
+
+- correction for compiling PC&X11
+
+- merged in KDE code (modified from kastrolog by C.Gros)
+  This needs Qt,KDE etc....
+  This needs the Truetype Fontserver setup on linux
+  and some fonts installed. This is only initial so far
+  as the menus are not quite up to date but some extensions are done.
+
+- fix line lost since 5.42H for ayanamsa display 
+
+- fix for unnumbered topocentric together with non-geocentric (topocentric is ignored)
+
+- Changes from Swiss Ephemeris v1.64.00
+
+- Use swe_get_ayanamsa_name with -b1 switch
+
+July 2002
+
+- Changes from Swiss Ephemeris v1.64.01
+
+- Updated seasnam.txt file
+
+- Updated deltat forecast 20030101
+
+- Added UR163,CR46 to hardcoded, removed from unnumbered, removed also HX11 and HB12.
+
+- Print Eclipse Zodiac location with -ZEs,-ZEl
+  This depends on the location set with -zl,-zL for topocentric moon position / eclipse time
+
+- Added switch -ZEo object for lunar occultations
+
+- Fix some of the omissions Starbright/dist in data2.c
+
+- Added switch -Zc ,-Zcl , -Zco object for chart of next eclipse/occultation
+
+- Added switch -ZEb,Zcb for calculating eclipses/occultations backwards
+
+- Modification default astrolog.dat
+
+- Added switch -yr file object for returns. The switch -ZEb is used for calculating a return backwards
+  In X Mode, + and - is used to jump one return back and forth. Both -r1 -r2 can be used
+  to show either Return chart alone or together with natal.
+  e.g. astrolog -i file Sun shows next solar return chart
+  Use sidereal mode 255 for sidereal returns in tropical coordinates, e.g. -s -sm 255 
+  Works only in tropical and sidereal coordinates so far.
+
+- Fix bug with degree sign character 128/248
+
+- Fix bug with sidereal mode 255 and ecliptic of date when recasting charts.
+  The -st switch is now no longer needed for turning on ecliptic of natal date flag,
+  this is turned on automatically in sidereal mode 255.
+  Instead it will take as an argument a julian day number if the date of ecliptic 
+  should be manually set,otherwise it will be set to the natal date.
+  In that case the ecliptic should stay with this date and not pick up the natal date.
+  This bug was affecting the jumping of sidereal returns in tropical coordinates with +- key in 
+  graphical mode. 
+
+- Fix bug sometimes causing segmentation fault in paranatellontas routine charts3.c (if variable ll>>occurcount)
+
+- In ChartEphemeris()/Switch -E if switch -b1 is activated, more header details are printed
+
+- For chart listing with switch -sr, velocity is also transformed with Swiss Ephemeris activated.
+
+- Draconic Positions need lunar node and solar position for calculation even if Sun/Node restricted
+
+- Add switch -ZEn number for number of eclipses to show with -ZE listing
+
+- Add observation of -RS restrictions with parallels -d -YSp
+
+- Add observation of -G geodetic switch together with Swe Houses -YTH
+
+- Combination -d -YTD now shows list of maximum/minimum angle occuring.
+  The accuracy of the resulting angle and reported time depends on the -d division setting.
+
+- Correction MinDistance3D/MinDifference3D :
+  Switch between arccos and power series expansion now at 0.05 instead of 0.5 degrees.
+
+- Combination -t -YTD now shows list of maximum/minimum transit angle occuring.
+  The accuracy of the resulting angle and reported time depends on the -d division setting,
+  and is less than with -d switch.
+  To reduce the number of events displayed, you may try turning off topocentric positions
+  which have a daily oscillation, use mean node/apogee instead of true node/oscillating apogee
+  and ignore objects that are stationary.
+
+- Add switch -rc3 for linear ratio of composite between two charts according to mixing date.
+  e.g. astrolog -qd 6 22 2002 -rc3 solarreturn2001 solarreturn2002 mixes the 2 solarreturns as of Jun 22,2002,
+  for the cusps is similar to progression of solar return. Mixing Date should be between the two charts,
+  and usually earlier chart should be on the left side (chart#1), otherwise is reverse.
+  Overwrites chart #3 with mixing date.
+
+- Fix bug from update UR163/CR46 in riyal asteroids, now again correct objects displayed with
+  aastrolog -R0y
+
+- Reintroduce 1999 HX11 to hardcoded asteroids (TNO) as newly named Rhadamanthus
+
+- Fix bug that Chaos is not ignored before 1500 with astrolog executable.
+
+- update from latest Riyal, add GO9,AW197,KY14,GB10,GZ32,YK61,KX14
+
+- added Switch -ys file obj1 obj2 for synodic returns, e.g. -ys file Sun Moon shows recurrence
+  of natal Sun-Moon angle
+
+- Switch -ZE in combination with -yr and -ys switch shows list of returns (as with lists of eclipses)
+
+- Use long instead of short integers in GridInfo structure to allow for correct calculation of large orbs
+
+- Add -Tp0,-Tp1,-Tp2,-Tp3 switches to show directions info.
+
+- Do not indicate returns in declination with -T -YSp
+
+- update from latest Riyal
+
+- update from Swiss Ephemeris v1.64.02, latest deltat and tidal accelaration, half hour changes for BC charts
+
+- update from Riyal v.0.955 b
+
+- Changes in -ZE output format, colored zodiac location
+
+- Added switch -Zes,-Zeo obj for eclipse details at given location
+
+- Added switch -ZeO,-ZEO to search for lunar occultations with objects according to restrictions locally and globally
+  Still buggy,may hang with some objects like Tantalus,Khufu and Damocles.
+
+- Added switch -r file1 file2 -ma shows aspects from file1 to midpoints of file2  
+
+- Replaced hypothetical Isis with Selena (White Moon) 
+
+- Fix bug with app/sep aspects in -Tp0,-Tp1,-Tp3 switch
+
+- Fix bug with omissions -Nrs deg1 deg2 -b0 switch
+
+- Fix bug with unnumbered asteroids not ignored with -b switch
+
+- In chart listing with seconds precision, move one digit from velocity to distance
+
+- Correction in FNode, include object itself
+
+- extended alternate Star Restrictions (switch -YU) also to other objects.
+  The objects which are alternately restricted are those ignored with -RS restrictions. 
+  Objects where aspects are required for the alternate restriction not to filter are those open with -RS restriction 
+
+- added some more interpretations for unnamed centaurs according to copyrighted file from Philip
+  Sedgwick, GALASTRO@aol.com
+
+- update seasnam.txt
+
+- add calculation of Gauqelin sectors using swiss ephemeris routine if -YTH selected.
+  Depends on -YTF switch for use of refraction or not.Does not work with unnumbered asteroids.
+  In that case , turn off -YTH 
+
+- fix? bug with unnumbered asteroids in sidereal -s. Does not want swi_nutate
+
+- 22May 2003 update from Riyal v1.0, naming of Huya and Pelion
+- update of readme etc.  
+- Naming of Elatus and Thereus
+
+- deltaT update
+
+- update fixstars.ast
+
+- small modification -a and -D switch regarding app/sep
+
+- Bug with -Rh postponed
+
+- Different color -a -D
+
+- variable rename general.c
+
+- In calc.c, fSupp Semisquare toggled.
+
+- Include data files for Alternative Interpretation switches
+
+- Fix bug in charts3.c affecting -Zd switch (up and lo could have been wrong)
+
+June 2004
+
+- Raise MaxNumberedAsteroid to 100000 in astrolog.h
+
+- Naming of Cyllarus,Okyrhoe and Bienor
+
+- Replace QZ9 with Deucalion,QJ4 with VS2,QY9 with 2004DW and CU29 with "Sedna"
+
+- Readme and deltaT update
+
+- Bug with -Rh/hypothetical Planets fixed, seorbel.txt
+
+- Fix bug in calc.c and xscreen.c for graphic display of Gauquelin sectors in Swiss Ephemeris mode
+  using keyboard toggle M.
+
+- Fix bug in calc.c for graphic display of approximate Gauqelin sectors with combination -l0 -X
+
+- Avoid call of slow Swiss Ephemeris Gauqelin sector calculation in swe_call.c if 
+  approximate Sectors (-l0) set.
+
+- Fix bug for infobar text listing of fixed stars in graphic Display of Gauqelin Sectors
+
+October 2005
+
+- xcharts1.c Observe -RS restriction for aspect lines drawn in graphic chart
+
+- deltaT update (swephlib.c)
+
+- Naming of Orcus
+
+December 2005
+
+- non-geocentric charts use ecliptic latitude instead of equatorial declination
+  for parallel aspects
+
+September 2006
+
+- replace SB93/SC94 with Eris and Logos 
+
+- naming Crantor,Echeclus,Amycus (Their Riyal Orbits possibly out of date, it is recommended to use them with swe files,e.g. -NU ,-Na switches  )
+
+- Upgrade to Swiss Ephemeris version 1.71 (from 1.64.02)
+  The previous modifications were not taken in again.
+  Therefore the star distance and brightness is broken.
+  However the old starfile fixstars.ast was taken in as a replacement
+  for the original fixstars.cat in swiss ephemeris so that
+  especially the galactic coordinates and similar will continue to work.
+  The performance with many unspecified asteroids will be somewhat slower due
+  to standard swe file search path,especially if there are asteroid gaps.
+
+- Raise maximum asteroid number from 100000 to 150000
+
+- Adaptions because of SWE function swe_get_planet_name
+
+- astrolog.dat contains only planets , dwarf planets and chiron by default
+
+- aastrolog.dat contains most named Centaurs, TNOs , SDO and a few unnamed by default
+
+- Partially outdated Riyal orbits disabled by default in aastrolog.dat
+
+- asteroid names file seasnam.txt updated
+
+November 2006
+
+- Naming of Typhon and Ceto
+
+- Alternate Interpretion files edited for linebreaks
+
+- correct aspect orbs printing in intrpalt.c for transiting aspects (-yt file -Ib switch)
+
+December 2007
+
+- add Borasisi (66652) and Teharonhiawako (88611) in aastrolog.dat
+
+- Upgrade to Swiss Ephemeris version 1.72.00
+
+- Fixes with lunar occultations searches, swe changes, was broken
+
+June 2008
+
+- 5.40 license file recovered
+
+February 2009
+
+- changes for X includes in Makefile and Makefile.cyg
+  so it compiles with Windows Vista and current Cygwin
+
+- add switch -YT1 to toggle forced restrictions for chaotic orbists etc.
+
+- Improvements with longrange objects .sx1 files precision
+
+- New .sx1 files created, some with slightly updated orbits
+
+- .sx1 files contain header line with JD startdate, stepsize and scaling
+
+March 2009
+
+- NU switch with negative argument looks for comet file sc00nnn.sx1
+
+- long.fle file rebuilt 
+
+- Earth/Sun restrictions can be handled by the user, program will not
+  attempt to choose itself any longer
+
+- riyal.c .sx header accepts stepsize in 0.1/0.2/0.5/1 Julian Years
+  to use output from orbit9 / OrbFit4.0
+  ( at http://adams.dm.unipi.it )
+
+- header output -b1 changed for sidereal mode, -b1 is somewhat misleading for now
+
+- -st value defaults to J2000
+
+- -YTJ switch added, use JPL DE405/DE406 ephemeris files via swiss eph SEFLG_JPLEPH
+
+- modified -NN,-NA switch , now looking for .sx1 files as well
+
+- modified path for SWE, use SE_EPHE_PATH first and EPHE_DIR from local.h,set JPLEPH path
+  Do not use other stuff anymore.
+
+- if 4th letter of (text) shortname of object is numerical digit, continue searching,
+  e.g. astrolog -R0 Cha1 finds Chariklo, astrolog -R0 Cha2 finds Chaos
+  use -HO switch for checking current object numbers and ordering.
+
+- load larger (1079 entries) fixstars catalogue if -NL not set (with #define ASTEROIDS,e.g.aastrolog) .
+
+- -R switch can ignore or show object groups ,e.g -Rc1 shows hardcoded Centaurs/SDO  -Rt0 ignores
+  all objects between TrneLo and TrneHi.
+
+- init_ephe_path() 
+
+- Reduce compiler warnings
+
+- add switch -YN obj name  and -YNL obj name which set name of object szObjName and
+  riyal unnumbered name variable riyalObjName
+
+  example (assuming 305 is slightly lower than constant RiyaHi in astrolog.h ) :
+  aastrolog -YNL 305 1994TA -YN 305 1994TA -R0 305 -NB
+  would cause it to look for an .sx1 file named
+  sx1994TA.sx1  
+
+  This way custom unnumbered objects can be read in.
+
+- aastrolog -YTI -ZC writes double floats instead of integers 
+  Then scale=0 in the header. Header remains 3 integers for now
+  Needs twice the diskspace 
+  Used first for .sx1 files of Voyager and Pioneer spacecrafts
+
+- At beginning or end of .sx1 file use linear approx instead of Everett polynomial
+  to extend slightly range of ephemeris. 
+
+- -EY numberofyears -X will actually draw multi-year ephemeris graphics
+
+- switch -YTd value to force deltaT in seconds, e.g. -YTd 0 means deltaT == 0
+  Display does not show it however (except -b1)
+  Useful for comparing dates given in ET (ephemeris time) or similar 
+  Also works with -i -o . TT now means same as ET, no longer same as DT
+
+- use GNU auto tools
+
+- use FileOpen in riyal.c, added mode 3 in io.c
+
+- Loading asteroid names is slow when only .sx1 file present. (searching for .se1 files
+  before checking seasnam.txt ). 
+
+- changes in SzZodiac and SzAltitude with -NB switch
+
+- roughly account for lighttime in FRiyalNumbered() and FRiyalUnnumbered()
+
+April 2009
+- fix bug with -g -X -Xs 400 for midpoints with text (due to larger grid-> )
+
+- use also libtool for building (shared) libswe
+
+- include swetest and swemini executables
+
+- Upgrade to swisseph-1.76.00
+
+- -yr checks for -F switch on return object and turns it off otherwise, so
+  -F Sun Sag 0 -yr initial Sun
+  (or combined with -ZE) looks for next return of forced value 
+
+- ChartReturn() calls it ingress instead of return if -F used
+
+- -F allows value of -360 to "unforce" , e.g.
+  -F Sun Ari -360 
+   will undo previous -F command.
+
+- ChartReturnSet() iterates for more precision
+
+- fix bug printing chart title with -ys -X causing "Bad draw." error
+
+- fixing bugs with -ZEO switch, more occultations in close proximity in time found
+
+May 2009
+
+- use FileOpen instead of fopen for atlas
+
+July 2009
+
+- Bug creating bitmaps was introduced by misplaced added parantheses in extern.h for reduced compiler warnings, corrected. 
+
+August 2009
+
+- edited configure.in
+
+- whole sign aspect switch -Yaw added , also for aspects in declination, not for 3D aspects
+
+January 2010
+
+- replace 2007OR10 (now numbered as 225088) with 2008ST291 in riyal.c
+
+- add new numbered TNO 225088 and 229762, sx files recalculated with epoch MJD 55200
+
+February 2010
+
+- changes in astrolog.h Makefile.am and configure.in for better handling of X11/MOUSE
+  configure --without-x and --x-includes etc. should work
+
+- raise version to 0.2
+
+- add house system with SWE houses (-YTF) 
+   -c 18 Krusinksi-Pisa -c 19 Gauquelin Sectors -c 7 Morinus
+    
+- -l -ys0 inputfile promissor significator
+  shows primary direction mundo (-ys1 zodiac, -ys2 diurnal arc)
+
+- added switch -ps for with or without 2nd motion of promissor
+
+- added switch -pa angle 
+  for angle added to significator (to do aspect in primary directions).May be negative
+
+- converse date with -ZEb
+
+- internal:
+  FPlacalcHouses(jd,fFalse) as FPlacalcHouses(jd) before
+  FPlacalcHouses(jd,fTrue) fills in sector positions/house position of a planet using swe_house_pos (as only gauqelin sector before)
+
+- added switch  -pm0 mundo,-pm1 zodiac,-pm2 diurnal arc,-pm3 with refraction (if -YTF),-pm4 diurnal arc disk edge,-pm5 with refraction (if -YTF)
+
+- -l -tp2 now shows primary direction list
+   ** so far uncertain about precise values without SWE -YTH , non-placidus houses **
+
+- -l -dp2 shows promissor mundane evolution (and primary directions to cusps)
+   ** so far only with -YTH **
+   ** very slow and misses some **
+
+- -l -Tp2 shows current orb between mundane positions
+
+- correction for -c 7 Morinus and -c 16 houses, Ascendant not 1st cusp,M.C. not 10th
+
+- if -ps switch on, show mundane positions instead of zodiac in -l sector chart
+  (with and without graphics)
+
+- for performance either matrix or swe/sx1 positions are used with -b 
+  (Previously matrix positions were overwritten by swe)
+
+- Switch for primary direction keys
+   -pdp        =Placidus
+   -pdn        =Naibod
+   -pdc        =Cardan
+   -pds        =Solar Arc in R.A.
+   -pdb        =Solar Arc in R.A.   on Birthday +-1 day (mean speed)
+   -pdv        =Solar Arc Birth Rate in R.A. ("true speed",varies daily in topocentric) 
+   The Setting of -pd days/year should be left at default 365.24218967
+   -pdp will also reset the default to this value.
+
+- Hardcoded Asteroids only with -D ASTEROIDS defined
+
+March 2010
+
+- Bug for charts in October fixed.
+  Rebuild internal handling of JD.
+  Quantitative Handling of Seconds in Time
+  Quantitative Handling of Seconds in Location
+
+- -sr adds SEFLG_EQUATORIAL in FPlacalcPlanet
+  That case no more ecl-equ transform in calc.c needed
+  ** check for problems with that in other places **
+
+- include Makemake,Altjira,Haumea,Teharonhiawako,Borasisi in harcoded asteroids
+
+- -RC now means only cusps, -RF is like -RC before 
+
+- -RO means Jupiter to Pluto, -RI Mercury to Mars, -RL Sun and moon, -Rx Asc Desc M.C I.C
+
+- -Ru now means the 79 most important fixstars, -RU means long >1000 star list (if -NL in aastrolog) if applicable
+
+- -Yns shows also lunar south node (instead of mean apogee) even with SWE -b
+
+- added switch -Nk to skip hardcoded asteroids when loading range
+  e.g. -Re1 -NA 1 10    vs. -Re1 -NAk 1 10
+  This was once on by default , but later disabled, now selectable
+
+- remove swiss ephemeris documentation from distributed .tgz file
+  See www.astro.com for documentation
+
+- rebuild centaurs.fle tnpsdo.fle asteroid.fle and adapt riyal.c
+  Were mostly using outdated orbits, also bug found with asteroid.fle  
+  Remove 2002VQ94 (comet), 1996PW (gone missing)
+
+- version 0.3 started
+
+- expand number of -Ry objects 
+
+- Those will only be read if not ignored, speeds up aastrolog if only few or none selected
+
+- add function swe_sx_nod_aps that will use .sx1 files if no .se1 available
+  for (osculating) node calculations (in new file riyal2.c)
+
+- update local OrbFit copy for fitobs.x cartesian element propag output >100AU
+
+- -ZC ConvertSolex if 32bit limitation , error and abort instead of warning
+
+- clean up Restrict Clean, when multiple choices, check for distance instead of hardcoded dates
+
+- again quantitative Handling of Seconds in Time
+        quantitative Handling of Seconds in Location
+
+- changes with Atlas request, will also look for altitude (3rd number in line), hopefully
+  will work with atlas.txt generated from GNS data as before
+
+- changed (global) atlas.txt file (converted from Solex GEOSITES.DAT, rounded to minfrom 1/100 deg) with some more entries (22611 instead of 2490)  and altitude. 
+
+April 2010
+
+- changes with altitude in io.c RParseSz
+
+November 2010
+
+- Raise MaxNumberedAsteroid to 260000 in astrolog.h
+
+- add 248835 and 250112 in aastrolog.dat
+
+- update seasnam.txt , created section named and tno
+
+- fix bug with -zL switch (mode 1 instead of 2 for FileOpen)
+
+- fix bug concerning overwriting obj position with -Nn obj
+  Now in calc.c nodes are calculated before object position
+  
+- updated .fle files with MJD55000 
+ 

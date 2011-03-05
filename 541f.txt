@@ -1,0 +1,91 @@
+Changes in last version Astrolog 5.41F
+
+   * Fixed original astrolog bug. POF (in main objects) was wrong in
+     case of equatorial coordinates (but in arabic parts list it was
+     correct).
+
+   * Colors of all main objects can be changed from default. New switch
+     added:
+
+          -Yq <object> <color>
+
+          Just by standard Astrolog rules there are object and color
+          numbers or names (see helpfile.540), so all examples below will
+          give you blue Mars :)
+
+               -Yq 5 12
+               -Yq 5 blue
+               -Yq mars 12
+               -Yq mars blue
+
+   * Alternative stars restriction works now also with parallels. So if
+     (with active "alternative restriction") you switch to parallels (View
+     -> Parallel Aspects), unrestricted will be stars which parallels some
+     object (if you increase apect numbers for alternative restriction,
+     there will be unrestricted stars with contraparallels too).
+
+   * To switch to parallels in command line (DOS or Unix) version (in
+     Win version it's simple), there is new switch -YSP. It's useful also
+     in some other cases (like in combination with -d switch to see
+     parallel-contraparallel events during day/month etc).
+
+   * Added automagic restriction of stars also by prime vertical. There
+     are new switches:
+
+          -YUP <value>
+
+          where value:
+               0 - switch this off
+               1 - unrestricted are stars, which conjuncts some object
+               (except cusps, POF etc).
+               2 - unrestricted are stars with PV = 0, 45, 90, etc degrees
+               3 - unrestricted are both above
+
+          -YUO1 <orb1>
+          -YUO2 <orb2>
+
+          These switches are obvious, they sets orbs for automagic
+          restrictions above (for YUP 1 and YUP 2 respectively), default
+          orbs are 1.166666667 deg (1deg10').
+          When you use -YUP <value>, don't worry about switching on/off
+          "alternative stars restriction", it will be automatically back to
+          previous value when you get -YUP 0.
+          I dindn't add anyhing to Windows version menus, all can be
+          comfortably done by macros like
+          {M0 1 "_v -Z0 -U -Up -YUP 1"}
+          DOS version supports all new switches above.
+
+   * Added alternative date format for some outputs (like events search
+     with -d switch), where abbreviature of month is printed instead of
+     number of month (i.e. "12 Jan 2000" instead of original "12- 1-2000").
+     That can be switched by new switch -Yn. Default setting is Astrolog's
+     original one (numeric month), =Yn switches to abbreviatures.
+
+   * Names and abbreviatures of aspects can be customized. New
+     switches:
+
+          -An <n> <name>
+          -AA <n> <abbreviature>
+
+          There n is number of aspect, name and abbreviature are new name
+          and abbreviature for this aspect. Best way to use is put them to
+          astrolog.dat file.
+
+          NB! <abbreviature> MUST be three characters. Astrolog doesn't
+          check lenght of new abbreviature, and in other case most outputs
+          where aspect abbreviatures are used, will be distorted.
+
+   * Astrolog computes position of Lilith (Dark Moon) using external
+     ephemeris. When -b setting is off, Astrolog will display the position
+     of the South Node instead (see helpfile.540, description of -HO
+     switch). Position of Lilith is calculated by Swiss Ephemeris only if
+     central planet is Earth, and in version 5.41F if central planet isn't
+     Earth, Lilit is analogiously replaced by South Node even if -b switch
+     is on.
+
+   * Original Astrolog doesn't replace central object in comparison
+     grid charts. In version 5.41F changes of central planet are reflected
+     also there.
+
+  ------------------------------------------------------------------------
+Aug. 17th 2000
