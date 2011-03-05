@@ -148,7 +148,7 @@
 #define PACKAGE_NAME "astrolog542J"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "astrolog542J 0.3"
+#define PACKAGE_STRING "astrolog542J 0.4"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "astrolog542j"
@@ -157,7 +157,7 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.3"
+#define PACKAGE_VERSION "0.4"
 
 /* Define as the return type of signal handlers (`int' or `void'). */
 #define RETSIGTYPE void
@@ -172,7 +172,7 @@
 /* #undef TM_IN_SYS_TIME */
 
 /* Version number of package */
-#define VERSION "0.3"
+#define VERSION "0.4"
 
 /* Define to 1 if the X Window System is missing or not being used. */
 /* #undef X_DISPLAY_MISSING */

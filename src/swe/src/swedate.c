@@ -1,5 +1,5 @@
 /*********************************************************
-  $Header: /home/dieter/sweph/RCS/swedate.c,v 1.74 2008/06/16 10:07:20 dieter Exp $
+  $Header: /home/dieter/sweph/RCS/swedate.c,v 1.75 2009/04/08 07:17:29 dieter Exp $
   version 15-feb-89 16:30
   
   swe_date_conversion()
@@ -135,11 +135,11 @@ int FAR PASCAL_CONV swe_date_conversion(int y,
  From this comes also the fact the noon ephemerides were printed
  before midnight ephemerides were introduced early in the 20th century.
  
- NOTE: The Julian day number is named after the monk Julianus. It must
- not be confused with the Julian calendar system, which is named after
- Julius Cesar, the Roman politician who introduced this calendar.
- The Julian century is named after Cesar, i.e. a century in the Julian
- calendar. The 'gregorian' century has a variable length.
+ NOTE: The Julian day number must not be confused with the Julian 
+ calendar system.
+ The Julian day number was introduced by Josephus Justus Scaliger
+ in 1583 and named either after the Julian calendar year or
+ after his father Julius Caesar Scaliger.
 
  Be aware the we always use astronomical year numbering for the years
  before Christ, not the historical year numbering.
@@ -223,6 +223,55 @@ void FAR PASCAL_CONV swe_revjul (double jd, int gregflag,
   *jday = (int) (u2 - floor (365.25 * u3) - floor (30.6001 * u4));
   *jyear = (int) (u3 + floor ( (u4 - 2.0) / 12.0) - 4800);
   *jut = (jd - floor (jd + 0.5) + 0.5) * 24.0;
+}
+
+/* transform local time to UTC or UTC to local time
+ *
+ * input 
+ *   iyear ... dsec     date and time
+ *   d_timezone		timezone offset
+ * output
+ *   iyear_out ... dsec_out
+ * 
+ * For time zones east of Greenwich, d_timezone is positive.
+ * For time zones west of Greenwich, d_timezone is negative.
+ * 
+ * For conversion from local time to utc, use +d_timezone.
+ * For conversion from utc to local time, use -d_timezone.
+ */
+void FAR PASCAL_CONV swe_utc_time_zone(
+        int32 iyear, int32 imonth, int32 iday,
+        int32 ihour, int32 imin, double dsec,
+        double d_timezone,
+        int32 *iyear_out, int32 *imonth_out, int32 *iday_out,
+        int32 *ihour_out, int32 *imin_out, double *dsec_out
+        )
+{
+  double tjd, d;
+  AS_BOOL have_leapsec = FALSE;
+  double dhour;
+  if (dsec >= 60.0) {
+    have_leapsec = TRUE;
+    dsec -= 1.0;
+  }
+  dhour = ((double) ihour) + ((double) imin) / 60.0 + dsec / 3600.0;
+  tjd = swe_julday(iyear, imonth, iday, 0, SE_GREG_CAL);
+  dhour -= d_timezone;
+  if (dhour < 0.0) {
+    tjd -= 1.0;
+    dhour += 24.0;
+  }
+  if (dhour >= 24.0) {
+    tjd += 1.0;
+    dhour -= 24.0;
+  }
+  swe_revjul(tjd + 0.001, SE_GREG_CAL, iyear_out, imonth_out, iday_out, &d);
+  *ihour_out = (int) dhour;
+  d = (dhour - (double) *ihour_out) * 60;
+  *imin_out = (int) d;
+  *dsec_out = (d - (double) *imin_out) * 60;
+  if (have_leapsec)
+    *dsec_out += 1.0;
 }
 
 /*

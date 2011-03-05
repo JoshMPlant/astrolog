@@ -727,8 +727,9 @@ static int CalcH(
       retc = ERR;
       goto porphyry;
     }
-    sina = sind(hsp->mc) * sine / cosd(fi); 	/* always << 1,
-				      because fi < polar circle */
+    sina = sind(hsp->mc) * sine / cosd(fi);
+    if (sina > 1) sina = 1;
+    if (sina < -1) sina = -1;
     cosa = sqrt(1 - sina * sina);		/* always >> 0 */
     c = atand(tanfi / cosa);
     ad3 = asind(sind(c) * sina) / 3.0;
@@ -1065,7 +1066,7 @@ porphyry:
     fh2 = atand(sind(a * 2 / 3) / tane);
     /* ************  house 11 ******************** */
     rectasc = swe_degnorm(30 + th);
-	tant = tand(asind(sine * sind(Asc1 (rectasc, fh1, sine, cose))));
+    tant = tand(asind(sine * sind(Asc1 (rectasc, fh1, sine, cose))));
     if (fabs(tant) < VERY_SMALL) {
       hsp->cusp [11] = rectasc;
     } else {
@@ -1284,11 +1285,13 @@ double FAR PASCAL_CONV swe_house_pos(
 {
   double xp[6], xeq[6], ra, de, mdd, mdn, sad, san;
   double hpos, sinad, ad, a, admc, adp, samc, demc, asc, mc, acmc, tant;
-  double fh, ra0, tanfi, fac;
+  double fh, ra0, tanfi, fac, dfac;
   double x[3], xasc[3], raep, raaz, oblaz, xtemp; /* BK 21.02.2006 */
   double sine = sind(eps);
   double cose = cosd(eps);
   AS_BOOL is_above_hor = FALSE;
+  AS_BOOL is_invalid = FALSE;
+  AS_BOOL is_circumpolar = FALSE;
   if (serr != NULL)
     *serr = '\0';
   hsys = toupper(hsys);
@@ -1415,6 +1418,8 @@ double FAR PASCAL_CONV swe_house_pos(
       hpos = hpos / 30.0 + 1;
     }
       break;
+#if 0
+    /* old version of Koch method */
     case 'K':
       demc = atand(sind(armc) * tand(eps));
       /* if body is within circumpolar region, error */
@@ -1428,10 +1433,6 @@ double FAR PASCAL_CONV swe_house_pos(
 	  strcpy(serr, "no Koch house position, because mc is circumpolar.");
         xp[0] = 0;
 	hpos = 0;	/* Error */
-#if 0
-	 /* if geolat beyond polar circle, error */
-       || (fabs(geolat) >= 90 - eps)) 
-#endif
       } else {
         admc = asind(tand(eps) * tand(geolat) * sind(armc));
         adp = asind(tand(geolat) * tand(de));
@@ -1446,6 +1447,80 @@ double FAR PASCAL_CONV swe_house_pos(
 	xp[0] = swe_degnorm(xp[0] + MILLIARCSEC);
 	hpos = xp[0] / 30.0 + 1;
       }
+      break;
+#endif
+    /* version of Koch method: do calculations within circumpolar circle,
+     * if possible; make sure house positions 4 - 9 only appear on western
+     * hemisphere */
+    case 'K': 
+      demc = atand(sind(armc) * tand(eps));
+      is_invalid = FALSE;
+      is_circumpolar = FALSE;
+      /* object is within a circumpolar circle */
+      if (90 - geolat < de || -90 - geolat > de) {
+        adp = 90;
+	is_circumpolar = TRUE;
+      }
+      /* object is within a circumpolar circle, southern hemisphere */
+      else if (geolat - 90 > de || geolat + 90 < de) {
+        adp = -90;
+	is_circumpolar = TRUE;
+      }
+      /* object does rise and set */
+      else {
+	adp = asind(tand(geolat) * tand(de));
+      }
+#if 0
+      if (fabs(adp) == 90)
+        is_invalid = TRUE; /* omit this to use the above values */
+#endif
+      admc = tand(eps) * tand(geolat) * sind(armc);
+      /* midheaven is circumpolar */
+      if (fabs(admc) > 1) {
+#if 0
+        is_invalid = TRUE; /* omit this line to use the below values */
+#endif
+	if (admc > 1)
+	  admc = 1;
+	else
+	  admc = -1;
+	is_circumpolar = TRUE;
+      }
+      admc = asind(admc);
+      samc = 90 + admc;
+      if (samc == 0)
+        is_invalid = TRUE;
+      if (fabs(samc) > 0) {
+	if (mdd >= 0) { /* east */
+	  dfac = (mdd - adp + admc) / samc;
+	  xp[0] = swe_degnorm((dfac - 1) * 90);
+	  xp[0] = swe_degnorm(xp[0] + MILLIARCSEC);
+	  /* eastern object has longer SA than midheaven */
+	  if (dfac > 2 || dfac < 0)
+	    is_invalid = TRUE; /* if this is omitted, funny things happen */
+	} else {
+	  dfac = (mdd + 180 + adp + admc) / samc;
+	  xp[0] = swe_degnorm((dfac + 1) * 90);
+	  xp[0] = swe_degnorm(xp[0] + MILLIARCSEC);
+	  /* western object has longer SA than midheaven */
+	  if (dfac > 2 || dfac < 0)
+	    is_invalid = TRUE; /* if this is omitted, funny things happen */
+	}
+      }
+      if (is_invalid) {
+        xp[0] = 0;
+	hpos = 0;
+	if (serr != NULL)
+          strcpy(serr, "Koch house position failed in circumpolar area");
+	break;
+      }
+      if (is_circumpolar) {
+	if (serr != NULL)
+          strcpy(serr, "Koch house position, doubtful result in circumpolar area");
+      }
+      /* to make sure that a call with a house cusp position returns
+       * a value within the house, 0.001" is added */
+      hpos = xp[0] / 30.0 + 1;
       break;
     case 'C':
       xeq[0] = swe_degnorm(mdd - 90);

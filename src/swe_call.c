@@ -185,8 +185,8 @@ real *obj, *objalt,*sector,*magnitude;
         swe_set_sid_mode(sflag,us.nSidEclDate,us.rZodiacOffset);
     }
       if (us.fSector&&us.fSweHouse&&!us.fSectorApprox&&(fGauqMode>=2)) {
-        geopos[0]=-oo;
-        geopos[1]=aa;
+        geopos[0]=-DecToDeg(OO);
+        geopos[1]=DecToDeg(AA);
         geopos[2]=NN;
           swe_gauquelin_sector(jd,0,iobj,flag,fGauqMode,geopos,us.atpressDef,us.attempDef,sector,serr);
     }
@@ -432,7 +432,7 @@ bool backward;
 
     init_ephe_path();
     backward=(bool)fEclipseBackward;
-    geopos[0]=-oo;
+    geopos[0]=-DecToDeg(OO);
     geopos[1]=DecToDeg(AA);
     geopos[2]=NN;
     objleft=*nobj;
@@ -544,33 +544,37 @@ int obj;
 
     backward=(bool)fEclipseBackward;
     init_ephe_path();
-    geopos[0]=-oo;
-    geopos[1]=aa;
+    geopos[0]=-DecToDeg(OO);
+    geopos[1]=DecToDeg(AA);
     geopos[2]=NN;
     if (obj==oMoo) {
         reti=swe_lun_eclipse_when(jd,SEFLG_SWIEPH,65535,tret,backward,serr);
         swe_set_topo(geopos[0],geopos[1],geopos[2]);
     }
     else if (obj==oSun) {
+        if (!fEclipseDetails){
         reti=swe_sol_eclipse_when_glob(jd,SEFLG_SWIEPH,0,tret,backward,serr);
-        if (!fEclipseDetails)
             swe_sol_eclipse_where(tret[0]-3,SEFLG_SWIEPH,geopos,attr,serr);
-        reti=swe_sol_eclipse_when_loc(jd,SEFLG_SWIEPH,geopos,tret,attr,backward,serr);
+            }
+        else
+           reti=swe_sol_eclipse_when_loc(jd,SEFLG_SWIEPH,geopos,tret,attr,backward,serr);
         swe_set_topo(geopos[0],geopos[1],geopos[2]);
     }
     else if FNorm(obj) {
+        if (!fEclipseDetails){
         reti=swe_lun_occult_when_glob(jd,AlToSweObj(obj),NULL,SEFLG_SWIEPH,0,tret,backward,serr);
-        if (!fEclipseDetails)
             swe_lun_occult_where(tret[0]-3,AlToSweObj(obj),NULL,SEFLG_SWIEPH,geopos,attr,serr);
-        else swe_lun_occult_when_loc(jd,AlToSweObj(obj),NULL,SEFLG_SWIEPH,geopos,tret,attr,backward,serr);
+            }
+        else reti=swe_lun_occult_when_loc(jd,AlToSweObj(obj),NULL,SEFLG_SWIEPH,geopos,tret,attr,backward,serr);
         swe_set_topo(geopos[0],geopos[1],geopos[2]);
     }
 
     else if FStar(obj) {
         sprintf(starname, "%i", obj-starLo+1);
+        if (!fEclipseDetails){
         reti=swe_lun_occult_when_glob(jd,0,starname,SEFLG_SWIEPH,0,tret,backward,serr);
-        if (!fEclipseDetails)
             swe_lun_occult_where(tret[0]-3,0,starname,SEFLG_SWIEPH,geopos,attr,serr);
+            }
         else swe_lun_occult_when_loc(jd,0,starname,SEFLG_SWIEPH,geopos,tret,attr,backward,serr);
         swe_set_topo(geopos[0],geopos[1],geopos[2]);
     }
@@ -644,7 +648,8 @@ int obj;
     if (fOccultAll)
         return (backward ? Min(jd,tret[0]) : Max(jd,tret[0]));
     else
-        return (backward ? Max(tret[0],tret[0]): Min(tret[0],tret[0]));
+     /*   return (backward ? Max(tret[0],tret[0]): Min(tret[0],tret[0]));*/
+         return tret[0];
 }
 
 bool FPlacalcNode(ind, jd, helio, obj, objalt, dir, space, altdir,disdir)

@@ -782,7 +782,7 @@ real jdt;
 
   /* If heliocentric, move Earth position to object slot zero. */
 
-  if (!fRestrictClean)
+  if (!fRestrictClean && !us.fPlacalc)
     {
       i = us.objCenter != oEar;
       if (i)

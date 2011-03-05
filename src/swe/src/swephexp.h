@@ -1,5 +1,5 @@
 /************************************************************
-  $Header: /home/dieter/sweph/RCS/swephexp.h,v 1.74 2008/06/16 10:07:20 dieter Exp $
+  $Header: /home/dieter/sweph/RCS/swephexp.h,v 1.75 2009/04/08 07:19:08 dieter Exp $
   SWISSEPH: exported definitions and constants 
 
   This file represents the standard application interface (API)
@@ -16,7 +16,7 @@
     Internal developer's definitions
     Public API functions.
 
-  Authors: Dieter Koch and Alois Treindl, Astrodienst Zürich
+  Authors: Dieter Koch and Alois Treindl, Astrodienst Zurich
 
 ************************************************************/
 /* Copyright (C) 1997 - 2008 Astrodienst AG, Switzerland.  All rights reserved.
@@ -73,6 +73,9 @@
   for promoting such software, products or services.
 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #ifndef _SWEPHEXP_INCLUDED      /* allow multiple #includes of swephexp.h */
 #define _SWEPHEXP_INCLUDED
@@ -270,14 +273,20 @@
 #define SE_CALC_SET		2
 #define SE_CALC_MTRANSIT	4
 #define SE_CALC_ITRANSIT	8
-#define SE_BIT_DISC_CENTER      256 /* to be or'ed to SE_CALC_RISE/SET */
-				    /* if rise or set of disc center is */
-				    /* required */
-#define SE_BIT_NO_REFRACTION    512 /* to be or'ed to SE_CALC_RISE/SET, */
-				    /* if refraction is not to be considered */
+#define SE_BIT_DISC_CENTER      256 /* to be or'ed to SE_CALC_RISE/SET,
+				     * if rise or set of disc center is 
+				     * required */
+#define SE_BIT_DISC_BOTTOM      8192 /* to be or'ed to SE_CALC_RISE/SET,
+                                      * if rise or set of lower limb of 
+				      * disc is requried */
+#define SE_BIT_NO_REFRACTION    512 /* to be or'ed to SE_CALC_RISE/SET, 
+				     * if refraction is to be ignored */
 #define SE_BIT_CIVIL_TWILIGHT    1024 /* to be or'ed to SE_CALC_RISE/SET */
 #define SE_BIT_NAUTIC_TWILIGHT   2048 /* to be or'ed to SE_CALC_RISE/SET */
 #define SE_BIT_ASTRO_TWILIGHT    4096 /* to be or'ed to SE_CALC_RISE/SET */
+#define SE_BIT_FIXED_DISC_SIZE (16*1024) /* or'ed to SE_CALC_RISE/SET:
+                                     * neglect the effect of distance on
+				     * disc size */
 
 
 /* for swe_azalt() and swe_azalt_rev() */
@@ -301,7 +310,8 @@
 #define SE_FNAME_DE405  "de405.eph"
 #define SE_FNAME_DE406  "de406.eph"
 #define SE_FNAME_DFT    SE_FNAME_DE406
-#define SE_STARFILE     "fixstars.cat"
+#define SE_STARFILE_OLD "fixstars.cat"
+#define SE_STARFILE     "sefstars.txt"
 #define SE_ASTNAMFILE   "seasnam.txt"
 #define SE_FICTFILE     "seorbel.txt"
 
@@ -323,8 +333,7 @@
 # ifdef MACOS
 #  define SE_EPHE_PATH	":ephe:"
 # else
-#include "swelocal.h"
-/*#  define SE_EPHE_PATH    ".:/users/ephe2/:/users/ephe/"*/
+#  define SE_EPHE_PATH    ".:/users/ephe2/:/users/ephe/"
 			/* At Astrodienst, we maintain two ephemeris areas for
 			   the thousands of asteroid files: 
 			   the short files in /users/ephe/ast*,
@@ -339,10 +348,10 @@
 # define SE_SPLIT_DEG_ZODIACAL     8
 # define SE_SPLIT_DEG_KEEP_SIGN   16	/* don't round to next sign, 
 					 * e.g. 29.9999999 will be rounded
-					 * to 29°59'59" (or 29°59' or 29°) */
+					 * to 29d59'59" (or 29d59' or 29d) */
 # define SE_SPLIT_DEG_KEEP_DEG    32	/* don't round to next degree
 					 * e.g. 13.9999999 will be rounded
-					 * to 13°59'59" (or 13°59' or 13°) */
+					 * to 13d59'59" (or 13d59' or 13d) */
 
 /* for heliacal functions */
 #define SE_HELIACAL_RISING		1
@@ -352,17 +361,21 @@
 #define SE_EVENING_FIRST		3
 #define SE_MORNING_LAST			4
 #define SE_ACRONYCHAL_RISING		5  /* still not implemented */
-#define SE_COSMICAL_SETTING		6  /* still not implemented */
-#define SE_ACRONYCHAL_SETTING		SE_COSMICAL_SETTING
+#define SE_ACRONYCHAL_SETTING		6  /* still not implemented */
+#define SE_COSMICAL_SETTING		SE_ACRONYCHAL_SETTING
 
 #define SE_HELFLAG_LONG_SEARCH 	128
 #define SE_HELFLAG_HIGH_PRECISION 	256
 #define SE_HELFLAG_OPTICAL_PARAMS	512
 #define SE_HELFLAG_NO_DETAILS		1024
-#define SE_HELFLAG_AVKIND_VR 		2048
-#define SE_HELFLAG_AVKIND_PTO 		4096
-#define SE_HELFLAG_AVKIND_MIN7 	8192
-#define SE_HELFLAG_AVKIND_MIN9 	16384
+#define SE_HELFLAG_SEARCH_1_PERIOD	(1 << 11)  /*  2048 */
+#define SE_HELFLAG_VISLIM_DARK		(1 << 12)  /*  4096 */
+#define SE_HELFLAG_VISLIM_NOMOON	(1 << 13)  /*  8192 */
+#define SE_HELFLAG_VISLIM_PHOTOPIC	(1 << 14)  /* 16384 */
+#define SE_HELFLAG_AVKIND_VR 		(1 << 15)  /* 32768 */
+#define SE_HELFLAG_AVKIND_PTO 		(1 << 16)
+#define SE_HELFLAG_AVKIND_MIN7 		(1 << 17)
+#define SE_HELFLAG_AVKIND_MIN9 		(1 << 18)
 #define SE_HELFLAG_AVKIND (SE_HELFLAG_AVKIND_VR|SE_HELFLAG_AVKIND_PTO|SE_HELFLAG_AVKIND_MIN7|SE_HELFLAG_AVKIND_MIN9)
 #define TJD_INVALID		 	99999999.0
 #define SIMULATE_VICTORVB               1
@@ -549,6 +562,13 @@ ext_def(void) swe_jdut1_to_utc(
 	int32 *iyear, int32 *imonth, int32 *iday, 
 	int32 *ihour, int32 *imin, double *dsec);
 
+ext_def(void) swe_utc_time_zone(
+        int32 iyear, int32 imonth, int32 iday,
+	int32 ihour, int32 imin, double dsec,
+	double d_timezone,
+	int32 *iyear_out, int32 *imonth_out, int32 *iday_out,
+	int32 *ihour_out, int32 *imin_out, double *dsec_out);
+
 /**************************** 
  * exports from swehouse.c 
  ****************************/
@@ -723,3 +743,7 @@ ext_def( char *) swe_cs2degstr(CSEC t, char *a);
 #endif  /* #ifndef _SWEDLL_H */
 
 #endif  /* #ifndef _SWEPHEXP_INCLUDED */
+
+#ifdef __cplusplus
+} /* extern C */
+#endif

@@ -2,7 +2,7 @@
 /************************************************************
    $Header: /home/dieter/sweph/RCS/swephlib.h,v 1.74 2008/06/16 10:07:20 dieter Exp $
 
-  Authors: Dieter Koch and Alois Treindl, Astrodienst Zürich
+  Authors: Dieter Koch and Alois Treindl, Astrodienst Zurich
 
 ************************************************************/
 /* Copyright (C) 1997 - 2008 Astrodienst AG, Switzerland.  All rights reserved.
@@ -140,6 +140,8 @@ extern double swi_edcheb(double x, double *coef, int ncf);
 
 /* cross product of vectors */
 extern void swi_cross_prod(double *a, double *b, double *x);
+/* dot product of vecotrs */
+extern double swi_dot_prod_unit(double *x, double *y);
 
 extern double swi_angnorm(double x);
 
@@ -157,6 +159,9 @@ extern double swi_kepler(double E, double M, double ecce);
 extern char *swi_get_fict_name(int32 ipl, char *s);
 
 extern void swi_FK4_FK5(double *xp, double tjd);
+
+extern char *swi_strcpy(char *to, char *from);
+extern char *swi_strncpy(char *to, char *from, size_t n);
 
 #ifdef TRACE
 #  define TRACE_COUNT_MAX         10000

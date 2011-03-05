@@ -235,10 +235,10 @@ swetest_HEADERS = swephexp.h swelocal.h
 swemini_HEADERS = swephexp.h swelocal.h
 libswe_ladir = $(libdir)
 #include_HEADERS = swephexp.h swelocal.h
-swetest_DATA = fixstars.cat sedeltat.txt.inactive seorbel.txt seleapsec.txt seasnam.txt
+swetest_DATA = fixstars.cat sedeltat.txt.inactive seorbel.txt seleapsec.txt seasnam.txt sefstars.txt
 swetestdir = $(datadir)/$(PACKAGE)
 sweminidir = $(datadir)/$(PACKAGE)
-EXTRA_DIST = swedate.h swedll.h swehouse.h swejpl.h swenut2000a.h sweodef.h swepcalc.h sweph.h swephexp.h swephlib.h swemplan.c swemptab.c fixstars.cat sedeltat.txt.inactive seorbel.txt seleapsec.txt seasnam.txt
+EXTRA_DIST = swedate.h swedll.h swehouse.h swejpl.h swenut2000a.h sweodef.h swepcalc.h sweph.h swephexp.h swephlib.h swemplan.c swemptab.c fixstars.cat sedeltat.txt.inactive seorbel.txt seleapsec.txt seasnam.txt sefstars.txt
 all: all-am
 
 .SUFFIXES:

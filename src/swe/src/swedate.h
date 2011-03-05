@@ -78,5 +78,5 @@ extern EXP32 void FAR PASCAL_CONV EXP16 swe_revjul (
      	int *jyear, int *jmon, int *jday, double *jut);
 #endif
 #ifdef __cplusplus
-}
+} /* extern C */
 #endif

@@ -1,5 +1,5 @@
 /* SWISSEPH
- * $Header: /home/dieter/sweph/RCS/swedll.h,v 1.74 2008/06/16 10:07:20 dieter Exp $
+ * $Header: /home/dieter/sweph/RCS/swedll.h,v 1.75 2009/04/08 07:19:08 dieter Exp $
  *
  *  Windows DLL interface imports for the Astrodienst SWISSEPH package
  *
@@ -59,7 +59,7 @@
   for promoting such software, products or services.
 */
 
-/* $Id: swedll.h,v 1.74 2008/06/16 10:07:20 dieter Exp $ */
+/* $Id: swedll.h,v 1.75 2009/04/08 07:19:08 dieter Exp $ */
 
 #ifdef __cplusplus
 extern "C" {
@@ -162,6 +162,13 @@ DllImport void FAR PASCAL swe_revjul(
         double jd, int gregflag,
         int *year, int *mon, int *mday,
         double *hour);
+
+DllImport void FAR PASCAL swe_utc_time_zone(
+        int32 iyear, int32 imonth, int32 iday,
+	int32 ihour, int32 imin, double dsec,
+	double d_timezone,
+	int32 *iyear_out, int32 *imonth_out, int32 *iday_out,
+	int32 *ihour_out, int32 *imin_out, double *dsec_out);
 
 DllImport int32 FAR PASCAL swe_utc_to_jd(
         int32 iyear, int32 imonth, int32 iday, 
@@ -505,5 +512,5 @@ DllImport int32 FAR PASCAL swe_nod_aps_ut_d(double *tjd_ut, int32 ipl, int32 ifl
 
 #endif /* !_SWEDLL_H */
 #ifdef __cplusplus
-}
+} /* extern C */
 #endif

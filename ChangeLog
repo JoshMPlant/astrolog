@@ -1271,4 +1271,19 @@ November 2010
   Now in calc.c nodes are calculated before object position
   
 - updated .fle files with MJD55000 
- 
+
+December 2010
+
+- updated seasnam_named.txt , seasnam.txt in Makefile.am  
+
+- fixed problems with -h in swe_call.c;AlToSweObj
+
+January 2011
+
+- fixed bugs with finding solar eclipse (probably since April 2009)
+
+February 2011
+
+- update to swiss ephemeris v1.77.00
+
+- version raised to astrolog542j-0.4

@@ -194,7 +194,7 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = ast136
-EXTRA_DIST = atlas.txt fixstars.cat seas_18.se1 seasnam.txt seasnam_named.txt seasnam_tno.txt seorbel.txt sepl_18.se1\
+EXTRA_DIST = atlas.txt fixstars.cat seas_18.se1 seasnam_named.txt seasnam_tno.txt seorbel.txt sepl_18.se1\
              dofitorb.sh dofitorbunn.sh dofitorbneo.sh docentfle.sh dotnofle.sh \
              doastfle.sh dobarinit.sh alltno.sh doorb9tno.sh doorb9astdir.sh \
              fitobs.inp fitobs.inp.riyalfle fitobs.inp.riyalfleast input.fop \
@@ -205,6 +205,7 @@ EXTRA_DIST = atlas.txt fixstars.cat seas_18.se1 seasnam.txt seasnam_named.txt se
 astrolog_DATA = atlas.txt fixstars.cat seas_18.se1 seasnam.txt seorbel.txt sepl_18.se1
 aastrologdir = $(datadir)/${PACKAGE}/ephe
 astrologdir = $(datadir)/${PACKAGE}/ephe
+DISTCLEANFILES = seasnam.txt
 all: all-recursive
 
 .SUFFIXES:
@@ -462,6 +463,7 @@ clean-generic:
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
+	-test -z "$(DISTCLEANFILES)" || rm -f $(DISTCLEANFILES)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -550,6 +552,8 @@ uninstall-am: uninstall-astrologDATA
 	tags tags-recursive uninstall uninstall-am \
 	uninstall-astrologDATA
 
+seasnam.txt: Makefile
+	cat $(srcdir)/seasnam_*.txt >$@
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:

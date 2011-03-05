@@ -4,17 +4,33 @@ to set path to directories to find files
 
 Please note that this version will not work correctly with windows menu graphics (define WIN)
 
-
 With gcc compiler two executables are built
 astrolog,aastrolog. astrolog is fastest but has no extra asteroids.
 aastrolog has space for ca. 4000 asteroids simultaneously but is slower especially
-with graphics. 
+with graphics.
+
+The current basis of the Swiss Ephemeris is swe 1.77.00 
+
+For some info and further links on Centaurs, Kuiper Belt Objects etc. in astrology
+you may visit http://groups.yahoo.com/group/Centaurs
+
+Swiss ephemeris files can be downloaded at www.astro.com
+
+The relation between asteroid number you need to download
+and name of the object can be seen for example at
+
+http://www.minorplanetcenter.org/iau/lists/TNOs.html
+http://www.minorplanetcenter.org/iau/lists/Centaurs.html
+
+
+
+/* PRETTY MUCH OBSOLETE
 Additionally kastrolog can be built, however against outdated KDE v2
 kastrolog is using KDE and has different graphics, using proper font glyphs 
 but also slower. The menus for kastrolog do not match the full current functionality and
 some menu points do not work properly. Also the color palette may be set unexpectedly.
 
-The current basis of the Swiss Ephemeris is swe 1.76.00 
+The current basis of the Swiss Ephemeris is swe 1.77.00 
 
 /* OBSOLETE
 Previously there were some small modifications also on the Swiss Ephemeris code.
@@ -24,20 +40,4 @@ the area of coordinate transformations,refraction and delta t forecasts and fixe
 
 The format of the fixstars file also differed from normal swiss ephemeris, because also distance
 in lightyears is partially included.
-
- OBSOLETE */
-
-
-For some info and further links on Centaurs, Kuiper Belt Objects etc. in astrology
-you may visit http://groups.yahoo.com/group/Centaurs
-
-Swiss ephemeris files can be downloaded at www.astro.com
-
-The relation between asteroid number you need to download
-and name of the object can be seen for example at
-http://cfa-www.harvard.edu/iau/lists/TNOs.html
-http://cfa-www.harvard.edu/iau/lists/Centaurs.html
-
-
-
 

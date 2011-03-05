@@ -559,7 +559,7 @@ and drawmap program ) */
 
 #define szAppNameCore "Astrolog"
 #define szVersionCore "542J"
-#define szDateCore    "Feb 2010"
+#define szDateCore    "Jan 2011"
 #define szAddressCore \
   "Astara@msn.com - http://www.magitech.com/~cruiser1/astrolog.htm"
 #define MyAddressCore "Llyra@altavista.com\n - http://devel-home.kde.org/~kastrolog/"

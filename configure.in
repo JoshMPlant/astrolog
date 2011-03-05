@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ(2.64)
-AC_INIT([astrolog542J],[0.3],[scharn@bluewin.ch])
+AC_INIT([astrolog542J],[0.4],[scharn@bluewin.ch])
 dnl AC_PREFIX_PROGRAM(astrolog)
 AC_CONFIG_SRCDIR([src/astrolog.c])
 AC_CONFIG_MACRO_DIR([m4])

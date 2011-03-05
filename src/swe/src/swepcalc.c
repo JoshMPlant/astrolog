@@ -329,6 +329,7 @@ int calc(int  planet,  	/* planet index as defined in placalc.h,
     *alng = nut = x[2];
     *arad = x[1];
     *alat = ekl = x[0];
+    *alngspeed = 0.0;
   } else {
     *alng = x[0];
     *arad = x[2];

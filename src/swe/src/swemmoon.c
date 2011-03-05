@@ -1099,7 +1099,22 @@ moonpol[2] *= a;
 static void moon1()
 {
 double a;
-
+/* This code added by Bhanu Pinnamaneni, 17-aug-2009 */
+/* Note by Dieter: Bhanu noted that ss and cc are not sufficiently
+ * initialised and random values are used for the calculation.
+ * However, this may be only part of the bug.
+ * The bug could be in sscc(). Or may be the bug is rather in
+ * the 116th line of NLR, where the value "5" may be wrong.
+ * Still, this will make a maximum difference of only 0.1", while the error
+ * of the Moshier lunar ephemeris can reach 7". */
+int i, j;
+for (i = 0; i < 5; i++) {
+  for (j = 0; j < 8; j++) {
+    ss[i][j] = 0;
+    cc[i][j] = 0;
+  }
+}
+/* End of code addition */
 sscc( 0, STR*D, 6 );
 sscc( 1, STR*M,  4 );
 sscc( 2, STR*MP, 4 );
