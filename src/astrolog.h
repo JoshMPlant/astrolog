@@ -139,6 +139,8 @@
 
 #define INTERPRETALT        /*   V.A.     */
 
+#define MR /*K.R.*/
+
 /* #define ASTEROIDS  Needs #define PLACALC. Is handled in makefile for executable aastrolog */
 
 #define GTOPO /* N.Scharnagl . Use GTOPO30 Data for altitude above sealevel */
@@ -594,7 +596,6 @@ and drawmap program ) */
 #define rSmall     (1.7453E-09)
 #define rLarge     10000.0
 #define rRound     0.5
-
 #define chNull     '\0'
 #define chEscape   '\33'
 #define chBell     '\7'
@@ -622,7 +623,7 @@ and drawmap program ) */
 #define cObjInt    cObj
 #endif
 #define objMax     (cObj+1)
-#define cAspect    18
+#define cAspect    19
 #define cAspectInt 11
 #define cSystem    20
 #define cCnstl     88
@@ -823,7 +824,9 @@ and drawmap program ) */
 #define aBSp 16
 #define aTSp 17
 #define aQNv 18
-
+#ifdef MR          /*K.R.*/ 
+#define aAnt 19 /*Antiscion*/
+#endif
 /* Biorhythm cycle constants */
 
 #define brPhy 23.0
@@ -853,6 +856,12 @@ and drawmap program ) */
 #define acC  6
 #define acMR 7
 #define acK  8
+
+/* Munich Rhythms */
+#ifdef MR /*K.R.*/
+#define nMRFRhythm	0
+#define nMRPRhythm	1
+#endif
 
 /* Graphics chart modes */
 
@@ -895,7 +904,7 @@ and drawmap program ) */
 /* Colors */
 
 #define kReverse -2
-#define kDefault -1
+#define kDefault 8/*-1*/
 #define kBlack   7
 #define kMaroon  1
 #define kDkGreen 2
@@ -1294,7 +1303,11 @@ char *getlocale(const char *);
   gi.nMode != gHouse && gi.nMode != gSector) || us.fVelocity))
 #endif /* GRAPH */
 
-
+#ifdef MR /*K.R.*/
+#define DegFromDec(r) (int)(RFloor(r)) 
+#define MinFromDec(r) (int)(RFract(r) * 60.0)
+#define SecFromDec(r) (int)(RFract(RFract(r) * 60.0) * 60 + rRound / 60.0)
+#endif
 /*
 ******************************************************************************
 ** Type Definitions.
@@ -1366,6 +1379,9 @@ typedef struct _UserSettings {
     _bool fAppSep;        /* -ga */
     _bool fParallel;      /* -gp */
     _bool fAspSummary;    /* -a0 */
+#ifdef MR /*K.R.*/
+		_bool fAntiscia;      		/* -am */
+#endif
     _bool fMidSummary;    /* -m0 */
     _bool fMidAspect;     /* -ma */
     _bool fPrimeVert;     /* -Z0 */
@@ -1430,6 +1446,9 @@ typedef struct _UserSettings {
     _bool fAnsiChar;    /* -k0 */
     _bool fSortRank;    /* -Ns */
     _bool fInterpretSabian;    /* -IS */
+#ifdef MR /*K.R.*/
+	_bool fInterpretGSP;		/* -IG  */
+#endif
 #ifdef PLACALC
     _bool fDiscoveryYear;    /* -Ny */
 #ifdef ASTEROIDS
@@ -1449,6 +1468,9 @@ typedef struct _UserSettings {
     _bool fSweHouse;     /* -YTH Are we going to use Swe houses  */
     _bool fRefraction;     /* -YTF Are we going to use refraction for rising time   */
     _bool fRelocation;     /* -YTL Are we going to relocate from birthplace   */
+#ifdef MR /*K.R.*/
+		char fMunichRhythm;		// -YM  Munich Rhythm Theory (Münchner Rhythmenlehre) 
+#endif
     _bool fAutoAlt;     /* -YTN Are we going to use GTOPO30 altitude */
     _bool fAspect3D;     /* -YTD Are we going to use 3dimensional angles for aspects */
     _bool fNoNutation;     /* -YTT Are we going to turn off Nutation */
@@ -1471,6 +1493,12 @@ typedef struct _UserSettings {
     _bool fNoGraphics;  /* -0X */
 
     /* Value settings */
+#ifdef MR
+	real 	nMRRhythm;		// -YMR
+  	real 	nMRDir; 		// -YMR
+  	int 	nMRRhythmY;		// -YY
+	_bool fMRDirectOnly;
+#endif
     int   nEphemYears;  /* -Ey */
     int   nArabic;      /* -P */
     int   nRel;         /* What relationship chart are we doing, if any? */
@@ -1589,8 +1617,14 @@ typedef struct _ChartPositions {
     real altdir[objMax];  /* Speed in declination  */
     real dis[objMax];  /* distance in AU  */
     real disdir[objMax];  /* speed in distance   */
+#ifdef MR /*K.R.*/
+		real housepos[cSign+1];	// House position in per cent. 
+#endif
     real cusp[cSign+1]; /* House cusp positions.    */
     byte house[objMax]; /* House each object is in. */
+#ifdef MR /*K.R.*/
+		real housesize[cSign+1];	// House size in degree. 
+#endif
     /*  real sector[objMax];*/ /* Gauquelin sector each object is in. */
 } CP;
 
@@ -1801,6 +1835,15 @@ typedef struct _WindowInternal {
     int nDir;          /* Animation step factor and direction.   */
     UINT nTimerDelay;  /* Milliseconds between animation draws.  */
 } WI;
+#endif
+
+#ifdef MR /*K.R.*/
+typedef struct _rhythm {
+	int nPlanet;
+    int nHouse;
+    float rFactor;
+    int nRhythm;
+} RH;
 #endif
 
 #include "extern.h"

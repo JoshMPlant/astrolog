@@ -18,7 +18,7 @@
 =C      ; Show house cusp objects   ["_C" hides them, "=C" shows them  ]
 :w 4    ; Wheel chart text rows     [Change "4" to desired wheel rows  ]
 :I 80   ; Text screen columns       [Change "80" to desired columns    ]
--YQ 24  ; Text screen scroll limit  [Change "24" or set to "0" for none]
+-YQ 0  ; Text screen scroll limit  [Change "24" or set to "0" for none]
 =Yd     ; European date format      ["_Yd" is MDY, "=Yd" is DMY        ]
 =Yt     ; European time format      ["_Yt" is AM/PM, "=Yt" is 24 hour  ]
 =YC     ; Smart cusp displays       ["=YC" is smart, "_YC" is normal   ]

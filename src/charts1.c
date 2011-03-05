@@ -218,6 +218,12 @@ void PrintHeader()
         }
         ciMain = ciT;
     }
+#ifdef MR /*K.R.*/
+	if (us.fMunichRhythm) {
+		sprintf(sz, "Triggers (%s %f years per house)\n", (us.nMRDir != -1 ? us.nMRDir == nMRFRhythm ? "Right direction" : "Left direction" : "Both directions"), us.nMRRhythm);
+		PrintSz(sz);
+	}
+#endif
     if (us.fVerboseHeader)
         PrintVerboseHeader();
 }
@@ -256,6 +262,10 @@ void ChartListing()
 #endif
                 if (us.fInterpretSabian)
                     InterpretSabian();
+#ifdef MR /*K.R.*/
+				else if (us.fInterpretGSP)
+					InterpretGSP();
+#endif
                 else
                     InterpretLocation();      /* Do normal interpretation for just -v -I. */
 #ifdef INTERPRETALT
@@ -264,6 +274,12 @@ void ChartListing()
         }
         return;
     }
+#endif
+#ifdef MR /*K.R.*/
+		if (us.fMunichRhythm) {
+			ComputeHousePosition();
+			return;
+		}
 #endif
     AnsiColor(kDefault);
     if (us.fSeconds) {
@@ -1118,7 +1134,19 @@ real rPowSum;
             rPowSum, rPowSum/(real)count);
     PrintSz(sz);
     k = us.fParallel ? Min(us.nAsp, aOpp) : us.nAsp;
+#ifdef MR /*K.R.*/
+	for (j = 0, i = 1; i <= k+1; i++) if (!ignorea(i)) {              /* one extra loop from k to k+1 for Antiscia */
+#else
     for (j = 0, i = 1; i <= k; i++) if (!ignorea(i)) {
+#endif
+#ifdef MR /*K.R.*/
+		   	if (i == k + 1) {
+				if (us.fAntiscia)
+				i = aAnt;
+			else
+				continue;
+			}
+#endif
             if (!(j & 7)) {
                 if (j)
                     PrintL();

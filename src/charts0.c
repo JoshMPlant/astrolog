@@ -247,6 +247,9 @@ void DisplaySwitches()
     PrintS(" _gp: Like _g but generate parallel and contraparallel aspects.");
     PrintS(" _a: Display list of all aspects ordered by influence.");
     PrintS(" _a0: Like _a but display aspect summary too.");
+#ifdef MR /*K.R.*/
+    PrintS(" _a[0]m: Like _a but display antiscia too.");
+#endif
     PrintS(" _a[0]a: Like _a but indicate applying and separating orbs.");
     PrintS(" _a[0]p: Like _a but do parallel and contraparallel aspects.");
     PrintS(" _m: Display all object midpoints in sorted zodiac order.");
@@ -330,7 +333,10 @@ void DisplaySwitches()
     PrintS(" _NR object orb: Degrees to show around object +-orb degrees for sorting by position");
 #ifdef INTERPRET
     PrintS(" _I [<columns>]: Print interpretation of selected charts.");
-    PrintS(" _IS : Show sabian symbols.");
+		PrintS(" _IS : Show sabian symbols.");
+#ifdef MR /*K.R.*/
+		PrintS(" _IG : Show sensitive points from the Munich Rhythm Method.");
+#endif
 #endif
     PrintS("\nSwitches which affect how the chart parameters are obtained:");
 #ifdef TIME
@@ -505,6 +511,12 @@ void DisplaySwitchesRare()
     PrintS(" _Yl <1-36>: Toggle plus zone status of sector for sector chart.");
 #ifdef ARABIC
     PrintS(" _YP <-1,0,1>: Set how Arabic parts are computed for night charts.");
+#endif
+ #ifdef MR /*K.R.*/
+    PrintS(" _YM: Compute trigger dates after the Munich Rhythm Theory.");
+	PrintS(" _YMR <rhythm> <direction>: Set number of year per house and direction to calculate rhythms from.");
+	PrintS(" _YY <year> <rhythm> <direction>: Show only triggers in <year>.");
+	PrintS(" _YYD <year> <rhythm> <direction>: Show only direct triggers in <year>.");
 #endif
     PrintS(" _Yb <days>: Set number of days to span for biorhythm chart.");
     PrintS(" _YE <obj> <semi-major axis> <eccentricity (3)> <inclination (3)>");

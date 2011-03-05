@@ -57,6 +57,9 @@ US NPTR us = {
 
     /* Chart suboptions */
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#ifdef MR /* K.R.*/
+		0,
+#endif
 #ifdef PLACALC
     0, 0, 0, 0, 0,
 #endif
@@ -74,6 +77,9 @@ US NPTR us = {
     fTrue,
 #endif
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+#ifdef MR /* K.R.*/
+		0,
+#endif
 #ifdef PLACALC
     0,
 #ifdef ASTEROIDS
@@ -88,9 +94,19 @@ US NPTR us = {
 #else
     fFalse,
 #endif
-    0, 0,0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 150, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 0,0,0, 0, 0, 0, 0, 0, 0, 
+#ifdef MR /*K.R.*/
+ 		0, 
+#endif
+	0, 0, 0, 0, 0, 0, 0, 0, 150, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
     /* Value settings */
+#ifdef MR     /*K.R.*/
+	7.0,			/* nMRRhythm */
+  	-1,			/* nMRDir */
+  	fFalse,		/* nMRRhythmY */
+	fFalse,		/*fMRDirectOnly*/
+#endif
     0,
     0,
     0,
@@ -3069,12 +3085,18 @@ char CONST * ARR szAspectName[cAspect+1] = {"",
         "Quintile", "Biquintile",
         "Semiquintile", "Septile", "Novile",
         "Binovile", "Biseptile", "Triseptile", "Quatronovile"
+#ifdef MR /*K.R.*/
+		     , "Antiscion" 
+#endif
                                            };
 
 char CONST * ARR szAspectAbbrev[cAspect+1] = {"",
         "Con", "Opp", "Squ", "Tri", "Sex",
         "Inc", "SSx", "SSq", "Ses", "Qui", "BQn",
         "SQn", "Sep", "Nov", "BNv", "BSp", "TSp", "QNv"
+#ifdef MR /*K.R.*/
+		     , "Ant" 
+#endif		
                                              };
 #endif
 char * szAspectAbbrevCon = "Con";
@@ -3134,6 +3156,14 @@ CONST char *szSuffix[cSign+1] = {"",
                                 };
 #endif
 
+#ifdef MR /*K.R.*/
+const char * szQuadrant[cSign + 1] = {"",
+							  "I",   "I",   "I",
+							  "II",  "II",  "II",
+							  "III", "III", "III",
+							  "IV",  "IV",  "IV"
+};
+#endif
 real rAspAngle[cAspect+1] = {0,
                              0.0, 180.0, 90.0, 120.0, 60.0, 150.0, 30.0, 45.0, 135.0, 72.0, 144.0,
                              36.0, rDegMax/7.0, 40.0, 80.0, 720.0/7.0, 1080.0/7.0, 160.0
@@ -3142,6 +3172,9 @@ real rAspAngle[cAspect+1] = {0,
 real rAspOrb[cAspect+1] = {0,
                            7.0, 7.0, 7.0, 7.0, 6.0, 3.0, 3.0, 3.0, 3.0, 2.0, 2.0,
                            1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0
+#ifdef MR /*K.R.*/
+														,4.5
+#endif
                           };
 
 real rObjOrb[objMax] = {360.0,
@@ -4920,6 +4953,15 @@ int ruler2[objMax] = {0,
                       0,  0,  0,  0,  0,  0,  0,  0,  0
 #endif
                      };
+#ifdef MR /*K.R.*/
+int rulerQuadrant[cSign + 1] = {0,
+  					oMar, oMar, oMar, 
+  					oMoo, oMoo, oMoo,
+  					oVen, oVen, oVen,
+  					oNep, oNep, oNep
+};
+#endif
+
 int exalt[objMax] = {0,
                      1,  2, 11, 12, 10,  4,  7,  8,  9,  6,
                      4,  4, 10,  5, 11,  6, 12,  12, 12, 10,
@@ -5383,6 +5425,9 @@ int kAspA[cAspect+1] = {kWhite,
                         kYellow, kBlue, kRed, kGreen, kCyan,
                         kMagenta, kMagenta, kOrange, kOrange, kDkCyan, kDkCyan,
                         kDkCyan, kMaroon, kPurple, kPurple, kMaroon, kMaroon, kPurple
+#ifdef MR /*K.R.*/
+		     								, kDkCyan 
+#endif
                        };
 
 int kStar1 = kRed;
@@ -7189,6 +7234,9 @@ real rHouseInf[cSign+3]  = {0,
 real rAspInf[cAspect+1] = {0.0,
                            1.0, 0.8, 0.8, 0.6, 0.6, 0.4, 0.4, 0.2, 0.2,
                            0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1
+#ifdef MR /*K.R.*/
+													, 0.75 
+#endif
                           };
 
 /* The inherent strength of each planet when transiting - */

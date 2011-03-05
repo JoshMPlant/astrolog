@@ -1399,4 +1399,27 @@ void InterpretSabian()
         PrintL();
     }
 }
+#ifdef MR /*K.R.*/
+void InterpretGSP() {
+    char sz[cchSzDef*3];
+    int i, j,k;
+
+    PrintL();
+    for (i = 1; i <= cObjInt; i++) {
+        if (ignore[i])
+            continue;
+        AnsiColor(kObjA[i]);
+        j = SFromZ(planet[i]);
+        k = (int)(planet[i]);
+        sprintf(sz, "%s%s%s%s in %2d %s", ret[i] < 0.0 ? "Retrograde " : "",
+                i == oNod ? "North " : (i == oFor ? "Part of " : ""), szObjName[i],
+                i == 13 ? " Athena" : "", (k%30), szSignName[j]);
+        PrintSz(sz);
+        PrintL();
+        sprintf(sz, "%s\n",szGSP[k]);
+        PrintSz(sz);
+        PrintL();
+    }
+}
+#endif
 /* intrpret.c */

@@ -104,8 +104,11 @@ extern bool FProcessSwitches P((int, char **));
 #define altret    cp0.altdir
 #define disret    cp0.disdir
 #define chouse    cp0.cusp
-#define inhouse   cp0.house
-
+#define inhouse	cp0.house
+#ifdef MR /*K.R.*/
+ #define shouse 	cp0.housesize
+#define phouse		cp0.housepos
+#endif
 #define ignorea(a) (rAspOrb[a] <= 0.0)
 
 extern US NPTR us;
@@ -124,6 +127,10 @@ extern real rAspAngle[cAspect+1], rAspOrb[cAspect+1], rObjOrb[objMax],
     rObjAdd[objMax];
 extern int ruler1[objMax], ruler2[objMax], exalt[objMax], rules[cSign+1],
     kMainA[9], kRainbowA[8], kElemA[4], kAspA[cAspect+1];
+#ifdef MR /*K.R.*/
+extern int rulerQuadrant[cSign+1];
+const char *szQuadrant[cSign+1];
+#endif
 extern real rObjInf[objMax+2], rHouseInf[cSign+3], rAspInf[cAspect+1],
     rTransitInf[objMax+2];
 #ifdef ASTEROIDS
@@ -154,7 +161,11 @@ extern real rStarBright[cStar+1],rStarDist[cStar+1];
 extern CONST real rStarData[cStarSmall*6];
 extern char *szMindPart[cObjInt+1], *szDesc[cSign+1], *szDesire[cSign+1],
     *szLifeArea[cSign+1], *szInteract[cAspectInt+1], *szTherefore[cAspectInt+1],
-    *szModify[3][cAspectInt],*szSabian[nDegMax];
+    *szModify[3][cAspectInt],*szSabian[nDegMax]
+#ifdef MR /*K.R.*/
+,*szGSP[nDegMax]
+#endif
+;
 
 extern CONST real rObjDist[oVes+1], rObjYear[oVes+1], rObjDiam[oVes+1],
     rObjDay[oPlu+1], rObjMass[oPlu+1], rObjAxis[oPlu+1];
@@ -263,6 +274,14 @@ extern char szFilePathWin[cchSzMax];
 
 extern int HousePlaceIn P((real));
 extern void ComputeInHouses P((void));
+#ifdef MR /*K.R.*/
+extern void ComputeHousePosition (void);
+extern void ComputeHouseSize (void);
+extern void ComputeInHouses (void);
+extern void PrintRhythms(int, int, real, int);
+extern void PrintMRInfo(int);
+extern int cmpFactor(const void *, const void *);
+#endif
 extern void HouseAlcabitius P((void));
 extern void HouseEqualMidheaven P((void));
 extern void HousePorphyryNeo P((void));
@@ -498,7 +517,9 @@ extern int swe_sx_nod_aps P((double,int,int,int,double *,double *,double *,doubl
 
 extern int RulerPlanet P((int));             /* added by V.A. */
 extern void InterpretSabian P((void));  /* added by N.S. */
-
+#ifdef MR /*K.R.*/
+extern void InterpretGSP (void); 
+#endif
 #ifdef INTERPRET
 extern void FieldWord P((char *));
 extern void InterpretGeneral P((void));

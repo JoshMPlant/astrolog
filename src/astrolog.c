@@ -379,6 +379,9 @@ char **argv;
 {
     int darg = 0, i, j, k;
     real r;
+#ifdef MR /*K.R.*/
+		real d;
+#endif
     char ch1, ch2;
     OE oe;
     lpbyte lpb;
@@ -418,6 +421,83 @@ char **argv;
         SwitchF(us.fEuroTime);
         break;
 
+#ifdef MR /*K.R.*/
+    case 'M':
+    	SwitchF(us.fMunichRhythm);
+     
+			if (ch1 == 'R') {
+				if (argc <= 1) {
+					ErrorArgc("YMR");
+					return tcError;
+				}
+				if (argc >= 2) {
+					d = atof(argv[1]);
+					if (d < 0 || d > 343) { /*rhythm*/
+						ErrorValN("YMR", atoi(argv[1]));
+						return tcError;
+					}
+					else {
+						us.nMRRhythm = d;
+					} 
+				}
+				if (argc >= 3) {  
+					i = atoi(argv[2]);
+					if (!(i == nMRPRhythm || i == nMRFRhythm)) { /*left or right*/
+						ErrorValN("YMR", i);
+						return tcError;
+					}
+					else {
+						us.nMRDir = i;
+					}
+				}
+				/*darg += argc >= 3 ? 2 : argc - 1;*/
+			}
+			darg +=  argc - 1;
+			break;
+
+		case 'Y':
+			if (! us.fMunichRhythm)
+				SwitchF(us.fMunichRhythm);
+            if (ch1 == 'D') {
+				SwitchF(us.fMRDirectOnly);
+			}
+			/*if (argc <= 1) {
+					ErrorArgc("YY");
+					return tcError;
+			}       */
+			if (argc > 1) {
+				i = atoi(argv[1]);
+				if (i < 0 ) { /* || i > 2100) */
+					ErrorValN("YY", i);
+					return tcError;
+				}
+				else {
+					us.nMRRhythmY = i;
+				} 
+			}
+		   	if (argc > 2) {
+				d = atof(argv[2]);
+				if (d < 0 || d > 343) { /*rhythm*/
+					ErrorValN("YY", atoi(argv[1]));
+					return tcError;
+				}
+				else {
+					us.nMRRhythm = d;
+				} 
+			}
+			if (argc > 3) {  
+				i = atoi(argv[3]);
+				if (!(i == nMRPRhythm || i == nMRFRhythm)) { /*left or right*/
+					ErrorValN("YY", i);
+					return tcError;
+				}
+				else {
+					us.nMRDir = i;
+				}
+			}
+			darg +=  argc - 1;
+			break;
+#endif
     case 'T':
         if (ch1=='R')
             SwitchF(us.fTruePos);
@@ -1590,6 +1670,11 @@ int k;
                 SwitchF(us.fAspSummary);
                 ch1 = ch2;
             }
+#ifdef MR /* K.R.*/
+						if (ch1 == 'm')			
+	      				SwitchF(us.fAntiscia);
+								ch1 = ch2;
+#endif
             if (ch1 == 'a')
                 SwitchF(us.fAppSep);
             else if (ch1 == 'p')
@@ -2137,6 +2222,13 @@ int k;
                 us.fInterpretSabian = 1;
                 break;
             }
+#ifdef MR /*K.R.*/
+            if (ch1=='G') {
+                us.fInterpret = 1;
+                us.fInterpretGSP = 1;
+                break;
+            }
+#endif
 #endif
             SwitchF(us.fInterpret);
             break;

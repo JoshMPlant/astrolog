@@ -104,6 +104,173 @@ void ComputeInHouses()
     inhouse[i] = HousePlaceIn(planet[i]);
 }
 
+#ifdef MR /*K.R.*/
+/* Calculate the size of houses,                     */                 
+
+void ComputeHouseSize() {
+	int i;
+  double hsize;
+  
+  for (i = 1; i <= 12; i++) {
+  	hsize = i < cSign ? chouse[i+1]-chouse[i] : chouse[1]-chouse[12];
+    shouse[i] = hsize < 0 ? hsize + rDegMax : hsize;
+  }
+}
+
+/* Display rhythms.                     */
+void PrintRhythms(int i, int j, double s, int rhythm) {
+	int m, d, dd, y, yy;
+	double t;
+	char sz[cchSzDef];
+
+	swe_revjul( swe_julday (YY, MM, DD, TT, 0) + s * us.rProgDay, 0, &y, &m, &d, &t );
+
+	if (!FIgnore(i)) {
+		if (! us.nMRRhythmY || us.nMRRhythmY == y) {
+			if (! us.fMRDirectOnly || j == inhouse[i]){
+				yy =  (int)RFloor(s);
+				dd = (int)(RFract(s) * us.rProgDay);
+				
+				AnsiColor(kObjA[i]);
+				sprintf(sz, "%-8s", szObjName[i]);
+				PrintSz(sz);
+
+				AnsiColor(kSignA(inhouse[i]));
+				sprintf(sz, "[%2d%s] -> ", inhouse[i], szSuffix[inhouse[i]]);
+				PrintSz(sz);
+
+				AnsiColor(kSignA(j));
+				sprintf(sz, "[%2d%s] ", j, szSuffix[j]);
+				PrintSz(sz);
+
+				AnsiColor(kSignA(j));
+				sprintf(sz ,"%3d year%s %3d day%s [%s]", yy, yy == 1 ? " " : "s", dd, dd == 1 ? " " : "s", SzDate(m, d, y, fFalse));
+				PrintSz(sz);
+						
+				sprintf(sz, (rhythm ==  nMRPRhythm ? (j == inhouse[i] ?  "LD\n" :  "L\n") : (j == inhouse[i] ?  " DR\n" : "  R\n")));
+				PrintSz(sz);
+			}
+		}
+	}
+}
+
+void PrintMRInfo(int i) {
+	char sz[cchSzDef];
+	int insign = (int)planet[i] / 30 + 1;
+
+	/* printf("%d\n", insign);*/
+	AnsiColor(kObjA[i]);
+	sprintf(sz, "%s ", szObjName[i]);
+	PrintSz(sz);
+		
+	AnsiColor(kWhite);
+	sprintf(sz, "in Quadrant %s: ", szQuadrant[inhouse[i]]);/*, szObjName[rulerQuadrant[insign]]);*/
+	PrintSz(sz);
+		
+	AnsiColor(kObjA[rulerQuadrant[insign]]);
+	sprintf(sz, "%s", szObjName[rulerQuadrant[insign]]);
+	PrintSz(sz);
+		
+	AnsiColor(kWhite);
+	printf(" in ");
+	PrintZodiac(planet[rulerQuadrant[insign]]);
+	AnsiColor(kWhite);
+	printf(" from ");
+	AnsiColor(kSignA(inhouse[rulerQuadrant[insign]]));
+	sprintf(sz, "[%d]", inhouse[i]);
+	PrintSz(sz);
+		
+	AnsiColor(kWhite);
+	printf(" -> ");
+	AnsiColor(kSignA(inhouse[i]));
+	sprintf(sz, "[%d]\n", inhouse[rulerQuadrant[insign]]);
+	PrintSz(sz);
+}
+
+/* qsort struct comparision function (rFactor float) */
+int cmpFactor(const void *a, const void *b) {
+	struct _rhythm *ia = (struct _rhythm *)a;
+  	struct _rhythm *ib = (struct _rhythm *)b;
+  	return (int)(100.f * ia->rFactor - 100.f * ib->rFactor);
+} 
+ /* float comparison: returns negative if b > a 
+	and positive if a > b. We multiplied result by 100.0
+	to preserve decimal fraction */ 
+
+void ComputeHousePosition() {
+	int i,j;
+	static int k=0;
+	double Ff,Fp;
+	char sz[cchSzDef];
+	size_t l, rhythm_len;
+
+	/* using struct for sorting */
+	RH rhythm[(us.nMRDir == -1 ? 2 : 1) * oPlu * 12];
+
+	rhythm_len = sizeof(rhythm) / sizeof(RH);
+  
+   
+ 	for (i = oSun; i <= oPlu; i++) {
+	  
+		if (us.fSeconds) {
+			/*PrintMRInfo(i);*/
+			if (! us.nMRRhythmY) {
+				PrintTab('-', 58);
+				sprintf(sz, "\n");
+				PrintSz(sz);
+				AnsiColor(kObjA[i]);
+				sprintf(sz, us.fSeconds ? "%-40s" : "%-44s", szObjName[i]);
+				PrintSz(sz);
+				PrintZodiac(planet[i]);
+				AnsiColor(kSignA(inhouse[i]));
+				sprintf(sz, " [%2d%s]\n", inhouse[i], szSuffix[inhouse[i]]);      /* House */
+				PrintSz(sz);
+				AnsiColor(kDefault);
+				PrintTab('-', 58);
+				sprintf(sz, "\n");
+				PrintSz(sz);
+			}
+		}
+
+		phouse[i] = (planet[i] - chouse[inhouse[i]] < 0 ? 
+		rDegMax + planet[i] - chouse[inhouse[i]] : planet[i] - chouse[inhouse[i]]) / shouse[inhouse[i]] * us.nMRRhythm; /*house position exprssed in time of rhythm */
+		
+		for (j = 1; j <= 12; j++) {
+			if (us.nMRDir != nMRFRhythm) { /* counter clockwise*/
+				Fp = (j - 1) * us.nMRRhythm + phouse[i];
+				rhythm[k].nPlanet = i;
+				rhythm[k].nHouse = j;
+				rhythm[k].rFactor = Fp;
+				rhythm[k].nRhythm = nMRPRhythm;
+
+				k++;
+				if (us.fSeconds)
+					PrintRhythms(i, j, Fp,  nMRPRhythm);
+			}
+
+			if (us.nMRDir != nMRPRhythm) {  /* clockwise */
+				Ff = (12 - j) * us.nMRRhythm + us.nMRRhythm - phouse[i];
+				rhythm[k].nPlanet = i;
+				rhythm[k].nHouse = j;
+				rhythm[k].rFactor = Ff;
+				rhythm[k].nRhythm = nMRFRhythm;
+				k++;
+				if (us.fSeconds)
+					PrintRhythms(i, j, (12 - j) * us.nMRRhythm + us.nMRRhythm - phouse[i], nMRFRhythm);
+			}
+		}
+
+		AnsiColor(kDefault);
+	}
+	if (! us.fSeconds) {
+		qsort(rhythm, rhythm_len, sizeof(struct _rhythm), cmpFactor);
+
+		for(l=0; l<rhythm_len; l++)
+			PrintRhythms(rhythm[l].nPlanet, rhythm[l].nHouse, rhythm[l].rFactor, rhythm[l].nRhythm);
+	}
+}  
+
+#endif
 
 /* This house system is just like the Equal system except that we start */
 /* our 12 equal segments from the Midheaven instead of the Ascendant.   */
@@ -1475,6 +1642,10 @@ endrestrictclean:
       }
 
   ComputeInHouses();        /* Figure out what house everything falls in. */
+#ifdef MR       /* K.R. */
+  ComputeHouseSize();     /* Compute size of houses. */
+#endif
+
   if (us.fSweHouse&&us.fSector)
     FPlacalcHouses(is.JDr,fTrue);
 
@@ -1859,6 +2030,29 @@ int i, j;
   grid->v[i][j] = grid->n[i][j] = 0;
   f1=f2=1.0;
   l =  MinDistance(planet2[i], planet1[j]);
+#ifdef MR /*K.R.*/
+	if (us.fAntiscia) 
+	{
+			for (k = aSqu; k >= aCon; k--) 
+			{
+					if (!FAcceptAspect(i, k, j))
+							continue;
+					m = RAbs((rDegHalf - planet1[j]) - (planet2[i] - rDegHalf)) - rAspAngle[k];
+
+					if (RAbs(m) < GetOrb(i, j, aAnt)) 
+					{
+							grid->n[i][j] = aAnt;
+
+							if (us.fAppSep) 
+							{
+									f1 =  RSgn2(ret1[j] - ret2[i]);
+									f2 = RSgn2(MinDifference(planet2[i], planet1[j]));
+							}
+							grid->v[i][j] = (int)(m * f1 * f2 * 3600.0 + rRound);
+					}
+			}
+	}
+#endif
   for (k = us.nAsp; k >= 1; k--)
     {
       if (!FAcceptAspect(i, k, j))
